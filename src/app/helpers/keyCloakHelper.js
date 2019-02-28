@@ -14,6 +14,7 @@ if (envHelper.PORTAL_SESSION_STORE_TYPE === 'in-memory') {
   memoryStore = cassandraUtils.getCassandraStoreInstance()
 }
 const getKeyCloakClient = (config, store) => {
+  console.log("keycloak config object :  ",config)
   const keycloak = new Keycloak({ store: store || memoryStore }, config);
   keycloak.authenticated = authenticated;
   keycloak.deauthenticated = deauthenticated;

@@ -17,20 +17,21 @@ const trampolineSecret = envHelper.PORTAL_TRAMPOLINE_SECRET
 const learnerAuthorization = envHelper.PORTAL_API_AUTH_TOKEN
 
 let keycloak = getKeyCloakClient({
-  clientId: trampolineClientId,
+  clientId: 'trampoline' || trampolineClientId,
   bearerOnly: true,
   serverUrl: trampolineServerUrl,
   realm: trampolineRealm,
   credentials: {
-    secret: trampolineSecret
+    secret: '117a9f64-08de-410d-bef9-7985dd3d3aaa' || trampolineSecret
   }
 })
 
 module.exports = {
   handleRequest: function (req, res) {
-    let self = this
+    let self = this;
+    console.log(req.query['token']);
     var jwtPayload = jwt.decode(req.query['token'])
-
+    console.log("decoded token:  ",jwtPayload);
     async.series(
       {
         getChannel: function (callback) {
@@ -133,6 +134,7 @@ module.exports = {
           })
         },
         getGrantFromUserName: function (callback) {
+          console.log('trampolineSecret', trampolineSecret)
           self.errorMsg = 'Request credentials verification failed. Please try with valid credentials.'
           var userName = self.userName;
           keycloak.grantManager.obtainDirectly(userName)
@@ -223,6 +225,8 @@ module.exports = {
     })
   },
   createUser: function (req, payload, callback) {
+    var loginId = payload['sub'] + (payload['iss'] ? '@' + payload['iss'] : '')
+
     var options = {
       method: 'POST',
       url: learnerURL + 'user/v1/create',
@@ -242,10 +246,10 @@ module.exports = {
           firstName: payload['name'],
           email: payload['email'],
           emailVerified: payload['email_verified'],
-          userName: payload['sub'],
+          userName: loginId,
           phone: payload['phone_number'],
           phoneVerified: payload['phone_number_verified'],
-          provider: payload['iss']
+          channel: payload['iss']
         }
       },
       json: true
