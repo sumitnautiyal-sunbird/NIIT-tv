@@ -12,3 +12,4 @@ export * from './course-consumption/showactivitytype/show-activitytype.component
 export * from './batch/batch-card/batch-card.component';
 export * from './batch/livesession/livesession.component';
 export * from './batch/update-livesession/update-livesession.component';
+export * from './batch/session-details/session-details.component';

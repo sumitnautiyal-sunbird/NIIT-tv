@@ -1,0 +1,96 @@
+{
+  "courseDetails": [
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127567873043496961",
+      "batchCreatedDate": "2019-05-07 10:25:10:688+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567431552122881588",
+              "livesessionurl": "https://blog.thoughtram.io/angular/2017/02/27/three-things-you-didnt-know-about-the-async-pipe.html",
+              "startTime": "12:59",
+              "endTime": "12:59"
+            },
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://blog.thoughtram.io/angular/2017/02/27/three-things-you-didnt-know-about-the-async-pipe.html",
+              "startTime": "12:59",
+              "endTime": "12:59"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        }
+      ],
+      "id": 1
+    },
+    {
+      "courseId": "do_21276595222908108811145",
+      "batchId": "0127660281692487683",
+      "batchCreatedDate": "2019-05-20 11:37:29:405+0000",
+      "unitIds": [
+        "do_21276595240290713611146",
+        "do_21276595240291532811147",
+        "do_21276595240291532811148"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_21276595240290713611146",
+          "contentDetails": [
+            {
+              "contentId": "do_21276594379288576011125",
+              "livesessionurl": "http://jsfiddle.net/2cQx3/2/",
+              "startTime": "09:00",
+              "endTime": "10:00"
+            },
+            {
+              "contentId": "do_21276594649260032011131",
+              "livesessionurl": "https://semantic-ui.com/collections/grid.html",
+              "startTime": "11:00",
+              "endTime": "12:00"
+            }
+          ]
+        },
+        {
+          "unitId": "do_21276595240291532811147",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21276595240291532811148",
+          "contentDetails": []
+        }
+      ],
+      "id": 2
+    },
+    {
+      "courseId": "do_21276595222908108811145",
+      "batchId": "0127660530739937287",
+      "batchCreatedDate": "2019-05-20 12:27:22:799+0000",
+      "unitId": "do_21276595240291532811147",
+      "contentId": "do_21276594618248396811130",
+      "livesessionurl": "https://www.google.com",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "id": 3
+    }
+  ]
+}

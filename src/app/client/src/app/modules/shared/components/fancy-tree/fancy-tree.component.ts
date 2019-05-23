@@ -15,9 +15,8 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { nodeChildrenAsMap } from '@angular/router/src/utils/tree';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
-import { LivesessionService, ToasterService } from '../../services';
+import { ToasterService, LivesessionService } from '../../services';
 import { Router, ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-fancy-tree',
   templateUrl: './fancy-tree.component.html',

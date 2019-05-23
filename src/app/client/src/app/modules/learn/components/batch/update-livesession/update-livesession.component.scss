@@ -1,0 +1,16 @@
+::ng-deep #content .ui.selection.active.dropdown .menu {
+    max-height: 10em !important;
+}
+.select-session .menu.transition.visible{
+    max-height: 3em !important;
+}
+.select-session {
+    padding: 1em;
+}
+.unitChanged {
+    display: none !important;
+}
+.batchAddUserForm {
+    height: 22em;
+    overflow-y: scroll;
+}

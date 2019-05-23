@@ -1,3 +1,143 @@
-<p>
-  update-livesession works!
-</p>
+<sui-modal *ngIf='showCreateModal' (dismissed)="redirect()" [isClosable]="true" #createSessionModel id="sessionModal">
+    <div class="header">
+      <div class="ui grid">
+        <div class="eleven wide column">
+          <span class="ui header">Update Live Sessions</span>
+        </div>
+      </div>
+    </div>
+    <form #updateSessionForm="ngForm" (ngSubmit)="update(updateSessionForm, contentDetails)"
+    class="ui form batchAddUserForm select-session">
+    <div class="header">Choose Unit</div>
+    <div class="select-session">
+      <select id="unit" name="unit" class="ui search dropdown fluid" [(ngModel)]='units'
+        (ngModelChange)="onUnitChange($event)">
+        <option value="">Select Unit</option>
+        <option *ngFor="let option of unitDetails" [value]="option.identifier">{{option.name}}</option>
+      </select>
+    </div>
+    <div [class.unitChanged]='unitChange === true'>
+      <div class="header">Choose Content </div>
+      <div class="select-session">
+        <select id="content" name="content" class="ui search  dropdown fluid" [(ngModel)]="contents"
+          (ngModelChange)="onContentChange($event)">
+          <option value="">Select Content</option>
+          <option *ngFor="let option of sessionContents" [value]="option.identifier">{{option.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div [class.unitChanged]='contentChange === true'>
+      <div class="one field">
+        <div class="required field">
+          <label>Update Live Session Url</label>
+          <input type="text" name="livesessionurl" id="livesessionurl" value="{{contentDetails.livesessionurl}}" (ngModelChange)="sessionDetailsChanged('url', $event)"
+          placeholder="Enter Live Session Url" [(ngModel)]="url">
+          <div class="mt-1 mb-10 ui pointing red basic label below" *ngIf="!!url && !pattern.test(url)">
+              URL should be like ex: "(http/https)://www.google.com"
+            </div>
+        </div>
+      </div>
+      <div class="one field">
+        <div class="required field">
+          <label>Update Live Session Start Time</label>
+          <input type="time" name="startTime" id="startTime" value="{{contentDetails.startTime}}" (ngModelChange)="sessionDetailsChanged('starttime', $event)" 
+          placeholder="Enter Session Start Time" [(ngModel)]="starttime">
+        </div>
+      </div>
+      <div class="one field">
+        <div class="required field">
+          <label>Update Live Session End Time</label>
+          <input type="time" name="endTime" id="endTime" value="{{contentDetails.endTime}}" (ngModelChange)="sessionDetailsChanged('endtime', $event)" 
+           placeholder="Enter Session End Time" [(ngModel)]="endtime">
+           <div class="mt-1 mb-10 ui pointing red basic label below" *ngIf="starttime > endtime">
+              EndTime > startTime
+               </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="ui secondary button" (click)="updateSessionForm.reset()">Clear</button>
+        <button class="ui primary button" type="submit" id="submitbutton" [disabled]="disableSubmitBtn">Update</button>
+      </div>
+    </div>
+  </form>
+  </sui-modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--     <form #updateSessionForm="ngForm" (ngSubmit)="create(updateSessionForm)"
+      class="ui form batchAddUserForm select-session">
+      <div class="header">Choose Unit</div>
+      <div class="select-session">
+        <select id="unit" name="unit" class="ui search dropdown fluid" [(ngModel)]='units'
+          (ngModelChange)="onUnitChange($event)">
+          <option value="">Select Unit</option>
+          <option *ngFor="let option of unitDetails" [value]="option.identifier">{{option.name}}</option>
+        </select>
+      </div>
+      <div [class.unitChanged]='unitChange === true'>
+        <div class="header">Choose Content </div>
+        <div class="select-session">
+          <select id="content" name="content" class="ui search  dropdown fluid" [(ngModel)]="contents"
+            (ngModelChange)="onContentChange($event)">
+            <option value="">Select Content</option>
+            <option *ngFor="let option of sessionContents" [value]="option.identifier">{{option.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div [class.unitChanged]='contentChange === true'>
+        <div class="one field">
+          <div class="required field">
+            <label>Live Session Url</label>
+            <input type="text" name="livesessionurl" id="livesessionurl" placeholder="Enter Live Session Url" ngModel>
+          </div>
+        </div>
+        <div class="one field">
+          <div class="required field">
+            <label>Live Session Start Time</label>
+            <input type="time" name="startTime" id="startTime" placeholder="Enter Session Start Time" ngModel>
+          </div>
+        </div>
+        <div class="one field">
+          <div class="required field">
+            <label>Live Session End Time</label>
+            <input type="time" name="endTime" id="endTime" placeholder="Enter Session End Time" ngModel>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="ui secondary button" (click)="updateSessionForm.reset()">Clear</button>
+          <button class="ui primary button" type="submit" id="submitbutton">Create</button>
+        </div>
+      </div>
+    </form> -->

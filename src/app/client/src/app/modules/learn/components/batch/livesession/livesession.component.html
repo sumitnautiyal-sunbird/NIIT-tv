@@ -1,50 +1,65 @@
-
-<sui-modal *ngIf='showCreateModal' (dismissed)="redirect()" [isClosable]="true" #createSessionModel>
+<sui-modal *ngIf='showCreateModal' (dismissed)="redirect()" [isClosable]="true" #createSessionModel id="sessionModal">
   <div class="header">
     <div class="ui grid">
       <div class="eleven wide column">
-        <span class="ui header">Create Live Sessions for this Batch</span>
+        <span class="ui header">Create Live Session</span>
       </div>
     </div>
   </div>
-  <!-- <sui-select placeholder="English" class="inline"  [(ngModel)]="selectedUnit" (ngModelChange)="onUnitChange($event)" valueField="value" labelField="name">
-      <sui-select-option *ngFor="let unit of unitDetails" [value]="(unit.name).toString()"></sui-select-option> 
-    </sui-select> -->
-<div class="scrolling content" >
-<form #createSessionForm="ngForm" (ngSubmit)="create(createSessionForm)" class="ui form batchAddUserForm">
-<div *ngFor="let unit of unitDetails">
-    <h3>{{unit.name}}</h3>
-    <div *ngFor="let contents of preContent | keyvalue">
-      <div *ngIf="unit.identifier === contents.key">
-        <div *ngFor="let content of contents.value">
-            <h5>Enter Session details for {{content.name | json}}</h5>
-            <div class="one field">
-                <div class="required field">
-                  <label>Live Session Url</label>
-                  <input type="text" name="{{content.identifier}} livesessionurl" id="content.id + 'livesessionurl'"placeholder="Enter Live Session Url" ngModel>
-                </div>
-              </div>
-              <div class="one field" >
-                <div class="required field">
-                  <label>Live Session Start Time</label>
-                  <input type="time" name="{{content.identifier}} startTime" id="content.id +  'startTime'" placeholder="Enter Session Start Time" ngModel>
-                </div>
-              </div>
-              <div class="one field">
-                <div class="required field">
-                  <label>Live Session End Time</label>
-                  <input type="time" name="{{content.identifier}} endTime" id="content.id + 'endTime'" placeholder="Enter Session End Time" ngModel>
-                </div>
-              </div>
+  <form #createSessionForm="ngForm" (ngSubmit)="create(createSessionForm)"
+    class="ui form batchAddUserForm select-session">
+    <div class="header">Choose Unit</div>
+    <div class="select-session">
+      <select id="unit" name="unit" class="ui search dropdown fluid" [(ngModel)]='units'
+        (ngModelChange)="onUnitChange($event)">
+        <option value="">Select Unit</option>
+        <option *ngFor="let option of unitDetails" [value]="option.identifier">{{option.name}}</option>
+      </select>
+    </div>
+    <div [class.unitChanged]='unitChange === true'>
+      <div class="header">Choose Content </div>
+      <div class="select-session">
+        <select id="content" name="content" class="ui search  dropdown fluid" [(ngModel)]="contents"
+          (ngModelChange)="onContentChange($event)">
+          <option value="">Select Content</option>
+          <option *ngFor="let option of sessionContents" [value]="option.identifier" id="selectedvalue">{{option.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div [class.unitChanged]='contentChange === true'>
+      <div class="one field">
+        <div class="required field">
+          <label>Live Session Url</label>
+          <input type="text" name="livesessionurl" id="livesessionurl" placeholder="Enter live session url" [(ngModel)]="url"
+          (ngModelChange)="sessionDetailsChanged('url', $event)"
+          >
+          <div class="mt-1 mb-10 ui pointing red basic label below" *ngIf="!!url && !pattern.test(url)">
+            URL should be like ex: "(http/https)://www.google.com"
+          </div>
+      </div>
+      </div>
+      <div class="one field">
+        <div class="required field">
+          <label>Live Session Start Time</label>
+          <input type="time" name="startTime" id="startTime" placeholder="Enter Session Start Time" [(ngModel)]="starttime"
+          (ngModelChange)="sessionDetailsChanged('starttime', $event)" 
+          >
         </div>
       </div>
+      <div class="one field">
+        <div class="required field">
+          <label>Live Session End Time</label>
+          <input type="time" name="endTime" id="endTime" placeholder="Enter Session End Time" [(ngModel)]="endtime"
+          (ngModelChange)="sessionDetailsChanged('endtime', $event)" >
+          <div class="mt-1 mb-10 ui pointing red basic label below" *ngIf="starttime > endtime">
+           EndTime > startTime
+            </div>
+        </div>
       </div>
-</div>
-<div class="actions">
-    <button class="ui secondary button" (click)="createSessionForm.reset()">Clear</button>
-    <button class="ui primary button" type="submit" id="submitbutton">Create</button>
-  </div>
-    </form>
-  </div>
-
+      <div class="actions">
+        <!-- <button class="ui secondary button" (click)="createSessionForm.reset()">Clear</button> -->
+        <button class="ui primary button" type="submit" id="submitbutton" [disabled]="disableSubmitBtn">Create</button>
+      </div>
+    </div>
+  </form>
 </sui-modal>

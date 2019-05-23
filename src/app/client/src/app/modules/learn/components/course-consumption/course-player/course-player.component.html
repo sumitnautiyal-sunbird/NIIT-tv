@@ -341,15 +341,6 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <!-- <div class="tablet computer only button">
-                                <button type="button" class="btn btn-primary">ENROLL</button>
-                            </div>
-                            <div class="mobile only">
-                                <button type="button" class="btn btn-primary">ENROLL</button>
-
-                            </div> -->
-              </div>
             </div>
           </div>
         </section>
@@ -422,7 +413,6 @@
                     <div class="play">
 
                       <i class="fas fa-3x fa-play"></i>
-
 
                     </div>
                   </div>
@@ -503,8 +493,16 @@
                     [courseProgressData]="courseProgressData">
                   </app-batch-details>
                 </div>
+                <div class="py-5 pl-4">
+                    <app-session-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId" [batchId]="batchId"
+                      [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy"
+                      [courseProgressData]="courseProgressData">
+                    </app-session-details>
+                  </div>
               </div>
+
             </div>
+
           </div>
         </section>
         <div class="mobile only container py-5">

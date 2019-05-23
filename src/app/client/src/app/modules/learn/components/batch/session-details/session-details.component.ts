@@ -1,7 +1,7 @@
 
 import { takeUntil, map } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
-import { CourseBatchService,  } from './../../../services';
+import { CourseBatchService } from './../../../services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ResourceService, ServerResponse, ToasterService, ConfigService, LivesessionService } from '@sunbird/shared';
@@ -10,12 +10,13 @@ import * as _ from 'lodash';
 import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
+
 @Component({
-  selector: 'app-batch-details',
-  templateUrl: './batch-details.component.html',
-  styleUrls: ['./batch-details.component.scss']
+  selector: 'app-session-details',
+  templateUrl: './session-details.component.html',
+  styleUrls: ['./session-details.component.scss']
 })
-export class BatchDetailsComponent implements OnInit, OnDestroy {
+export class SessionDetailsComponent implements OnInit, OnDestroy {
   public unsubscribe = new Subject<void>();
   batchStatus: Number;
   @Input() courseId: string;
@@ -221,21 +222,15 @@ if (this.enrolledBatchInfo) {
 
       this.getUsers(this.participantIds, this.mentorIds);
   }
-  batchUpdate(batch) {
-    this.courseBatchService.setUpdateBatchDetails(batch);
-    this.router.navigate(['update/batch', batch.identifier], { relativeTo: this.activatedRoute });
+
+  createSession(batch) {
+    this.router.navigate(['create/livesession/batch', batch.identifier ],
+    { relativeTo: this.activatedRoute });
   }
-  createBatch() {
-    this.router.navigate(['create/batch'], { relativeTo: this.activatedRoute });
+  sessionUpdate(batch) {
+    this.router.navigate(['update/livesession/batch', batch.identifier], { relativeTo: this.activatedRoute });
   }
-  enrollBatch(batch) {
-    this.courseBatchService.setEnrollToBatchDetails(batch);
-    this.router.navigate(['enroll/batch', batch.identifier], { relativeTo: this.activatedRoute });
-  }
-  unenrollBatch(batch) {
-    // this.courseBatchService.setEnrollToBatchDetails(batch);
-    this.router.navigate(['unenroll/batch', batch.identifier], { relativeTo: this.activatedRoute });
-  }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
@@ -277,3 +272,4 @@ console.log(data);
 });
 }
 }
+

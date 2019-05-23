@@ -15,5 +15,8 @@ public updateEvent = new EventEmitter();
   }
   getSessionDetails() {
    return this.http.get(this.url);
-}
+  }
+  updateSessionDetails(session) {
+    return this.http.post(this.url, session);
+  }
 }

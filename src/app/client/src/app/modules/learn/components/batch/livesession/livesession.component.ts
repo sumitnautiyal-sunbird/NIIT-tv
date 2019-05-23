@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input, AfterViewInit} from '@angular/core';
 import { takeUntil, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterNavigationService, ResourceService, ToasterService, ServerResponse, LivesessionService } from '@sunbird/shared';
@@ -8,13 +8,13 @@ import { CourseConsumptionService, CourseBatchService } from './../../../service
 import { IImpressionEventInput } from '@sunbird/telemetry';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { Subject, combineLatest } from 'rxjs';
+import { Subject, combineLatest, empty } from 'rxjs';
 @Component({
   selector: 'app-livesession',
   templateUrl: './livesession.component.html',
   styleUrls: ['./livesession.component.scss']
 })
-export class LivesessionComponent implements OnInit {
+export class LivesessionComponent implements OnInit, AfterViewInit {
   createSessionForm: FormGroup;
 
   @ViewChild('createSessionModel') private createSessionModel;
@@ -89,6 +89,17 @@ export class LivesessionComponent implements OnInit {
   public activityContents = [];
   public childContents = [];
   public sessionDetails = {};
+  sessionContents = [];
+  units = [];
+  unitChange = true;
+  contentChange = true;
+  contents = [];
+  url;
+  starttime;
+  endtime;
+ // tslint:disable-next-line:max-line-length
+ pattern = new RegExp(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i);
+
   constructor(routerNavigationService: RouterNavigationService,
     activatedRoute: ActivatedRoute,
     route: Router,
@@ -107,13 +118,11 @@ export class LivesessionComponent implements OnInit {
     this.toasterService = toasterService;
     this.courseConsumptionService = courseConsumptionService;
   }
-
   ngOnInit() {
     this.batchId = this.activatedRoute.snapshot.params.batchId;
     this.activatedRoute.parent.params.pipe(mergeMap((params) => {
       console.log(params);
       this.courseId = params.courseId;
-      this.setTelemetryImpressionData();
       this.showCreateModal = true;
       this.getSessionDetails();
       return this.fetchBatchDetails();
@@ -158,82 +167,16 @@ export class LivesessionComponent implements OnInit {
       (userDetails, courseDetails) => ({ userDetails, courseDetails })
     );
   }
-  private setTelemetryImpressionData() {
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
-        uri: this.router.url
-      }
-    };
-  }
+
   public redirect() {
     setTimeout(() => {
+      $(document).ready(() => {
+          $('#sessionModal').remove();
+      });
       this.router.navigate(['./'], { relativeTo: this.activatedRoute.parent });
     }, 500);
   }
-  create(form: NgForm) {
-    console.log('Form Submitted', form.value );
-    const unitDetail = [];
-    const units = [];
-    const unitIds = [];
-    let unitContents = [];
-    let object = {};
-    _.forOwn(this.activityContents, (contents: any, unitId) => {
-      _.forEach(contents, content => {
-        object = {};
-        _.forOwn(form.value, (formvalue: any, key) => {
-          if (key.split(' ')[0] === content) {
-            object['contentId'] = key.split(' ')[0];
-            if (key.split(' ')[1] === 'livesessionurl') {
-              object['livesessionurl'] = formvalue;
-            } else if (key.split(' ')[1] === 'startTime') {
-              object['startTime'] = formvalue;
-            } else if (key.split(' ')[1] === 'endTime') {
-              object['endTime'] = formvalue;
-            }
-          }
-        });
-        if (object['livesessionurl'] !== '' && object['startTime'] !== '' &&  object['endTime'] !== '') {
-          units.push(object);
-        }
-      });
-    });
-    _.forOwn(this.activityContents, (contents: any, unitId) => {
-      _.forOwn(units, (content: any) => {
-        if (_.includes(contents, content.contentId)) {
-          unitContents.push(content);
-        }
-      });
-      unitDetail[unitId] = unitContents;
-      unitIds.push(unitId);
-      unitContents = [];
-    });
-    this.createSessions(unitDetail, unitIds);
-  }
-createSessions(sessionDetails, unitIds) {
-  console.log(sessionDetails);
-  const sessiondetail = [];
-  _.forOwn(sessionDetails, (session: any, key) => {
-    const obj = {
-      unitId: key,
-      contentDetails: session
-    };
-    sessiondetail.push(obj);
-  });
-    const request = {
-      courseId: this.courseId,
-      batchId: this.batchId,
-      batchCreatedDate: this.batchCreatedDate,
-      unitIds: unitIds,
-      sessionDetail: sessiondetail
-    };
-    console.log(request);
-    this.liveSessionService.saveSessionDetails(request).subscribe();
-  }
+
   getSessionDetails() {
     this.courseBatchService.getEnrolledBatchDetails(this.batchId).pipe(
       takeUntil(this.unsubscribe))
@@ -249,16 +192,76 @@ createSessions(sessionDetails, unitIds) {
           _.forOwn(content.sessionDetail, (sessions: any) => {
             if (sessions.contentDetails.length > 0) {
               _.forOwn(sessions.contentDetails, (session: any) => {
-                console.log(session);
                 this.sessionDetails[session.contentId] = session;
               });
             }
           });
         });
       });
-      console.log(this.sessionDetails);
   }
   onUnitChange(event) {
-    console.log(event);
+    this.unitChange = true;
+   const selectedvalue = $('#selectedvalue');
+
+    setTimeout(() => {
+      this.unitChange = false;
+      // console.log($('#selectedvalue option'));
+      this.contentChange = true;
+      this.disableSubmitBtn = true;
+      this.url = '';
+      this.starttime = '';
+      this.endtime = '';
+    }, 200);
+    if (this.preContent.hasOwnProperty(event)) {
+      this.sessionContents = this.preContent[event];
+    }
   }
+onContentChange(event) {
+  this.contentChange = true;
+  setTimeout(() => {
+    this.contentChange = false;
+    this.disableSubmitBtn = true;
+    this.url = '';
+    this.starttime = '';
+    this.endtime = '';
+  }, 200);
+
+}
+  ngAfterViewInit () {
+    $('#unit, #content').dropdown();
+  }
+
+  create(form: NgForm) {
+    console.log('Form Submitted', form.value);
+    // const valid = this.validFormDetails(form.value);
+      // if (valid) {
+      const request = {
+        courseId: this.courseId,
+        batchId: this.batchId,
+        batchCreatedDate: this.batchCreatedDate,
+        unitId: form.value.unit,
+        contentId: form.value.content,
+        livesessionurl: form.value.livesessionurl,
+        startTime: form.value.startTime,
+        endTime: form.value.endTime
+      };
+      console.log(request);
+        this.liveSessionService.saveSessionDetails(request).subscribe();
+        this.toasterService.success('Session created successfully for batch' + this.batchId);
+        this.redirect();
+    }
+    validFormDetails(formvalues) {
+            if ((_.isEmpty(formvalues.livesessionurl) || _.isEmpty(formvalues.startTime) || _.isEmpty(formvalues.endTime)) ||
+             (formvalues.startTime < formvalues.endTime) || (this.pattern.test(formvalues.livesessionurl))) {
+               this.disableSubmitBtn = true;
+               return false;
+            }
+            return true;
+    }
+    sessionDetailsChanged(inputName, event) {
+      console.log(this.url, this.starttime, this.endtime);
+      if ((!!this.url && this.starttime && this.endtime) && (this.pattern.test(this.url)) && this.starttime < this.endtime) {
+        this.disableSubmitBtn = false;
+      }
+      }
 }

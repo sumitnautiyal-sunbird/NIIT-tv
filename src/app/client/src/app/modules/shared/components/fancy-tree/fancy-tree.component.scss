@@ -36,3 +36,26 @@
 ::ng-deep span.fancytree-node.fancytree-folder span.fancytree-title {
 width: 100% !important;
 }
+::ng-deep .fancytree-plain span.fancytree-node span.fancytree-title {
+  margin-left: 5px;
+  vertical-align: middle;
+  color: inherit;
+}
+::ng-deep span.fancytree-active span.fancytree-title {
+  background-color: inherit;
+  color:  inherit;
+  font-weight: bolder;
+  width: 100%;
+
+}
+
+.button {
+background-color: var(--primary-color);
+color: white;
+}
+a {
+color: #686f7a !important;
+}
+.font-color {
+color: #686f7a;
+}

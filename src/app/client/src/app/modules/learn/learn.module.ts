@@ -20,12 +20,13 @@ import {
   ActivitytypeCardComponent,
   UnEnrollBatchComponent,
   LivesessionComponent,
-  UpdateLivesessionComponent
+  UpdateLivesessionComponent,
+  SessionDetailsComponent
 } from './components';
 import {
   CourseConsumptionService,
   CourseBatchService,
-  CourseProgressService
+  CourseProgressService,
 } from './services';
 import { CoreModule } from '@sunbird/core';
 import { NotesModule } from '@sunbird/notes';
@@ -54,7 +55,7 @@ import { TopCategoriesComponent } from './components/top-categories/top-categori
   providers: [
     CourseConsumptionService,
     CourseBatchService,
-    CourseProgressService
+    CourseProgressService,
   ],
   declarations: [
     LearnPageComponent,
@@ -72,6 +73,7 @@ import { TopCategoriesComponent } from './components/top-categories/top-categori
     TopCategoriesComponent,
     LivesessionComponent,
     UpdateLivesessionComponent,
+    SessionDetailsComponent,
   ]
 })
 export class LearnModule {}
