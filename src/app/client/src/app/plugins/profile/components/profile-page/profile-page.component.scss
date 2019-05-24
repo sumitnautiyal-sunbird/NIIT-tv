@@ -62,15 +62,14 @@ color: black;
 i.blue.icon {
   color: #451771 !important;
 }
-.ui.basic.blue.button, .ui.basic.blue.buttons .button {
-  color: #451771 !important;
-  border: 1px solid #451771;
+.ui.basic.button, .ui.basic.buttons .button {
+  border-radius: 15px !important; 
 }
 .regular {
   display: block;
-  width: 43em;
+  // width: 43em;
   overflow-y: scroll;
-  height: 30em;
+  height: 24rem;
 }
 .regular::-webkit-scrollbar-thumb {
   background: #451771;
@@ -143,7 +142,7 @@ i.blue.icon {
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.38);
   font-weight: bold;
   font-family: inherit;
-  border-radius: 10%;
+  border-radius: 50% !important;
 }
 
 #var2 {
@@ -152,8 +151,82 @@ i.blue.icon {
 
 #shadow {
   box-shadow: 0 3px 10px 0 rgba(115, 143, 147, 0.3);
+  margin-bottom: 2rem
 }
 #shadow1 {
   box-shadow: 0 3px 10px 0 rgba(115, 143, 147, 0.3);
   background: white;
+}
+@media only screen and (min-width: 1200px) {
+.ui.container {
+    width: 1285px !important;
+}
+}
+.ui.dodger-blue.basic.label {
+  border: 1px solid #e4e4e4 !important;
+  border-radius: 4px;
+  color: #4a4a4a !important;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 4px 16px;
+  background-color: #f6f6f6 !important;
+}
+.myy-avatar /deep/ .avatar-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+}
+#font-color {
+  color:#686f7a;
+}
+.line-height {
+  margin-bottom: 1.9rem;
+}
+.violet {
+  color: #6435c9 !important;
+ 
+}
+.ui.label { 
+  background-color: !important; 
+}
+#shadow {
+  height: 40rem !important;
+}
+@media only screen and (min-width:319px) and (max-width:400px) {
+  .slider {
+    padding-left: 11rem !important;
+    padding-right: 8rem !important;
+    padding-top: 0rem !important; 
+  }
+}
+@media only screen and (min-width:319px) and (max-width:460px) {
+  #shadow {
+    height: 56rem !important;
+  }
+}
+@media only screen and (min-width:990px) and (max-width:1281px) {
+  #center {
+    width: 100% !important;
+  }
+}
+@media only screen and (min-width:460px) and (max-width:602px) {
+  #shadow {
+    height: 48rem !important;
+  }
+}
+@media only screen and (min-width:746px) and (max-width: 840px) {
+  #shadow {
+    height: 40rem !important;
+  }
+}
+@media only screen and (min-width:601px) and (max-width: 745px) {
+  #shadow {
+    height: 46rem !important;
+  }
+}
+@media not all and (max-width: 768px) {
+#id {
+  margin-left: 18rem !important;
+}
 }

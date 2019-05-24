@@ -37,6 +37,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   roles: Array<string>;
   showMoreRoles = false;
   showMoreTrainings = true;
+  lastCreatedDate: any;
   /**
    * Contains default limit to show awards
    */
@@ -170,8 +171,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService.userData$.subscribe(
       (user: IUserData) => {
+        console.log('user infoe', user);
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          this.lastCreatedDate = this.userProfile.updatedDate;
           this.inputData =  _.get(this.userProfile, 'framework') ? _.cloneDeep(_.get(this.userProfile, 'framework')) : {};
           this.getOrgDetails();
           this.getMyContent();

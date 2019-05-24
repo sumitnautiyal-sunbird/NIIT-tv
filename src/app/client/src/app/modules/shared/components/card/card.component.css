@@ -1,134 +1,139 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-/* Header CSS*/
-
-/* Card/ContentCard CSS*/
 .content-card {
-  width: 271px;
-  height: 365px;
-  float: left;
-  margin: 1.5%;
-  box-shadow: 0px 6px 6px 2px #eee;
+ width: 263px;
+ height: 313px;
+ float: left;
+ margin: 1.5%;
+ box-shadow: 0px 6px 6px 2px #eee;
 }
 
 .content-card .image {
-  width: 270px;
-  height: 150px;
-  background: gray;
+ width: 261px;
+ height: 132px;
+ background: gray;
 }
 
 .content-author {
-  font-size: 0.875em;
-  color: grey;
+ font-size: 0.875em;
+ color: grey;
 }
 
 .yellow-star {
-  color: rgb(239, 217, 21);
+ color: rgb(239, 217, 21);
 }
 
 .gray-star {
-  color: #d3d3d3;
+ color: #d3d3d3;
 }
 
 .rating {
-  font-weight: 450;
+ font-weight: 450;
 }
 
 .rating span {
-  font-size: 1.063em;
-  font-weight: 400;
-  margin-left: 5px;
+ font-size: 1.063em;
+ font-weight: 400;
+ margin-left: 5px;
 }
 
 .views {
-  color: gray;
+ color: gray;
 }
 
 .lectures {
-  color: gray;
-  font-size: 0.9em;
-  font-weight: 450;
+ color: gray;
+ font-size: 0.9em;
+ font-weight: 450;
 }
 
 .duration {
-  color: gray;
-  font-size: 0.9em;
-  font-weight: 450;
+ color: gray;
+ font-size: 0.9em;
+ font-weight: 450;
 }
 
 .price {
-  font-size: 1.2em;
-  font-weight: 500;
+ font-size: 1.2em;
+ font-weight: 500;
+ margin-top: -18px;
 }
 
 .content-type {
-  float: right;
-  padding: 3px 6px 3px 6px;
-  font-size: 0.7em;
-  color: aliceblue;
-  background: var(--primary-color);
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
+ float: right;
+ padding: 3px 6px 3px 6px;
+ font-size: 0.7em;
+ color: aliceblue;
+ background: #451771;
+ border-bottom-left-radius: 30px;
+ border-top-left-radius: 30px;
+ border-bottom-right-radius: 30px;
+ border-top-right-radius: 30px;
 }
 
 .navigate {
-  clear: both;
-  background: lightblue;
-  width: max-content;
-  margin: auto;
+ clear: both;
+ background: lightblue;
+ width: max-content;
+ margin: auto;
 }
 
 .navigate a {
-  text-decoration: none;
+ text-decoration: none;
 }
 
 .social-network {
-  background: var(--primary-color);
-  height: max-content;
+ background: #805fe5;
+ height: max-content;
 }
 
 .social-network .fa-linkedin-in {
-  border-radius: 50%;
-  border: 1px solid white;
-  height: 34px;
-  width: 34px;
-  padding: 9px;
+ border-radius: 50%;
+ border: 1px solid white;
+ height: 34px;
+ width: 34px;
+ padding: 9px;
 }
 
 .social-network .fa-instagram {
-  border-radius: 50%;
-  border: 1px solid white;
-  height: 34px;
-  width: 34px;
-  padding: 9px;
+ border-radius: 50%;
+ border: 1px solid white;
+ height: 34px;
+ width: 34px;
+ padding: 9px;
 }
 
 /*CSS to be used in multiple elements*/
 
 .text-color-gray {
-  color: gray;
+ color: gray;
 }
 
 .text-color-white {
-  color: #fff;
+ color: #fff;
 }
 
 .background-color-white {
-  background: #fff;
+ background: #fff;
 }
 
 .card-image {
-  width: 270px;
-  height: 150px;
+ width: 261px;
+ height: 132px;
 }
-
+.vl {
+ border-left: 1px solid gray;
+ height: 18px;
+}
+#left-align {
+  text-align: left !important;
+  justify-content: center !important;
+}
 @media only screen and (max-width: 600px) {
-  .content-card {
-    margin: auto;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    float: none;
-    box-shadow: 0px 6px 6px 2px #eee;
-  }
+ .content-card {
+   margin: auto;
+   margin-top: 10%;
+   margin-bottom: 10%;
+   float: none;
+   box-shadow: 0px 6px 6px 2px #eee;
+ }
 }

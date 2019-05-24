@@ -1,262 +1,186 @@
+<div id="var2" *ngIf="userProfile" [appTelemetryImpression]="telemetryImpression">
+  <div class="ui container">
+    <div class="ui grid" >
+      <div class="three wide computer twelve wide mobile and tablet column" id="center" style="min-width: 320px;">
+        <div class="container raised segment ui" >
+          <ngx-avatar class="myy-avatar" [size]="100" initialsSize="1" [textSizeRatio]="2" [style]="customStyle"
+            name="{{ userProfile.firstName }} ">
+          </ngx-avatar>
+          <div class="fs-1-7 text-ac  mb-20 pt-20">
+            {{ userProfile.firstName | titlecase }}
+            {{ userProfile.lastName | titlecase }}
+          </div>
+          <div class="mb-10 ml-10 mb-5 text-ac">
+            <span class="fs-1-16 " id="font-color" >User ID</span> <span class="ml-10">:</span>
+            <span class="fs-1-16 ml-5" id="font-color">{{userProfile.userName}}</span>
+          </div>
 
-<div
-id="var2" *ngIf="userProfile"
-[appTelemetryImpression]="telemetryImpression"
->
-<div class="ui container">
-  <div class="ui grid">
-    <div class="five wide column">
-      <ngx-avatar
-        class="myy-avatar"
-        [size]="100"
-        initialsSize="1"
-        [textSizeRatio]="2"
-        [style]="customStyle"
-        name="{{ userProfile.firstName }} "
-      >
-      </ngx-avatar>
-      <div class="fs-2 font-w-bold mb-15 pt-10">
-        {{ userProfile.firstName | titlecase }}
-        {{ userProfile.lastName | titlecase }}
-      </div>
-      <div class="mb-10 d-flex mb-5">
-        <div class="fs-1-16">User ID :</div>
-        <div class="fs-1-16 ml-5">{{userProfile.userName}}</div>
-      </div>
+          <section *ngIf="userProfile.email || userProfile.phone" class="text-ac mb-30">
+            <p class="fs-1" *ngIf="userProfile.phone" id="font-color">
+              <i class="phone icon mr-5" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+                [telemetryInteractEdata]="editMobileInteractEdata"></i>
+              &#x200E;+91
+              {{ userProfile.phone }}
+              <span class="pl-20 fs-1-5" id="span-right">
+                <i class="edit outline small icon cursor-pointer"
+                  (click)="getUpdateForm(); contactType = 'phone'"></i>
+              </span>
+            </p>
 
-      <section *ngIf="userProfile.email || userProfile.phone">
-        <p class="fs-1" *ngIf="userProfile.phone">
-          <i
-            class="phone icon mr-5"
-            appTelemetryInteract
-            [telemetryInteractObject]="telemetryInteractObject"
-            [telemetryInteractEdata]="editMobileInteractEdata"
-          ></i>
-          &#x200E;+91
-          {{ userProfile.phone }}
-          <span class="pl-20 fs-1-5"  id="span-right">
-            <i
-              class="edit outline small blue icon cursor-pointer"
-              (click)="getUpdateForm(); contactType = 'phone'"
-            ></i>
-          </span>
-        </p>
+            <!-- <div
+                (click)="showContactPopup = true; contactType = 'phone'"
+                class="ui update mb-15 cursor-pointer font-weight-normal"
+                *ngIf="!userProfile.phone"
+                appTelemetryInteract
+                [telemetryInteractObject]="telemetryInteractObject"
+                [telemetryInteractEdata]="editMobileInteractEdata"
+              >
+                <i class="phone icon mr-5 pr-30"></i>
+                {{ resourceService?.frmelmnts?.lbl?.addPhoneNo }}
+              </div> -->
+            <!-- <div (click)="showContactPopup=true;contactType='email'"
+              class="ui semi-circular dodger-blue basic label cursor-pointer" *ngIf="userProfile.email" appTelemetryInteract
+              [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
+              <i class="mail icon mr-5"></i> {{userProfile.email}}
+            </div>
+            <div (click)="showContactPopup=true;contactType='email'"
+              class="ui semi-circular update basic label mb-15 cursor-pointer font-weight-normal" *ngIf="!userProfile.email"
+              appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+              [telemetryInteractEdata]="editEmailInteractEdata">
+              <i class="mail icon mr-5 pr-30"></i> {{resourceService?.frmelmnts?.lbl?.addEmailID}}
+            </div> -->
+            <p *ngIf="userProfile.email" id="font-color">
+              <!-- <i class="mail icon mr-5"></i>  -->
+          <span>Email Id</span> <span class="ml-1 pr-1">:</span>   {{ userProfile.email }}
+              <span class="pl-10 fs-1-5">
+                <i class="edit outline small icon cursor-pointer" (click)="getUpdateForm(); contactType = 'email'"
+                  appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+                  [telemetryInteractEdata]="editEmailInteractEdata"></i>
+              </span>
+            </p>
+            <div (click)="getUpdateForm(); contactType = 'email'"
+              class="ui update mb-15 cursor-pointer font-weight-normal" *ngIf="!userProfile.email" appTelemetryInteract
+              [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
+              <i class="mail icon mr-5"></i>
+              {{ resourceService?.frmelmnts?.lbl?.addEmailID }}
+            </div>
+          </section>
+          <div class="ui divider"></div>
 
-        <!-- <div
-          (click)="showContactPopup = true; contactType = 'phone'"
-          class="ui update mb-15 cursor-pointer font-weight-normal"
-          *ngIf="!userProfile.phone"
-          appTelemetryInteract
-          [telemetryInteractObject]="telemetryInteractObject"
-          [telemetryInteractEdata]="editMobileInteractEdata"
-        >
-          <i class="phone icon mr-5 pr-30"></i>
-          {{ resourceService?.frmelmnts?.lbl?.addPhoneNo }}
-        </div> -->
-        <!-- <div (click)="showContactPopup=true;contactType='email'"
-        class="ui semi-circular dodger-blue basic label cursor-pointer" *ngIf="userProfile.email" appTelemetryInteract
-        [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
-        <i class="mail icon mr-5"></i> {{userProfile.email}}
-      </div>
-      <div (click)="showContactPopup=true;contactType='email'"
-        class="ui semi-circular update basic label mb-15 cursor-pointer font-weight-normal" *ngIf="!userProfile.email"
-        appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
-        [telemetryInteractEdata]="editEmailInteractEdata">
-        <i class="mail icon mr-5 pr-30"></i> {{resourceService?.frmelmnts?.lbl?.addEmailID}}
-      </div> -->
-        <p *ngIf="userProfile.email">
-          <i class="mail icon mr-5"></i> {{ userProfile.email }}
-          <span class="pl-20 fs-1-5">
-          <i
-          class="edit outline small blue icon cursor-pointer"
-            (click)="getUpdateForm(); contactType = 'email'"
-            appTelemetryInteract
-            [telemetryInteractObject]="telemetryInteractObject"
-            [telemetryInteractEdata]="editEmailInteractEdata"
-          ></i>
-        </span>
-        </p>
-        <div
-          (click)="getUpdateForm(); contactType = 'email'"
-          class="ui update mb-15 cursor-pointer font-weight-normal"
-          *ngIf="!userProfile.email"
-          appTelemetryInteract
-          [telemetryInteractObject]="telemetryInteractObject"
-          [telemetryInteractEdata]="editEmailInteractEdata"
-        >
-          <i class="mail icon mr-5"></i>
-          {{ resourceService?.frmelmnts?.lbl?.addEmailID }}
+
+          <div class="mb-20 mt-20">
+            <span class="font-weight-bold fs-1-286">Details</span>
+            <span> <button class="ui basic mini  button right floated" appTelemetryInteract
+                [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="myFrameworkEditEdata"
+                (click)="showEdit = !showEdit">
+
+                Edit &nbsp;&nbsp; <i class="edit outline small icon cursor-pointer"></i>
+              </button></span>
+          </div>
+     <div class="ml-10 line-height">
+        <div class="mb-15">
+            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.boards }}<span class="ml-lg-5 mr-10">:</span></span>
+            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                    convertToString(userProfile.framework.board)
+                  }}</span>
+
+          </div>
+          <div class="mb-15">
+            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.medium }} <span class="ml-20 mr-10">:</span></span>
+            <span class="fs-1-16" id="font-color" *ngIf="userProfile.framework">{{
+                convertToString(userProfile.framework.medium)
+              }}</span>
+          </div>
+          <div class="mb-15">
+            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.subjects }} <span class="ml-20 mr-10">:</span></span>
+            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                convertToString(userProfile.framework.subject)
+              }}</span>
+          </div>
+          <div class="">
+            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.classes }} <span class="mr-10" style="margin-left:2rem;">:</span></span>
+            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                convertToString(userProfile.framework.gradeLevel)
+              }}</span>
+          </div>
+     </div>
         </div>
-      </section>
-      <div class="ui divider"></div>
-
-      <div class="mb-15">
-        <span class="fs-1-16"
-          >{{ resourceService.frmelmnts.lbl.boards }}:</span
-        >
-        <span class="fs-1-16 font-w-bold" *ngIf="userProfile.framework">{{
-          convertToString(userProfile.framework.board)
-        }}</span>
-
-        <!-- <span class="pl-30 fs-1-5 cursor-pointer"   appTelemetryInteract
-        [telemetryInteractObject]="telemetryInteractObject"
-        [telemetryInteractEdata]="myFrameworkEditEdata"
-        (click)="showEdit = !showEdit">
-          <i
-
-            class="edit blue icon"
-          ></i
-        ></span> -->
-        <button class="ui basic mini blue button right floated"   appTelemetryInteract
-        [telemetryInteractObject]="telemetryInteractObject"
-        [telemetryInteractEdata]="myFrameworkEditEdata"
-        (click)="showEdit = !showEdit">
-
-            Edit &nbsp;&nbsp; <i class="pencil alternate icon"></i>
-          </button>
       </div>
-      <div class="mb-15">
-        <span class="fs-1-16"
-          >{{ resourceService.frmelmnts.lbl.medium }} :</span
-        >
-        <span class="fs-1-16 font-w-bold" *ngIf="userProfile.framework">{{
-          convertToString(userProfile.framework.medium)
-        }}</span>
-      </div>
-      <div class="mb-15">
-        <span class="fs-1-16"
-          >{{ resourceService.frmelmnts.lbl.subjects }} :</span
-        >
-        <span class="fs-1-16 font-w-bold" *ngIf="userProfile.framework">{{
-          convertToString(userProfile.framework.subject)
-        }}</span>
-      </div>
-      <div class="">
-        <span class="fs-1-16"
-          >{{ resourceService.frmelmnts.lbl.classes }} :</span
-        >
-        <span class="fs-1-16 font-w-bold" *ngIf="userProfile.framework">{{
-          convertToString(userProfile.framework.gradeLevel)
-        }}</span>
-      </div>
-    </div>
 
-    <div class="seven wide column">
-      <div
-        class="ui container"
-        *ngIf="
+
+      <div class="nine wide computer twelve wide mobile and tablet column" id="center" >
+        <div class="ui container" *ngIf="
           userProfile.badgeAssertions &&
           userProfile.badgeAssertions.length > 0
-        "
-        id="shadow1"
-      >
-        <extension-point
-          *ngIf="
+        " id="shadow1">
+          <extension-point *ngIf="
             userProfile.badgeAssertions &&
             userProfile.badgeAssertions.length > 0
-          "
-          [name]="'profile-widget'"
-        ></extension-point>
-      </div>
-      <div class="ui raised  container segment" id="shadow" *ngIf="roles && roles.length > 0">
-        <h3 class="fs-1-7 font-weight-bold text-ac">Roles &nbsp;<span class="ui violet circular label align center fs-1 font-weight-bold"> {{roles.length}}</span></h3>
-        <div
-          class="mb-15 mx-10 profile-label-container"
-          *ngIf="roles && roles.length > 0"
-        >
-          <span 
-            class="ui dodger-blue basic label mt-5"
-            *ngFor="let role of roles"
-            >{{ role }}</span
-          >
-
-              
+          " [name]="'profile-widget'"></extension-point>
         </div>
-      </div>
-      <div
-        class="ui raised container segment"
-        id="shadow"
-        *ngIf="contributions && contributions.length > 0"
-      >
-        <!--contributions view starts-->
-        <div
-          class="fs-1-7 font-w-bold text-ac pl-20 mobile only"
-          *ngIf="contributions && contributions.length > 0"
-        >
-          {{ resourceService.frmelmnts.scttl.contributions }} &nbsp;<span class="ui violet circular label align center fs-1 font-weight-bold"> {{contributions.length}}</span>
+        <div class="ui raised  container segment" id="shadow" *ngIf="roles && roles.length > 0" style="min-width:275px;">
+          <h3 class="fs-1-286 ">Your Role &nbsp;<span
+              class="ui violet  align center fs-1 font-weight-bold"> ( {{roles.length}} )</span></h3>
+          <div class="mb-15 mx-10 " *ngIf="roles && roles.length > 0">
+            <span class="ui dodger-blue basic label mt-5 mr-10 mb-10" *ngFor="let role of roles">{{ role }}</span>
 
-        </div>
-        <div class="ui divider my-5 mobile only"></div>
 
-        <!--contributions computer view starts-->
-        <div
-          class="computer only"
-          *ngIf="contributions && contributions.length > 0"
-        >
-          <div class="computer only">
-            <div class="fs-1-7 pl-10 text-ac font-w-bold">
-              {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet circular label align center fs-1 font-weight-bold"> {{contributions.length}}</span>
-            </div>
           </div>
+          <div *ngIf="contributions && contributions.length > 0">
+            <!--contributions view starts-->
+            <!-- <div class="fs-1-286  pl-20 mb-15 mobile only" *ngIf="contributions && contributions.length > 0">
+              Your {{ resourceService.frmelmnts.scttl.contributions }} &nbsp;<span
+                class="ui violet align center fs-1 font-weight-bold"> ( {{contributions.length}} )</span>
+                <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
 
-          <div class="regular slider pt-10 pb-30">
-            <!-- <ngx-slick
-              in-view-container
-              [throttle]="[1000]"
-              [trigger]="item"
-              (afterChange)="onTelemetryEvent(contributions, $event)"
-              (beforeChange)="beforeContributionSlideChange($event)"
-              class="carousel"
-              #slickModal="slick-modal"
-              [config]="slideConfig"
-            > -->
-              <div
-                
-        
-                
-                *ngFor="let item of contributions; let i = index"
-                class="slide"
-              >
-                <div>
-                  <app-card
-                    (clickEvent)="onClickOfMyContributions($event)"
-                    [data]="item"
-                    [customClass]="'pr-20'"
-                    class="pr-20 d-block"
-                  ></app-card>
+            </div>
+            <div class="ui divider my-5 mobile only"></div> -->
+
+            <!--contributions computer view starts-->
+            <div class="" *ngIf="contributions && contributions.length > 0">
+              <div class="">
+                <div class="fs-1-286 pl-10  pb-20">
+                  Your {{ resourceService.frmelmnts.scttl.contributions }} <span
+                    class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
+                    <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
                 </div>
               </div>
-            <!-- </ngx-slick> -->
+
+               <div class="ui grid">
+                    <div class="regular row  centered slider pb-30" style="padding-left: 3rem;">
+                        <div *ngFor="let item of contributions; let i = index" class="slide">
+                           
+                                <div class="three wide cloumn">
+                            <app-card (clickEvent)="onClickOfMyContributions($event)" [data]="item" [customClass]="'pr-20'"
+                              class="pr-20 d-block"></app-card>
+                        
+                        </div>
+                        <!-- </ngx-slick> -->
+                      </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </div>
-</div>
 <!--variation 2 ends-->
 
 <div class="twelve wide column">
-<div class="ui raised segment " *ngIf="!userProfile">
-  <app-loader [data]="loaderMessage"></app-loader>
-</div>
+  <div class="ui raised segment " *ngIf="!userProfile">
+    <app-loader [data]="loaderMessage"></app-loader>
+  </div>
 </div>
 
-<app-popup
-*ngIf="showEdit"
-#profileModal
-[formInput]="inputData"
-[showCloseIcon]="true"
-[buttonLabel]="resourceService.frmelmnts.btn.submit"
-(submit)="updateProfile($event)"
-(close)="showEdit = !showEdit"
-></app-popup>
+<app-popup *ngIf="showEdit" #profileModal [formInput]="inputData" [showCloseIcon]="true"
+  [buttonLabel]="resourceService.frmelmnts.btn.submit" (submit)="updateProfile($event)" (close)="showEdit = !showEdit">
+</app-popup>
 
-<app-update-contact-details
-*ngIf="showContactPopup"
-(close)="showContactPopup = !showContactPopup"
-[contactType]="contactType"
-></app-update-contact-details>
+<app-update-contact-details *ngIf="showContactPopup" (close)="showContactPopup = !showContactPopup"
+  [contactType]="contactType"></app-update-contact-details>
 
 <!-- <app-update-user-details
 (close)="showEditUserDetailsPopup = !showEditUserDetailsPopup"

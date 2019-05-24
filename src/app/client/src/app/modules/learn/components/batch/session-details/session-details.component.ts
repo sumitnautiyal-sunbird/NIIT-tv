@@ -24,7 +24,7 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   @Input() batchId: string;
   @Input() courseHierarchy: any;
   @Input() courseProgressData: any;
-
+  public sessionDetails = [];
   public courseInteractObject: IInteractEventObject;
   public updateBatchIntractEdata: IInteractEventEdata;
   public createBatchIntractEdata: IInteractEventEdata;
@@ -39,6 +39,12 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   enrolledBatchInfo: any;
   participantsList = [];
   mentorsList = [];
+  public courseDetails;
+  public children = [];
+  public preContent = [];
+  public activityContents = [];
+  public childContents = [];
+  unitDetails = [];
   statusOptions = [
     { name: 'Ongoing', value: 1 },
     { name: 'Upcoming', value: 0 }
@@ -49,6 +55,7 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   todayDate = moment(new Date()).format('YYYY-MM-DD');
   progress = 0;
   isUnenrollbtnDisabled = true;
+  contentDetails = [];
   constructor(public resourceService: ResourceService, public permissionService: PermissionService,
     public configService: ConfigService,
     public learnerService: LearnerService,
@@ -59,6 +66,7 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   }
   isUnenrollDisabled() {
     this.isUnenrollbtnDisabled = true;
+    this.getSessionDetailsOfBatch();
     if (this.courseProgressData && this.courseProgressData.progress) {
       this.progress = this.courseProgressData.progress ? Math.round(this.courseProgressData.progress) : 0;
     }
@@ -70,30 +78,11 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    this.unitDetails = this.courseHierarchy.children;
     this.courseInteractObject = {
       id: this.courseHierarchy.identifier,
       type: 'Course',
       ver: this.courseHierarchy.pkgVersion ? this.courseHierarchy.pkgVersion.toString() : '1.0'
-    };
-    this.updateBatchIntractEdata = {
-      id: 'update-batch',
-      type: 'click',
-      pageid: 'course-consumption'
-    };
-    this.createBatchIntractEdata = {
-      id: 'create-batch',
-      type: 'click',
-      pageid: 'course-consumption'
-    };
-    this.enrollBatchIntractEdata = {
-      id: 'enroll-batch',
-      type: 'click',
-      pageid: 'course-consumption'
-    };
-    this.unenrollBatchIntractEdata = {
-      id: 'unenroll-batch',
-      type: 'click',
-      pageid: 'course-consumption'
     };
     if (this.permissionService.checkRolesPermissions(['COURSE_MENTOR'])) {
       this.courseMentor = true;
@@ -110,7 +99,26 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.getAllBatchDetails();
       });
+      _.forOwn(this.unitDetails, (courseData: any) => {
+        this.getContent(courseData.identifier, courseData);
+        this.preContent[courseData.identifier] = this.children;
+        this.activityContents[courseData.identifier] = this.childContents;
+        this.children = [];
+        this.childContents = [];
+      });
   }
+  public getContent(rootId, children) {
+    _.forOwn(children.children, child => {
+      if (child.hasOwnProperty('children') && child.children.length > 0) {
+        this.getContent(rootId, child);
+      } else {
+        if (child.hasOwnProperty('activityType') && child.activityType === 'live Session' ) {
+          this.children.push(child);
+          this.childContents.push(child.identifier);
+        }
+      }
+    });
+    }
   getAllBatchDetails() {
     this.showBatchList = false;
     this.showError = false;
@@ -135,8 +143,6 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.unsubscribe))
        .subscribe((data) => {
          console.log('all batches', data);
-         this.getSessionDetailsOfBatch(data);
-
            this.batchList = _.union(data[0].result.response.content, data[1].result.response.content);
            if (this.batchList.length > 0) {
              this.fetchUserDetails();
@@ -264,12 +270,30 @@ const mentor = mentors [0];
 getUserandMentorDetails() {
 this.showListOfUsers = !this.showListOfUsers;
 }
-getSessionDetailsOfBatch(batchDetails) {
-console.log(this.enrolledBatchInfo, this.batchList);
+getSessionDetailsOfBatch() {
 
-this.liveSessionService.getSessionDetails().subscribe(data => {
-console.log(data);
-});
+// tslint:disable-next-line:no-debugger
+debugger;
+  console.log(this.unitDetails, this.preContent, this.activityContents);
+  this.liveSessionService.getSessionDetails().subscribe(contents => {
+    const sessionData = [];
+    _.forOwn(contents, (content: any) => {
+      console.log(content);
+      if (content.batchId === this.batchId) {
+        _.forOwn(content.sessionDetail, (sessions: any) => {
+          if (sessions.contentDetails.length > 0) {
+            _.forOwn(sessions.contentDetails, (session: any) => {
+              console.log(session);
+              sessionData.push(session);
+            });
+          }
+        });
+      }
+    });
+    console.log(sessionData, sessionData.slice());
+
+  });
 }
+
 }
 

@@ -503,13 +503,27 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.batchId
       );
     }
-    if (
-      (this.batchId && !this.flaggedCourse && this.enrolledBatchInfo.status) ||
-      this.courseStatus === 'Unlisted' ||
-      this.permissionService.checkRolesPermissions(this.previewContentRoles) ||
-      this.courseHierarchy.createdBy === this.userService.userid
-    ) {
-      this.router.navigate([], navigationExtras);
+    if (this.enrolledDate) {
+      if (
+        (this.batchId && !this.flaggedCourse && this.enrolledBatchInfo.status) || this.courseStatus === 'Unlisted' ||
+        this.permissionService.checkRolesPermissions(this.previewContentRoles) ||
+        this.courseHierarchy.createdBy === this.userService.userid && this.userEnrolledBatch
+      ) {
+        this.route.navigate(['/learn/play/batch', this.batchId, 'course', this.courseId, {enrolledDate: this.enrolledDate}],
+         navigationExtras);
+        this.enableContentPlayer = false;
+
+
+      }
+    } else {
+      if (
+        (this.batchId && !this.flaggedCourse && this.enrolledBatchInfo.status) || this.courseStatus === 'Unlisted' ||
+        this.permissionService.checkRolesPermissions(this.previewContentRoles) ||
+        this.courseHierarchy.createdBy === this.userService.userid && this.userEnrolledBatch
+      ) {
+        this.router.navigate([], navigationExtras);
+        this.enableContentPlayer = false;
+      }
     }
   }
   public contentProgressEvent(event) {

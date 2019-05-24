@@ -23,7 +23,6 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
   @Input() batchId: string;
   @Input() courseHierarchy: any;
   @Input() courseProgressData: any;
-
   public courseInteractObject: IInteractEventObject;
   public updateBatchIntractEdata: IInteractEventEdata;
   public createBatchIntractEdata: IInteractEventEdata;
@@ -69,6 +68,8 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+
+    console.log(this.enrolledCourse);
     this.courseInteractObject = {
       id: this.courseHierarchy.identifier,
       type: 'Course',

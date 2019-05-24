@@ -1,0 +1,40 @@
+
+
+  <div class=" row content-player-container">
+    <!--playlist section-->
+
+    <div class="col-sm-4 col-md-12 col-lg-4 playlist-area d-none d-md-block pl-0" id="sidebar">
+      <div class="ui header p-20" id="logoHeader">
+        <img src="../../../../../../assets/niit.png">
+        <button class="btn btn-secondary" id="dashboardBtn" appTelemetryInteract
+          [telemetryInteractEdata]="closeContentIntractEdata" [telemetryInteractObject]="contentInteractObject"
+          (click)="closeContentPlayer()"><i class="fas fa-chevron-left fs-1-3"></i></button>
+      </div>
+      <app-collection-tree
+        *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
+        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
+        [options]="collectionTreeOptions" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" ></app-collection-tree>
+        <ng-template #dataCommingSoon>
+          <div class="placeholder mt-40">
+              <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
+              <h5 class="header placeholder-heading mb-5">
+                  {{resourceService?.messages?.stmsg?.m0121}}</h5>
+              <p class="placeholder-content">
+                  {{resourceService?.messages?.stmsg?.m0122}}</p>
+          </div>
+      </ng-template>
+    </div>
+    <!--mobile view to represent video playlist, not working-->
+    <!--video player section-->
+    <div *ngIf="loader">
+      <app-loader [data]="loaderMessage"></app-loader>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 video-player-wrapper">
+     
+      <div class="video-player-wrapper" [appTelemetryImpression]="telemetryContentImpression">
+        <app-player (contentProgressEvent)="contentProgressEvent($event)" class="content-player full-size" *ngIf="enableContentPlayer"
+          [playerConfig]="playerConfig"></app-player>
+      </div>
+    </div>
+  </div>
+

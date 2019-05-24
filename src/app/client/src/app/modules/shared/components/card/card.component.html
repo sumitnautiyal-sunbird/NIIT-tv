@@ -1,5 +1,5 @@
 
-          <div class="card content-card mt-5 mb-0"
+          <div class="card content-card  mb-15"
           *ngIf="data"
           appTelemetryInteract
           [telemetryInteractObject]="{id:data.metaData.identifier,type:data.telemetryObjectType,ver:data.metaData.pkgVersion ? data.metaData.pkgVersion.toString():'1.0'}"
@@ -12,7 +12,7 @@
               <div class="image" (click)="onAction(data,data.action.onImage)">
                 <img class="card-image" *ngIf="data.showImage? false : true" src="{{data.image || 'assets/images/book.png' | cdnprefixurl}}" alt="{{data.name}}">
               </div>
-              <div class="card-body">
+              <div class="card-body" id="left-align">
                   <!-- <div class="meta course" *ngIf="data.contentType && data.contentType.toLowerCase() === 'course'">
                       <div class="topic mb-15" *ngIf="data.topic" title="{{data.topic}}">
                         {{data.topic | slice:0:40}}
@@ -48,6 +48,8 @@
                               <i class="fas fa-star yellow-star"></i>
                               <i class="fas fa-star-half-alt yellow-star"></i> -->
                               <sui-rating class="star customstar" [(ngModel)]="data.rating" [maximum]="5" [isReadonly]="true"></sui-rating>
+                             <span class="vl ml-10 mr-12" *ngIf="data?.subject == 'free'"></span>
+                              <span *ngIf="data?.subject == 'free'" class="price">{{resourceService.frmelmnts.lbl.FREE}}</span>
                               <!-- <span class="rating"> {{data.rating}}</span> -->
                               <!-- <span class="views text-color-gray"> (138,560)</span> -->
                           </div>
@@ -58,9 +60,9 @@
                               <span *ngIf="data?.leafNodesCount"class="lectures text-color-gray">&nbsp; {{data?.leafNodesCount || 0}} {{resourceService.frmelmnts.lbl.lectures}} &nbsp; | &nbsp;</span>
                               <span class="duration text-color-gray"><i class="far fa-clock"></i> {{data?.dummyWeeks}} {{resourceService.frmelmnts.lbl.weeks}}</span>
                           </div>
-                          <div class="price mt-3">
+                          <div class="price ">
                             <span *ngIf="data?.subject == 'Paid' || data?.subject == undefined || !data?.subject" class="price">₹ 35000/-</span>
-                            <span *ngIf="data?.subject == 'free'" class="price">FREE</span>
+                          
                             <span class="content-type">{{data.contentType}}</span>
                           </div>
               </div>

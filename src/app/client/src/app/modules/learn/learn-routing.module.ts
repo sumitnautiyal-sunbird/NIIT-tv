@@ -13,6 +13,7 @@ import { FlagContentComponent, AuthGuard } from '@sunbird/core';
 import { CourseProgressComponent } from '@sunbird/dashboard';
 import { RedirectComponent } from './../shared/components/redirect/redirect.component';
 import { ViewAllComponent } from '@sunbird/shared-feature';
+import { CourseDeliveryPageComponent } from './components/course-consumption/course-delivery-page/course-delivery-page.component';
 const telemetryEnv = 'course';
 const objectType = 'course';
 const routes: Routes = [
@@ -151,7 +152,23 @@ const routes: Routes = [
         }
       }
     ]
-  }
+  },
+  {
+    path: 'play/batch/:batchId/course/:courseId', component: CourseDeliveryPageComponent,
+    data: {
+      telemetry: { env: telemetryEnv, pageid: 'course-read', type: 'workflow', object: { ver: '1.0', type: 'course' } },
+      breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Courses', url: '/learn' }]
+    },
+    children: [
+      { path: 'flag', component: FlagContentComponent },
+      {
+        path: 'unenroll/batch/:batchId', component: UnEnrollBatchComponent,
+        data: {
+          telemetry: { env: telemetryEnv, pageid: 'batch-enroll', type: 'view', object: { ver: '1.0', type: 'batch' } }
+        }
+      }
+    ]
+  },
 ];
 
 @NgModule({

@@ -40,7 +40,7 @@
         <div *ngIf="searchList && totalCount > config.appConfig.SEARCH.PAGE_LIMIT && !showLoader && !noResult">
           <ul class="pagination pagination-lg justify-content-center" *ngIf="pager.pages.length">
             <li class="page-item">
-              <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(1)">First</a>
+              <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(1)">{{resourceService.frmelmnts.lbl.first}}</a>
             </li>
             <li class="page-item">
               <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(pager.currentPage - 1)">&laquo;</a>
@@ -54,7 +54,7 @@
               <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(pager.currentPage + 1)">&raquo;</a>
             </li>
             <li class="page-item">
-              <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(pager.totalPages)">Last</a>
+              <a class="page-link px-3 mx-2" tabindex="-1" (click)="navigateToPage(pager.totalPages)">{{resourceService.frmelmnts.lbl.last}}</a>
             </li>
           </ul>
         </div>

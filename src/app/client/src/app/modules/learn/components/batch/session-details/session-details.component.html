@@ -45,29 +45,45 @@
 
         </div>
     </div>
-
+</div>
 <div *ngIf="enrolledCourse && enrolledBatchInfo" class="rightSideSectionCards ui card">
-    <div class="content">
-        <div class="header">{{resourceService.frmelmnts.lbl.batchdetails}}</div>
-    </div>
-    <div class="content">
-        <span>
-            <button class="ui right floated tiny button unenrollBtn" appTelemetryInteract [telemetryInteractEdata]="unenrollBatchIntractEdata"
-                [telemetryInteractObject]="{id:enrolledBatchInfo.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}"
-                (click)="unenrollBatch(enrolledBatchInfo)" [disabled]="isUnenrollbtnDisabled">{{resourceService.frmelmnts.btn.unenroll}}</button>
-        </span>
-        <div class="header">{{enrolledBatchInfo.name}}</div>
-        <div class="selectedBatchMeta meta">
-            <span class="date">{{enrolledBatchInfo.startDate | dateFormat}} </span>
-            <span *ngIf="enrolledBatchInfo.endDate" class="date"> - {{enrolledBatchInfo.endDate | dateFormat}}</span>
-        </div>
-    </div>
-    <!-- <div class="selectedBatchContent extra content" (click)="getUserandMentorDetails()">
-        <span class="right floated">
-            {{enrolledBatchInfo.participant.length}} {{resourceService.frmelmnts.lbl.learners}}
-        </span>
-        <span>
-            {{enrolledBatchInfo.mentors.length}} {{resourceService.frmelmnts.lbl.mentors}}
-        </span>
-    </div> -->
+
+                        <div class="ui card session-card">
+                            <div class="fs-1-429  mt-5 text-ac">Live Session Details</div>
+                            <div class="fs-1-143 mb-10 font-color ">
+                              <span class="  ml-15">Session Tittle</span>
+                              <span class="ml-20 mr-10">:</span>
+                              <!-- <span class="">{{contentTitle}}</span> -->
+                            </div>
+                            <div class="fs-1-143  mb-10 font-color">
+                              <span class="ml-15">Start Date</span>
+                              <span class="mr-10" style="margin-left:3.2rem;">:</span>
+                              <!-- <span class=""> {{contentDetails.startDate}}</span> -->
+                            </div>
+                            <div class="fs-1-143  mb-10 font-color">
+                              <span class="ml-15">Start Time</span>
+                              <span class="mr-10" style="margin-left:3rem;">:</span>
+                              <!-- <span class=""> {{contentDetails.startTime}}</span> -->
+                            </div>
+                            <div class="fs-1-143  mb-10 font-color">
+                              <span class="ml-15">End Time</span>
+                              <span class=" mr-10" style="margin-left:3.6rem;">:</span>
+                              <!-- <span class="">{{contentDetails.endTime}}</span> -->
+                            </div>
+                            <hr>
+                            <div class="fs-1-143 mb-10 ">
+                              <span class="ml-15">
+                                <i class="fas fa-exclamation-triangle" style="color: crimson;"></i>
+                                Note
+                              </span>
+                              <span class="ml-10">:</span>
+                              <span class="font-color">
+                                Please enable flash on yor browser, Adobe needs flash permission.
+                              </span>
+                            </div>
+                            <div class="text-ac">
+                              <button class="btn button text-ac mb-15 " id="button">Join
+                                Session</button>
+                            </div>
+                        </div>
 </div>

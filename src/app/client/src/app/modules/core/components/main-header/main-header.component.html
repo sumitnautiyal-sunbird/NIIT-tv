@@ -17,14 +17,14 @@
           </ng-container>
         </div>
       </div> -->
-      <a routerLink="search/explore-course/1" class="categorylink">Browse Courses</a>
+      <a routerLink="search/explore-course/1" class="categorylink">{{resourceService?.frmelmnts.lbl.BrowseCourses}}</a>
     </div>
     <div class="search-wrapper">
       <div class="container-fluid search-container">
         <form>
           <div class="input-group">
             <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)"
-              placeholder="Search for Courses...." name="header-search">
+              placeholder={{resourceService.frmelmnts.lbl.SearchforCourses}} name="header-search">
             <div class="search">
               <button class="btn btn-default" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
@@ -53,11 +53,11 @@
       <!--display if the user is logged in -->
       <div *ngIf="userService.loggedIn"
         class="row align-items-center button-container loggedInIcons justify-content-end">
-        <app-language-dropdown class="computer only languageDropdown" *ngIf="!router.isActive('workspace', false)">
+        <app-language-dropdown class="computer only languageDropdown"  *ngIf="!router.isActive('workspace', false)">
         </app-language-dropdown>
 
         <div class="d-none d-md-block d-lg-block text-white pr-4">
-          <a routerLink="/learn" class="mycourses">My Courses</a>
+          <a routerLink="/learn" class="mycourses">{{resourceService?.frmelmnts.lbl.mycourses}}</a>
         </div>
         <div class="d-none d-md-block d-lg-block menu-padding" *ngIf='permissionService.permissionAvailable'
           appPermission [permission]='workSpaceRole'>
@@ -65,7 +65,7 @@
             [telemetryInteractEdata]="workspaceMenuIntractEdata" type="button" class="btn-light btn-md workspace"
             routerLink="/workspace/content/create">{{resourceService?.frmelmnts?.tab?.workspace}}</button>
         </div>
-        <div class="text-right menu-padding-2 pr-0 pl-0 m-0" style="width: 60px; !important">
+        <div class="text-right menu-padding-2 pr-0 pl-0 m-0" style="width: 60px !important;">
           <div class="ui floating dropdown icon button text-center" style="background-color: transparent">
             <span class="fa-stack fa-2x" (click)="clicked = true">
               <i class="fa fa-bell" style="font-size: 24px; color: #fff"></i>
@@ -77,8 +77,7 @@
             </span>
             <div class="menu custom-menu" suiDropdownMenu>
               <div class="item">
-                Welcome to Camino. We are happy to have you here. Explore from hundreds of courses availble for you to
-                enhance your skill set.
+                {{resourceService.frmelmnts.lbl.WelcomeMessage}}
               </div>
             </div>
           </div>
@@ -139,11 +138,11 @@
 </div>
 <!--sidebar ui-->
 <div class="ui sidebar vertical menu align right">
-  <a *ngIf="!userService.loggedIn" class="item" routerLink="/learn">Sign In</a>
-  <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">Sign Up</a>
+  <a *ngIf="!userService.loggedIn" class="item" routerLink="/learn">{{resourceService.frmelmnts?.btn?.signin}}</a>
+  <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">{{resourceService.frmelmnts.scttl.signup}}</a>
   <a *ngIf="userService.loggedIn && userProfile" class="item"
     routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a>
-  <a *ngIf="userService.loggedIn" class="item" [routerLink]="['/workspace/content/create']">Workspace</a>
+  <a *ngIf="userService.loggedIn" class="item" [routerLink]="['/workspace/content/create']">{{resourceService?.frmelmnts?.tab?.workspace}</a>
   <a *ngIf="userService.loggedIn" class="item" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a>
 </div>
 <div class="pusher"></div>

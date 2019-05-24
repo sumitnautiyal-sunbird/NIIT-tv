@@ -31,7 +31,7 @@
 <div *ngIf="notesList.length <= 0">
     
             <div class="header text-align-center no-content">
-                    You did not create any notes for this course. Please create some to view them.
+                    {{resourceService?.frmelmnts.lbl.NotesNotCreated}}
             </div>
 </div>
 <div *ngIf="showCreateEditor">
@@ -46,7 +46,7 @@
             <p>{{context.data || 'description not available'}}</p>
         </div>
         <div class="actions">
-            <button class="ui pink button" (click)="modal.deny()" autofocus>Close Note</button>
+            <button class="ui pink button" (click)="modal.deny()" autofocus>{{resourceService?.frmelmnts.lbl.CloseNote}}</button>
             <!-- <button class="ui green button" (click)="modal.approve('approved')" autofocus>OK</button> -->
         </div>
     </ng-template>

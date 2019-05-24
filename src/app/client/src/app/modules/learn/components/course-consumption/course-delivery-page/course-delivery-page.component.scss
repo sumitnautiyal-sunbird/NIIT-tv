@@ -1,0 +1,64 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.content-player-container {
+  z-index: 999;
+  position: fixed;
+  margin: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 1);
+  overflow-y: scroll;
+}
+
+// .content {
+//     margin-top: 0;
+// }
+.tiny-text {
+  font-size : 15px;
+}
+#logoHeader {
+  background: #451771;
+  height: 78px;
+}
+
+.no-content {
+  color : darkgray !important;
+  font-weight : 400 !important;
+}
+#dashboardBtn {
+  margin: 13px 20px 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  float: right;
+  /* border-color: rgba(255,255,255,0.5); */
+  z-index: 99999;
+  border-radius: 50%;
+  background: #CE1F99;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 2px 2px;
+  float: left;
+  margin-bottom: 1rem;
+}
+
+#sidebar {
+  background: #242446 !important;
+  color: white;
+}
+
+.playlist-area {
+  max-height: 100vh;
+  overflow-y: auto;
+  padding-right: 0;
+}
+
+.video-player-wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 5px;
+}
+
