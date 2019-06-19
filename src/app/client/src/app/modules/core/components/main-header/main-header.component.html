@@ -53,7 +53,7 @@
       <!--display if the user is logged in -->
       <div *ngIf="userService.loggedIn"
         class="row align-items-center button-container loggedInIcons justify-content-end">
-        <app-language-dropdown class="computer only languageDropdown"  *ngIf="!router.isActive('workspace', false)">
+        <app-language-dropdown class="computer only languageDropdown">
         </app-language-dropdown>
 
         <div class="d-none d-md-block d-lg-block text-white pr-4">
