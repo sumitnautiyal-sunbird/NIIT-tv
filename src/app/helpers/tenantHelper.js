@@ -13,6 +13,7 @@ const telemtryEventConfig = JSON.parse(fs.readFileSync(path.join(__dirname, './t
 telemtryEventConfig['pdata']['id'] = appId
 const successResponseStatusCode = 200
 const request = require('request');
+const livesessionFilePath = path.join(__dirname,'../' ,'livesession.json');
 
 module.exports = {
 
@@ -50,6 +51,35 @@ module.exports = {
         callback(null, baseUrl + '/tenant/' + tenantId + '/' + image)
       }
     })
+  },
+  getLiveSession: function(req,res){
+    console.log('get data')
+  let data = fs.readFileSync(livesessionFilePath, 'utf-8');
+  console.log('data is ', data);
+    if (!data) {
+      console.log('Error occured while reading the file');
+      data = [];
+      return res.send(data);
+    } else {
+      try {
+        data = JSON.parse(data);
+      }
+      catch (e) {
+        console.log('An error occured while parsing data from the file  ', e);
+        data = [];
+      }
+      return res.json(data);
+    }
+  },
+  updateLiveSession: function(req,res) {
+     console.log('update');
+  //write contents in the file
+  let dataToWrite = JSON.stringify(req.body) ? JSON.stringify(req.body) : '';
+  let response = fs.writeFileSync(livesessionFilePath, dataToWrite);
+    if(response === false) {
+      return res.status(500);
+    }
+    return res.sendStatus(200);
   },
   getInfo: function (req, res) {
 

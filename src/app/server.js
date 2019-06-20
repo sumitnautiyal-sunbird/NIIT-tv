@@ -15,7 +15,8 @@ const envHelper = require('./helpers/environmentVariablesHelper.js')
 const proxyUtils = require('./proxy/proxyUtils.js')
 const healthService = require('./helpers/healthCheckService.js')
 const { getKeyCloakClient, memoryStore} = require('./helpers/keyCloakHelper')
-const fs = require('fs')
+const fs = require('fs');
+const dir = require('path');
 const request = require('request');
 const reqDataLimitOfContentEditor = '50mb'
 const reqDataLimitOfContentUpload = '50mb'
@@ -27,7 +28,7 @@ const packageObj = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const { frameworkAPI } = require('@project-sunbird/ext-framework-server/api');
 const frameworkConfig = require('./framework.config.js');
 const configHelper = require('./helpers/configServiceSDKHelper.js')
-
+const livesessionFilePath = dir.join(__dirname, 'livesession.json');
 
 
 const app = express()
@@ -95,8 +96,23 @@ function addCorsHeaders(req, res, next) {
   };
 }
 
+  function checkFile(req,res,next) {
+    console.log('check file ');
+    if (!fs.existsSync(livesessionFilePath)) {
+      console.log('there is no session file, creating one');
+      let response = fs.writeFileSync(livesessionFilePath, 'livesession.json');
+        if (response !== undefined) {
+          console.log('An error occured while creating the file named livesession.json', err);
+          return res.status(500);
+        }
+        console.log('File successfully created');
+    } else {console.log('file present')}
+    next();
+  }
 // tenant api
 app.get(['/v1/tenant/info', '/v1/tenant/info/:tenantId'], addCorsHeaders, tenantHelper.getInfo)
+app.get('/v1/tenant/livesession',[addCorsHeaders, checkFile],tenantHelper.getLiveSession);
+app.post('/v1/tenant/livesession',[addCorsHeaders, checkFile, bodyParser.json()],tenantHelper.updateLiveSession);
 
 // public api routes
 require('./routes/publicRoutes.js')(app)

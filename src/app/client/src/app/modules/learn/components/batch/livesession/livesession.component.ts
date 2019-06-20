@@ -232,7 +232,14 @@ createSessions(sessionDetails, unitIds) {
       sessionDetail: sessiondetail
     };
     console.log(request);
-    this.liveSessionService.saveSessionDetails(request).subscribe();
+    this.liveSessionService.saveSessionDetails(request)
+    .subscribe(response => {
+      if(response) {
+        this.toasterService.success('Session Updated Successfully');
+      }
+    }, err => {
+      this.toasterService.error('Failed to update live session. Try again later');
+    });
   }
   getSessionDetails() {
     this.courseBatchService.getEnrolledBatchDetails(this.batchId).pipe(
@@ -245,18 +252,18 @@ createSessions(sessionDetails, unitIds) {
         });
       });
       this.liveSessionService.getSessionDetails().subscribe(contents => {
+        console.log('get session details ', contents);
         _.forOwn(contents, (content: any) => {
           _.forOwn(content.sessionDetail, (sessions: any) => {
             if (sessions.contentDetails.length > 0) {
               _.forOwn(sessions.contentDetails, (session: any) => {
-                console.log(session);
                 this.sessionDetails[session.contentId] = session;
               });
             }
           });
         });
+        console.log('session details after live service called', this.sessionDetails);
       });
-      console.log('session details after live service called', this.sessionDetails);
   }
   onUnitChange(event) {
     console.log(event);
