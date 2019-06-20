@@ -19,17 +19,20 @@ export class LiveSessionUrlComponent implements OnInit {
   assetDetail: any;
   sanitizer: any;
   showLoader = true;
-  loaderMessage = 'Loading pdf please wait';
+  loaderMessage = 'Loading abobe please wait';
   path: string;
   path1: string;
   userName: string;
     sessionUrl: any;
+  status = false;
+  sessionStatus: any;
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
     config: ConfigService, contentServe: ContentService , private rout: Router) {
       this.activatedRoute = activated;
       this.activatedRoute.queryParams.subscribe(url => {
           console.log('parm url', url);
         this.sessionUrl = url.sessionUrl;
+        this.sessionStatus = url.status;
       });
       this.configService = config;
       this.contentService = contentServe;
@@ -40,11 +43,17 @@ export class LiveSessionUrlComponent implements OnInit {
     }
 
   ngOnInit() {
-
-
+    if (this.sessionStatus === 'recorded') {
+      this.status = true;
+      this.assetDetail = this.sessionUrl;
+      this.showLoader = false;
+      console.log('asset details', this.sessionUrl);
+    } else {
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.sessionUrl);
       this.showLoader = false;
+
+    }
 
   }
   navigateToDetailsPage() {
