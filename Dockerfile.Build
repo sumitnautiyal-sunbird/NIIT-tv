@@ -19,7 +19,7 @@ RUN npm install  --unsafe-perm
 RUN npm install --save-dev @angular-devkit/build-angular
 #RUN npm i --only=dev
 #RUN ng update
-#RUN npm update
+RUN npm update
 #RUN ng update @angular/cli @angular/core
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
