@@ -17,6 +17,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { nodeChildrenAsMap } from '@angular/router/src/utils/tree';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { LivesessionService, ToasterService } from '../../services';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var jQuery: any;
 
@@ -57,18 +58,26 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   url: any;
   liveUrl: any;
   participantName: any;
- constructor(public liveSessionService: LivesessionService, public router: Router,
+  public currentDate = new Date;
+  public sessionExpired = false;
+  public recordedSessionUrl;
+  constructor(public liveSessionService: LivesessionService, public router: Router,
     public activatedRoute: ActivatedRoute,
     public toasterService: ToasterService
   ) {
   }
   ngOnInit() {
-
+    // $("#date").val( moment().format('MMM D, YYYY') );
+    //  // set a currentDate
+    //  this.currentDate = moment().format('MMM D, YYYY');
+    console.log('current Date', this.currentDate);
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
     });
+    console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
+
       topic['expanded'] = true;
       if (this.enrolledDate) {
         topic.startDate = this.addDate(topic.model.activitystart);
@@ -135,6 +144,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   }
 
   getSessionDetails() {
+    console.log('session details function is called');
     this.liveSessionService.getSessionDetails().subscribe(contents => {
       // _.forOwn(contents, (content: any) => {
         _.forOwn(contents['sessionDetail'], (sessions: any) => {
@@ -150,6 +160,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     // console.log(this.sessionDetails);
   }
   getContentDetails(contentId) {
+
     if (this.sessionDetails.hasOwnProperty(contentId) && this.userEnrolledBatch) {
       this.openModal = true;
       this.contentDetails = this.sessionDetails[contentId];
@@ -161,6 +172,19 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.toasterService.error('Sorry this content does not have any Live Session');
       }
     }
+    const liveSessionDate = this.contentDetails.startDate.split('/');
+    if (liveSessionDate[2] < this.currentDate.getFullYear()) {
+      this.sessionExpired = true;
+    } else {
+      if (liveSessionDate[1] < (this.currentDate.getMonth() + 1)) {
+        this.sessionExpired = true;
+      } else {
+        if (liveSessionDate[0] < this.currentDate.getDate()) {
+          this.sessionExpired = true;
+        }
+      }
+    }
+
   }
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
@@ -193,22 +217,31 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   }
   gotoLiveSession(openModal) {
     jQuery(document).ready(() => {
-      jQuery('button').click(() =>  {
+      jQuery('button').click(() => {
         jQuery('#Mymodal').remove();
       });
     });
     jQuery('#Mymodal').modal('close');
     this.url = this.contentDetails.livesessionurl;
+    this.recordedSessionUrl = this.contentDetails.recordedSessionUrl;
     this.sessionUrl = this.url.split('&');
     this.participantName = '?guestName=' + this.userName;
     this.liveUrl = this.sessionUrl[0] + this.participantName;
     console.log('session url', this.liveUrl);
-    if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
-      this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
-       { queryParams: { sessionUrl: this.liveUrl } }
-      );
+    if (this.sessionExpired) {
+      if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+        this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
+          { queryParams: { sessionUrl: this.recordedSessionUrl , status: 'recorded'} }
+        );
+      }
     } else {
-      this.toasterService.error('please enable the flash on your browser');
+      if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+        this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
+          { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
+        );
+      } else {
+        this.toasterService.error('please enable the flash on your browser');
+      }
     }
   }
 }

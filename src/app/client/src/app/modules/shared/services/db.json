@@ -1,0 +1,366 @@
+{
+  "courseDetails": [
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127567873043496961",
+      "batchCreatedDate": "2019-05-07 10:25:10:688+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567431552122881588",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "12:59 AM",
+              "endTime": "12:59 PM",
+              "startDate": "May 19,2019"
+            },
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "12:59 AM",
+              "endTime": "12:59 PM",
+              "startDate": "May 19,2019"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        }
+      ],
+      "id": 6
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "14:30",
+              "endTime": "16:00"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 7
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "14:30",
+              "endTime": "16:00"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 8
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "14:30",
+              "endTime": "16:00"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 9
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=joy",
+              "startTime": "14:30",
+              "endTime": "16:00"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 10
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 11
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 12
+    },
+    {
+      "courseId": "do_2127567321704120321559",
+      "batchId": "0127871966917591040",
+      "batchCreatedDate": "2019-06-19 09:30:41:677+0000",
+      "unitIds": [
+        "do_2127567325700669441560",
+        "do_2127567325700751361561",
+        "do_2127567325700751361562",
+        "do_2127567325700751361563",
+        "do_21278780869323161612522",
+        "do_21278782595752755212532"
+      ],
+      "sessionDetail": [
+        {
+          "unitId": "do_2127567325700669441560",
+          "contentDetails": [
+            {
+              "contentId": "do_2127567439606743041589",
+              "livesessionurl": "https://niitltd.adobeconnect.com/_a948682411/rp5fhou59l9d/?launcher=false&guestName=kamalee",
+              "startTime": "11:20",
+              "endTime": "14:00",
+              "startDate": "19/6/2019",
+              "recordedSessionUrl": "https://www.youtube.com/watch?v=3KbWbT7P-Dw&list=RDbcx5lNFIKYY&index=27"
+            }
+          ]
+        },
+        {
+          "unitId": "do_2127567325700751361561",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361562",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_2127567325700751361563",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278780869323161612522",
+          "contentDetails": []
+        },
+        {
+          "unitId": "do_21278782595752755212532",
+          "contentDetails": []
+        }
+      ],
+      "id": 13
+    }
+  ]
+}

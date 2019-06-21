@@ -79,8 +79,10 @@
       </span>
     </div>
     <div class="text-ac">
-      <button class="btn button text-ac mb-15  mt-10" id="button" (click)="gotoLiveSession(openModal)">Join
+      <button class="btn button text-ac mb-15  mt-10" *ngIf="!sessionExpired" id="button" (click)="gotoLiveSession(openModal)">Join
         Session</button>
+        <button class="btn button text-ac mb-15  mt-10" id="button" *ngIf="sessionExpired" (click)="gotoLiveSession(openModal)">View
+          Session</button>
     </div>
 
   </sui-modal>

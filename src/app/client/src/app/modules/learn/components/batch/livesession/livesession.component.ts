@@ -194,11 +194,16 @@ export class LivesessionComponent implements OnInit {
               object['startTime'] = formvalue;
             } else if (key.split(' ')[1] === 'endTime') {
               object['endTime'] = formvalue;
+            } else if (key.split(' ')[1] === 'recordedSessionUrl') {
+              console.log('recorded session value', formvalue);
+              object['recordedSessionUrl'] = formvalue;
             }
           }
         });
-        if (object['livesessionurl'] !== '' && object['startTime'] !== '' &&  object['endTime'] !== '') {
+        if (object['livesessionurl'] !== '' && object['startTime'] !== '' &&
+         object['endTime'] !== '' &&  object['recordedSessionUrl'] !== '') {
           units.push(object);
+          console.log('recorded session value', units);
         }
       });
     });

@@ -1,23 +1,28 @@
 #Dockerfile for the player setup
-FROM node:8.11.0
+#FROM node:8.11.0
+FROM node:10.16.0
 MAINTAINER "Rajesh Rajendran <rajesh.r@optit.co>"
 RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils \
 && apt-get install -y --force-yes \ 
- python python-dev autoconf g++ make nasm bzip2 zip unzip
+ python python-dev autoconf g++ make nasm bzip2 
 RUN mkdir -p /opt/player \
 WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
-RUN npm cache -f clean
+#RUN npm cache -f clean
+RUN npm cache clean --force
+#RUN rm -rf node_modules
 RUN npm install -g @angular/cli
 RUN npm set progress=false
 RUN npm install  --unsafe-perm 
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
 RUN npm i -g npm@3.10.10
+#RUN npm i npm@latest -g
 
-RUN npm install --production  --unsafe-perm  
+#RUN npm install --production  --unsafe-perm  
+RUN npm audit fix
 WORKDIR /opt/player/app
 # passing commit hash as build arg
 ARG commit_hash=0
