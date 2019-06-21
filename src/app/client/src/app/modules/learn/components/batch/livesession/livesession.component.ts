@@ -190,6 +190,8 @@ export class LivesessionComponent implements OnInit {
             object['contentId'] = key.split(' ')[0];
             if (key.split(' ')[1] === 'livesessionurl') {
               object['livesessionurl'] = formvalue;
+            } else if (key.split(' ')[1] === 'startDate') {
+              object['startDate'] = formvalue;
             } else if (key.split(' ')[1] === 'startTime') {
               object['startTime'] = formvalue;
             } else if (key.split(' ')[1] === 'endTime') {
@@ -200,7 +202,7 @@ export class LivesessionComponent implements OnInit {
             }
           }
         });
-        if (object['livesessionurl'] !== '' && object['startTime'] !== '' &&
+        if (object['livesessionurl'] !== '' && object['startTime'] !== '' && object['startDate'] !== '' &&
          object['endTime'] !== '' &&  object['recordedSessionUrl'] !== '') {
           units.push(object);
           console.log('recorded session value', units);
