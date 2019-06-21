@@ -22,6 +22,7 @@ WORKDIR /opt/player/app/app_dist
 RUN npm i npm@latest -g
 
 RUN npm install --production  --unsafe-perm  
+RUN npm audit fix
 WORKDIR /opt/player/app
 # passing commit hash as build arg
 ARG commit_hash=0
