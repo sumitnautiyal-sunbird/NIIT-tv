@@ -16,8 +16,8 @@ RUN npm cache clean --force
 RUN npm install -g @angular/cli
 RUN npm set progress=false
 RUN npm install  --unsafe-perm 
-RUN ng update
-RUN npm update
+#RUN ng update
+#RUN npm update
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
 RUN npm i -g npm@3.10.10
