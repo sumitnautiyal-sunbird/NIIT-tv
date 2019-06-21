@@ -45,6 +45,10 @@
                 <!--<span class="ui primary label pageSection-count">{{section.contents.length}}</span>-->
                 <!--<button class="ui button small bs-1 py-5 m-0 ml-auto" *ngIf="section.contents.length >= 10 && section.name != 'My Courses' " type="button" (click)="navigateToViewAll(section)">{{ resourceService.frmelmnts.lnk.viewall}}</button>-->
             </div>
+            <h2>
+                {{parsedDataName}}
+            </h2>
+        <br>
             <div class="pageSection-Slider">
                 <ngx-slick 
                     in-view-container (inview)="inview($event)" 

@@ -55,8 +55,8 @@ export class FormService {
     console.log(channelOptions);
     const formKey = `${channelOptions.data.request.type}${channelOptions.data.request.action}
     ${channelOptions.data.request.subType}${channelOptions.data.request.rootOrgId}`;
-     const key = btoa(formKey);
-     console.log(formKey);
+    const key = btoa(formKey);
+    console.log(formKey);
     if (this.cacheService.get(key)) {
       const data = this.cacheService.get(key);
       console.log(data);
@@ -80,8 +80,8 @@ export class FormService {
 
   setForm(formKey, formData) {
     console.log(formKey, formData);
-     const key = btoa(formKey);
-     this.cacheService.set(key, formData,
-      {maxAge: this.browserCacheTtlService.browserCacheTtl});
+    const key = btoa(formKey);
+    this.cacheService.set(key, formData,
+      { maxAge: this.browserCacheTtlService.browserCacheTtl });
   }
 }

@@ -71,7 +71,6 @@
         <app-no-result [data]="{message : '', messageText: 'You have not enrolled to any of the courses, yet.'}"></app-no-result>
     </div>
     <!-- <app-top-categories></app-top-categories> -->
-    <p style="font-size:21px;margin-top: 47px; margin-bottom: 0;">{{resourceService.frmelmnts.lbl.recommendedcourses}}</p>
     <div class="twelve wide column" *ngFor="let section of carouselData;let last = last" [ngClass]="{'last mb-30':last}">
       <app-page-section (visits)="prepareVisits($event)" [section]="section" (playEvent)="playContent($event)" (viewAll)="viewAll($event)"></app-page-section>
     </div>

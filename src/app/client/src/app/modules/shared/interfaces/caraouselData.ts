@@ -19,4 +19,8 @@ export interface ICaraouselData {
      * IContents or ICourses
      */
     contents?: Array<ICard> | Array<ICourses>;
+
+    display: any;
+
+
 }
