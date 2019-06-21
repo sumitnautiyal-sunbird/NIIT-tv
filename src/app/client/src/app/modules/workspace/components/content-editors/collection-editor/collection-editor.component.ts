@@ -129,6 +129,7 @@ export class CollectionEditorComponent implements OnInit, OnDestroy {
     }
     return this.editorService.getContent(this.routeParams.contentId, options).
       pipe(mergeMap((data) => {
+        
         this.collectionDetails = data.result.content;
         if (this.validateRequest()) {
           return of(data);
@@ -246,6 +247,7 @@ export class CollectionEditorComponent implements OnInit, OnDestroy {
   */
   private updateModeAndStatus() {
     const contentStatus = this.collectionDetails.status.toLowerCase();
+    
     if (contentStatus === 'draft') {
       window.config.editorConfig.mode = 'Edit';
       window.config.editorConfig.contentStatus = 'draft';

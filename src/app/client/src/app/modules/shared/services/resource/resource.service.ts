@@ -99,6 +99,7 @@ export class ResourceService {
         }
       );
     }
+    this.getLanguageChange(language);
   }
   get(requestParam: RequestParam): Observable<any> {
     const httpOptions: HttpOptions = {
@@ -133,6 +134,7 @@ export class ResourceService {
   }
 
   getLanguageChange(language) {
+    
     this._languageSelected.next(language);
   }
 }
