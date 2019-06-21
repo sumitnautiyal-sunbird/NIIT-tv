@@ -1,3 +1,4 @@
+
 <sui-modal *ngIf='showCreateModal' (dismissed)="redirect()" [isClosable]="true" #createSessionModel>
   <div class="header">
     <div class="ui grid">
@@ -9,53 +10,40 @@
   <!-- <sui-select placeholder="English" class="inline"  [(ngModel)]="selectedUnit" (ngModelChange)="onUnitChange($event)" valueField="value" labelField="name">
       <sui-select-option *ngFor="let unit of unitDetails" [value]="(unit.name).toString()"></sui-select-option> 
     </sui-select> -->
-  <div class="scrolling content">
-    <form #createSessionForm="ngForm" (ngSubmit)="create(createSessionForm)" class="ui form batchAddUserForm">
-      <div *ngFor="let unit of unitDetails">
-        <h3>{{unit.name}}</h3>
-        <div *ngFor="let contents of preContent | keyvalue">
-          <div *ngIf="unit.identifier === contents.key">
-            <div *ngFor="let content of contents.value">
-              <h5>Enter Session details for {{content.name | json}}</h5>
-              <div class="one field">
+<div class="scrolling content" >
+<form #createSessionForm="ngForm" (ngSubmit)="create(createSessionForm)" class="ui form batchAddUserForm">
+<div *ngFor="let unit of unitDetails">
+    <h3>{{unit.name}}</h3>
+    <div *ngFor="let contents of preContent | keyvalue">
+      <div *ngIf="unit.identifier === contents.key">
+        <div *ngFor="let content of contents.value">
+            <h5>Enter Session details for {{content.name | json}}</h5>
+            <div class="one field">
                 <div class="required field">
                   <label>Live Session Url</label>
-                  <input type="text" name="{{content.identifier}} livesessionurl" id="content.id + 'livesessionurl'"
-                    placeholder="Enter Live Session Url" ngModel>
-                </div>
-              </div>
-              <div class="one field">
-                <div class="required field">
-                  <label>Live Session Start Date</label>
-                  <input type="date" name="{{content.identifier}} startDate" id="content.id +  'startDate'" placeholder="Enter Session Start Date" ngModel>
+                  <input type="text" name="{{content.identifier}} livesessionurl" id="content.id + 'livesessionurl'"placeholder="Enter Live Session Url" ngModel>
                 </div>
               </div>
               <div class="one field" >
                 <div class="required field">
                   <label>Live Session Start Time</label>
-                  <input type="time" name="{{content.identifier}} startTime" id="content.id +  'startTime'"
-                    placeholder="Enter Session Start Time" ngModel>
+                  <input type="time" name="{{content.identifier}} startTime" id="content.id +  'startTime'" placeholder="Enter Session Start Time" ngModel>
                 </div>
               </div>
               <div class="one field">
                 <div class="required field">
                   <label>Live Session End Time</label>
-                  <input type="time" name="{{content.identifier}} endTime" id="content.id + 'endTime'"
-                    placeholder="Enter Session End Time" ngModel>
-                </div>
-              </div>
-              <div class="one field">
-                <div class="required field">
-                  <label>Recorded Session Url</label>
-                  <input type="text" name="{{content.identifier}} recordedSessionUrl" id="content.id + 'recordedSessionUrl'" placeholder="Enter Recorded Session Url" ngModel>
+                  <input type="time" name="{{content.identifier}} endTime" id="content.id + 'endTime'" placeholder="Enter Session End Time" ngModel>
                 </div>
               </div>
         </div>
       </div>
-      <div class="actions">
-        <button class="ui secondary button" (click)="createSessionForm.reset()">Clear</button>
-        <button class="ui primary button" type="submit" id="submitbutton">Create</button>
       </div>
+</div>
+<div class="actions">
+    <button class="ui secondary button" (click)="createSessionForm.reset()">Clear</button>
+    <button class="ui primary button" type="submit" id="submitbutton">Create</button>
+  </div>
     </form>
   </div>
 

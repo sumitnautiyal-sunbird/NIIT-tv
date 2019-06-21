@@ -129,10 +129,14 @@ export class DefaultTemplateComponent implements OnInit {
     this.editorService = editorService;
     /*console.log("Form data",this.formFieldProperties);*/
     this.resourceService.languageSelected$.subscribe(item => {
-      
-      if(item.value)
+      debugger;
+      if(typeof item === 'object')
       {
       this.langselected = item.value;
+      }
+      else if(item === undefined)
+      {
+         this.langselected="en";
       }
       else
       {
