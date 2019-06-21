@@ -18,6 +18,7 @@ RUN npm set progress=false
 RUN npm install  --unsafe-perm 
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
+RUN npm install --save-dev @angular-devkit/build-angular
 RUN npm i -g npm@3.10.10
 #RUN npm i npm@latest -g
 
