@@ -121,10 +121,9 @@ export class PageSectionComponent implements OnInit {
   constructor(public activatedRoute: ActivatedRoute, public resourceService: ResourceService) {
     this.resourceService = resourceService;
     this.resourceService.languageSelected$.subscribe(item => {
-      console.log("in constructor",this.section);
+      console.log('in constructor', this.section);
       if (this.section === undefined) {
-      }
-      else {
+      } else {
         this.setHeaderWithLanguage(item);
       }
     });
@@ -145,8 +144,7 @@ export class PageSectionComponent implements OnInit {
     }
     this.resourceService.languageSelected$.subscribe(item => {
       if (this.section === undefined) {
-      }
-      else {
+      } else {
         this.setHeaderWithLanguage(item);
       }    });
   }
@@ -207,19 +205,17 @@ export class PageSectionComponent implements OnInit {
     this.viewAll.emit(section);
   }
   setHeaderWithLanguage(item) {
-    console.log("in function",this.section);
+    console.log('in function', this.section);
     let languageSelected: any;
     if (typeof item === 'object') {
       languageSelected = item.value;
-    }
-    else if (item === undefined) {
-      languageSelected = "en";
-    }
-    else {
+    } else if (item === undefined) {
+      languageSelected = 'en';
+    } else {
       languageSelected = item;
     }
     console.log(typeof this.section.display);
-    if(typeof this.section.display === 'string') {
+    if (typeof this.section.display === 'string') {
     this.parsedData = JSON.parse(this.section.display);
     this.parsedDataName = this.parsedData.name[languageSelected];
     }
