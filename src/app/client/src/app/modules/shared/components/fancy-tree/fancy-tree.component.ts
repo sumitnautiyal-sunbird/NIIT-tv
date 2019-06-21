@@ -146,9 +146,8 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   getSessionDetails() {
     console.log('session details function is called');
     this.liveSessionService.getSessionDetails().subscribe(contents => {
-      console.log('live session details from server = ', contents);
-      _.forOwn(contents, (content: any) => {
-        _.forOwn(content.sessionDetail, (sessions: any) => {
+      // _.forOwn(contents, (content: any) => {
+        _.forOwn(contents['sessionDetail'], (sessions: any) => {
           if (sessions.contentDetails.length > 0) {
             _.forOwn(sessions.contentDetails, (session: any) => {
               console.log(session);
@@ -157,8 +156,8 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
           }
         });
       });
-    });
-    console.log(this.sessionDetails);
+    // });
+    // console.log(this.sessionDetails);
   }
   getContentDetails(contentId) {
 

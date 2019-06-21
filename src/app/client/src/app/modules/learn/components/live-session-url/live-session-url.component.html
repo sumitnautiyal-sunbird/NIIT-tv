@@ -10,12 +10,13 @@
   
   </div>
  </div>
-<div *ngIf= "status" >
-  <video width="1000" controls>
-    <source [src]="assetDetail" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>
-</div>
+  <div *ngIf = '!status'>
+      <iframe width="560" height="315"  [src]="assetDetail" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- <video width="1000" controls>
+      <source [src]="assetDetail" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video> -->
+  </div>
   
   <div class="container mt-20" *ngIf="showLoader ">
   

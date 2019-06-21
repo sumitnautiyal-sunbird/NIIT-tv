@@ -16,6 +16,7 @@ RUN npm cache clean --force
 RUN npm install -g @angular/cli
 RUN npm set progress=false
 RUN npm install  --unsafe-perm 
+RUN npm i --only=dev
 #RUN ng update
 #RUN npm update
 RUN npm run deploy
