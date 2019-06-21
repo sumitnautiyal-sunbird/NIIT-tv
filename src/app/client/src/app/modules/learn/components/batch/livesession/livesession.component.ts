@@ -190,15 +190,22 @@ export class LivesessionComponent implements OnInit {
             object['contentId'] = key.split(' ')[0];
             if (key.split(' ')[1] === 'livesessionurl') {
               object['livesessionurl'] = formvalue;
+            } else if (key.split(' ')[1] === 'startDate') {
+              object['startDate'] = formvalue;
             } else if (key.split(' ')[1] === 'startTime') {
               object['startTime'] = formvalue;
             } else if (key.split(' ')[1] === 'endTime') {
               object['endTime'] = formvalue;
+            } else if (key.split(' ')[1] === 'recordedSessionUrl') {
+              console.log('recorded session value', formvalue);
+              object['recordedSessionUrl'] = formvalue;
             }
           }
         });
-        if (object['livesessionurl'] !== '' && object['startTime'] !== '' &&  object['endTime'] !== '') {
+        if (object['livesessionurl'] !== '' && object['startTime'] !== '' && object['startDate'] !== '' &&
+         object['endTime'] !== '' &&  object['recordedSessionUrl'] !== '') {
           units.push(object);
+          console.log('recorded session value', units);
         }
       });
     });
@@ -222,6 +229,7 @@ createSessions(sessionDetails, unitIds) {
       unitId: key,
       contentDetails: session
     };
+
     sessiondetail.push(obj);
   });
     const request = {
@@ -231,8 +239,20 @@ createSessions(sessionDetails, unitIds) {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
-    console.log(request);
-    this.liveSessionService.saveSessionDetails(request).subscribe();
+    console.log(JSON.stringify(request));
+    this.liveSessionService.saveSessionDetails(request)
+    .subscribe(response => {
+      console.log('res is ', response);
+      if (response) {
+        this.toasterService.success('Session Updated Successfully');
+      }
+    }, err => {
+      if (err.status === 200) {
+        this.toasterService.success('Session Updated Successfully');
+      } else {
+        this.toasterService.error('Failed to update live session. Try again later');
+      }
+    });
   }
   getSessionDetails() {
     this.courseBatchService.getEnrolledBatchDetails(this.batchId).pipe(
@@ -245,18 +265,18 @@ createSessions(sessionDetails, unitIds) {
         });
       });
       this.liveSessionService.getSessionDetails().subscribe(contents => {
+        console.log('get session details ', contents);
         _.forOwn(contents, (content: any) => {
           _.forOwn(content.sessionDetail, (sessions: any) => {
             if (sessions.contentDetails.length > 0) {
               _.forOwn(sessions.contentDetails, (session: any) => {
-                console.log(session);
                 this.sessionDetails[session.contentId] = session;
               });
             }
           });
         });
+        console.log('session details after live service called', this.sessionDetails);
       });
-      console.log('session details after live service called', this.sessionDetails);
   }
   onUnitChange(event) {
     console.log(event);

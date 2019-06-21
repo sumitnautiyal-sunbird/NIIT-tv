@@ -26,6 +26,12 @@
               </div>
               <div class="one field">
                 <div class="required field">
+                  <label>Live Session Start Date</label>
+                  <input type="date" name="{{content.identifier}} startDate" id="content.id +  'startDate'" placeholder="Enter Session Start Date" ngModel>
+                </div>
+              </div>
+              <div class="one field" >
+                <div class="required field">
                   <label>Live Session Start Time</label>
                   <input type="time" name="{{content.identifier}} startTime" id="content.id +  'startTime'"
                     placeholder="Enter Session Start Time" ngModel>
@@ -38,8 +44,12 @@
                     placeholder="Enter Session End Time" ngModel>
                 </div>
               </div>
-            </div>
-          </div>
+              <div class="one field">
+                <div class="required field">
+                  <label>Recorded Session Url</label>
+                  <input type="text" name="{{content.identifier}} recordedSessionUrl" id="content.id + 'recordedSessionUrl'" placeholder="Enter Recorded Session Url" ngModel>
+                </div>
+              </div>
         </div>
       </div>
       <div class="actions">
