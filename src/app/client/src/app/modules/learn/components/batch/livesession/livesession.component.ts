@@ -222,7 +222,7 @@ createSessions(sessionDetails, unitIds) {
       unitId: key,
       contentDetails: session
     };
-    
+
     sessiondetail.push(obj);
   });
     const request = {
@@ -236,7 +236,7 @@ createSessions(sessionDetails, unitIds) {
     this.liveSessionService.saveSessionDetails(request)
     .subscribe(response => {
       console.log('res is ', response);
-      if(response) {
+      if (response) {
         this.toasterService.success('Session Updated Successfully');
       }
     }, err => {
