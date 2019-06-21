@@ -176,20 +176,24 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.toasterService.error('Sorry this content does not have any Live Session');
       }
     }
-    const liveSessionDate = this.contentDetails.startDate.split('/');
-    if (liveSessionDate[2] < this.currentDate.getFullYear()) {
-      this.sessionExpired = true;
-    } else {
-      if (liveSessionDate[1] < (this.currentDate.getMonth() + 1)) {
-        this.sessionExpired = true;
-      } else {
-        if (liveSessionDate[0] < this.currentDate.getDate()) {
-          this.sessionExpired = true;
+    const sessionData = {'startDate': this.contentDetails.startDate, 'endTime': this.contentDetails.endTime };
+
+    this.sessionExpired = this.isSessionExpired(sessionData);
+    }
+
+    isSessionExpired(sessionExpiration) {
+      const liveSessionDate = sessionExpiration.startDate;
+      if (liveSessionDate) {
+        const endTime = sessionExpiration.endTime;
+        if (endTime) {
+          const newDate = new Date(liveSessionDate);
+          newDate.setHours(endTime.split(':')[0], endTime.split(':')[1]);
+          // compare the dates
+          return (new Date().getTime() - newDate.getTime() ) > 0 ? true : false;
         }
       }
     }
 
-  }
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
     console.log('check', this.isFlashEnabled);
