@@ -10,8 +10,8 @@ RUN mkdir -p /opt/player \
 WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
-RUN npm cache -f clean
-#RUN npm cache clean --force
+#RUN npm cache -f clean
+RUN npm cache clean --force
 #RUN rm -rf node_modules
 RUN npm install -g @angular/cli
 RUN npm set progress=false
