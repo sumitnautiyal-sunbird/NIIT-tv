@@ -116,7 +116,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       },
       click: (event, data): boolean => {
         console.log(data);
-        debugger;
         const node = data.node;
         this.currentNode = node;
         this.contentTitle = node.title;
@@ -137,7 +136,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
 
   getSessionDetails() {
     this.liveSessionService.getSessionDetails().subscribe(contents => {
-      debugger;
       // _.forOwn(contents, (content: any) => {
         _.forOwn(contents['sessionDetail'], (sessions: any) => {
           if (sessions.contentDetails.length > 0) {
@@ -194,7 +192,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     return hasFlash;
   }
   gotoLiveSession(openModal) {
-    debugger;
     jQuery(document).ready(() => {
       jQuery('button').click(() =>  {
         jQuery('#Mymodal').remove();

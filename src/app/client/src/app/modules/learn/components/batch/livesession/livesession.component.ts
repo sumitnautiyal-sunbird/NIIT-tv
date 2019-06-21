@@ -222,6 +222,7 @@ createSessions(sessionDetails, unitIds) {
       unitId: key,
       contentDetails: session
     };
+    
     sessiondetail.push(obj);
   });
     const request = {
@@ -231,14 +232,19 @@ createSessions(sessionDetails, unitIds) {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
-    console.log(request);
+    console.log(JSON.stringify(request));
     this.liveSessionService.saveSessionDetails(request)
     .subscribe(response => {
+      console.log('res is ', response);
       if(response) {
         this.toasterService.success('Session Updated Successfully');
       }
     }, err => {
-      this.toasterService.error('Failed to update live session. Try again later');
+      if (err.status === 200) {
+        this.toasterService.success('Session Updated Successfully');
+      } else {
+        this.toasterService.error('Failed to update live session. Try again later');
+      }
     });
   }
   getSessionDetails() {
