@@ -17,7 +17,7 @@
             <div *ngFor="let field of filtersDetails;let i=index;">
               <div class="" *ngIf="field.inputType==='select' && field.code!==browsingCategory">
                 <div>
-                  <h6 class="mt-3 mb-1 ml-4" (click)="iconChange(i)">{{field.name}}
+                  <h6 class="mt-3 mb-1 ml-4" (click)="iconChange(i)">{{translationsobj[i][langselected]}}
                     <i class="minus mr-3"
                       [ngClass]="{'fas':true , 'fa-plus': flagArray[i] === true, 'fa-minus': flagArray[i] === false}">
                     </i>

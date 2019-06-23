@@ -61,6 +61,7 @@ export class EditorService {
             url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${contentId}`,
             param: { ...param, ...option.params }
         };
+        debugger;
         return this.publicDataService.get(req).pipe(map((response: ServerResponse) => {
             return response;
         }));

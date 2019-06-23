@@ -14,7 +14,7 @@ import { EditorService } from './../../services';
     * It is recommended to use ng-deep for dynamically added classes update
     * ng-deep as angular upgrades the property
     */
-   styles: [`
+  styles: [`
    ::ng-deep @media only screen and (min-width: 992px) {
        .modals.dimmer .ui.tree-picker.content-creation-concept-picker.scrolling.modal {
          top: 60px !important;
@@ -35,7 +35,9 @@ export class DefaultTemplateComponent implements OnInit {
     * any data
     */
   showLoader = true;
-
+  translationsobj: any;
+  langselected: any;
+  fieldvalue: any;
   /**
 * To show toaster(error, success etc) after any API calls
 */
@@ -96,7 +98,7 @@ export class DefaultTemplateComponent implements OnInit {
  * To make content editor service API calls
  */
   private editorService: EditorService;
-  @Output() inputChanged: EventEmitter<number> =   new EventEmitter();
+  @Output() inputChanged: EventEmitter<number> = new EventEmitter();
 
   public show_create_or_upload_content = false;
   public show_duration = false;
@@ -104,7 +106,8 @@ export class DefaultTemplateComponent implements OnInit {
   public other_value = false;
   activity_value;
   activity_changed;
-freecourse = true;
+  freecourse = true;
+
   constructor(
     formService: FormService,
     private _cacheService: CacheService,
@@ -124,11 +127,34 @@ freecourse = true;
     this.userService = userService;
     this.configService = configService;
     this.editorService = editorService;
+    /*console.log("Form data",this.formFieldProperties);*/
+    this.resourceService.languageSelected$.subscribe(item => {
+      debugger;
+      if(typeof item === 'object')
+      {
+      this.langselected = item.value;
+      }
+      else if(item === undefined)
+      {
+         this.langselected="en";
+      }
+      else
+      {
+        this.langselected=item;
+      }
+      console.log(this.langselected);
+
+    });
   }
 
   setFormConfig() {
+    this.translationsobj=[];
     const DROPDOWN_INPUT_TYPES = ['select', 'multiSelect'];
     _.forEach(this.formFieldProperties, (field) => {
+      this.translationsobj.push(JSON.parse(field.translations));
+      
+      console.log("Value to be rendered", this.fieldvalue);
+      console.log("Object of translation", this.translationsobj);
       if (_.includes(DROPDOWN_INPUT_TYPES, field.inputType)) {
         if (field.depends && field.depends.length) {
           this.getAssociations(this.categoryMasterList[field.code],
@@ -138,6 +164,7 @@ freecourse = true;
         }
       }
     });
+    console.log("form data",this.formFieldProperties);
   }
   ngOnInit() {
     /***
@@ -169,7 +196,7 @@ freecourse = true;
   updateForm(object) {
     console.log(object);
     if (object.value === 'Self Paced' || object.value === 'Classroom' || object.value === 'Create Content'
-    || object.value === 'Upload Content') {
+      || object.value === 'Upload Content') {
       this.activity_changed = object.value;
       this.show_create_or_upload_content = true;
       this.other_value = false;
@@ -178,8 +205,8 @@ freecourse = true;
       this.show_create_or_upload_content = false;
     }
     if (object.value === 'Self Paced' || object.value === 'Classroom' || object.value === 'Live Session'
-    || object.value === 'Create Content'
-    || object.value === 'Upload Content') {
+      || object.value === 'Create Content'
+      || object.value === 'Upload Content') {
       this.show_duration = true;
       this.other_value = false;
     } else {
@@ -332,5 +359,7 @@ freecourse = true;
     console.log(event.target.innerText);
     this.inputChanged.emit(event.target.innerText);
   }
+
+  
 }
 
