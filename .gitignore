@@ -10,5 +10,5 @@ mochawesome-report
 .coverrun
 /src/app/log
 .DS_Store
-
+package-lock.json
 
