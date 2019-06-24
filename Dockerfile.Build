@@ -13,7 +13,7 @@ WORKDIR /opt/player/app
 RUN npm cache -f clean
 #RUN npm cache clean --force
 #RUN rm -rf node_modules
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@6
 RUN npm set progress=false
 RUN npm install  --unsafe-perm 
 #RUN npm install --save-dev @angular-devkit/build-angular
