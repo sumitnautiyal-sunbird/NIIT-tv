@@ -52,6 +52,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.2",
+    "@types/lodash": "^4.14.121",
     "ng-recaptcha": "^4.2.1",
     "ng2-cache-service": "^1.1.1",
     "ng2-charts": "^1.6.0",
