@@ -12,7 +12,7 @@ WORKDIR /opt/player/app
 RUN npm cache -f clean
 RUN npm install -g @angular/cli@6
 RUN npm set progress=false
-RUN npm install  --unsafe-perm
+RUN npm install --unsafe-perm
 RUN npm update
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
@@ -22,5 +22,5 @@ WORKDIR /opt/player/app
 ARG commit_hash=0
 ENV commit_hash ${commit_hash}
 CMD ["/bin/bash","-x","../vcs-config.sh"]
-~
+
 

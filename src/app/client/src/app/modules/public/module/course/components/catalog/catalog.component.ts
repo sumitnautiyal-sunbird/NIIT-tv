@@ -51,7 +51,7 @@ export class CatalogComponent implements OnInit {
   /**
    * Contains list of published course(s) of logged-in user
    */
-  searchList: Array<ICard> = [];
+  public searchList: Array<ICard> = [];
   /**
    * To navigate to other pages
    */
@@ -160,9 +160,6 @@ export class CatalogComponent implements OnInit {
   /**
     * This method calls the enrolled courses API.
     */
-  populateEnrolledCourse() {
-          this.populateCourseSearch();
-  }
 
   populateCourseSearch() {
     this.hashTagId = !!this.orgId ? this.orgId : this.activatedRoute.snapshot.data.orgdata.rootOrgId;
@@ -183,8 +180,11 @@ export class CatalogComponent implements OnInit {
           this.noResult = false;
           this.totalCount = apiResponse.result.count;
           this.pager = this.paginationService.getPager(apiResponse.result.count, this.pageNumber, this.pageLimit);
-          this.searchList = this.processActionObject(apiResponse.result.course);
-
+          this.searchList = [];
+          let tempSearchList = [];
+          tempSearchList = this.processActionObject(apiResponse.result.course);
+          // to update the list, we need to change object reference so that angular can detect it
+          this.searchList = _.cloneDeep(tempSearchList);
         } else {
           this.noResult = true;
           this.showLoader = false;
@@ -260,7 +260,6 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit() {
     // gather framework details
-
     this.tenantData = this.cookieSrvc.getCookie('theming') || null;
 
     if (!!this.tenantData && this.tenantData.length > 0) {
@@ -308,7 +307,7 @@ export class CatalogComponent implements OnInit {
         if (this.queryParams.sort_by && this.queryParams.sortType) {
           this.queryParams.sortType = this.queryParams.sortType.toString();
         }
-        this.populateEnrolledCourse();
+        this.populateCourseSearch();
       });
     this.setInteractEventData();
     this.telemetryImpression = {
