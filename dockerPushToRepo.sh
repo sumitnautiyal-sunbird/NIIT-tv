@@ -14,6 +14,6 @@ version=$(e "${m}" "version")
 artifactLabel=${ARTIFACT_LABEL:-bronze}
 
 #remove docker login and pushing code that is manually added in jenkins
-docker login -u "${hubuser}" -p$(cat /home/ubuntu/societal_pass)
+docker login -u "${hubuser}" -p$(cat /home/ubuntu/corporate_pass)
 docker push ${org}/${name}:${version}-${artifactLabel}
 docker logout
