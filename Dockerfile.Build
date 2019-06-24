@@ -1,5 +1,5 @@
 #Dockerfile for the player setup
-FROM node:8.11.0
+FROM node:8.11.2
 #FROM node:10.16.0
 MAINTAINER "Rajesh Rajendran <rajesh.r@optit.co>"
 RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
@@ -13,7 +13,7 @@ WORKDIR /opt/player/app
 RUN npm cache -f clean
 #RUN npm cache clean --force
 #RUN rm -rf node_modules
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@6
 RUN npm set progress=false
 RUN npm install  --unsafe-perm 
 #RUN npm install --save-dev @angular-devkit/build-angular
