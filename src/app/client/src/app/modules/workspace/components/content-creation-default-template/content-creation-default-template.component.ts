@@ -129,7 +129,7 @@ export class DefaultTemplateComponent implements OnInit {
     this.editorService = editorService;
     /*console.log("Form data",this.formFieldProperties);*/
     this.resourceService.languageSelected$.subscribe(item => {
-      if (typeof item === 'object' && item.constructor== Object) {
+      if (typeof item === 'object' && item.constructor === Object) {
       this.langselected = item.value;
       } else if (item === undefined) {
          this.langselected = 'en';
@@ -145,8 +145,8 @@ export class DefaultTemplateComponent implements OnInit {
     this.translationsobj = [];
     const DROPDOWN_INPUT_TYPES = ['select', 'multiSelect'];
     _.forEach(this.formFieldProperties, (field) => {
-      field.translations=JSON.parse(field.translations);
-      //this.translationsobj.push(JSON.parse(field.translations));
+      field.translations = JSON.parse(field.translations);
+      // this.translationsobj.push(JSON.parse(field.translations));
 
       console.log('After changing translation object', this.formFieldProperties);
    //   console.log('Object of translation', this.translationsobj);

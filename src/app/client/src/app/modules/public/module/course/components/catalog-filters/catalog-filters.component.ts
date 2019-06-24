@@ -133,7 +133,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
     this.formInputData = {};
     this.router.onSameUrlNavigation = 'reload';
     this.resourceService.languageSelected$.subscribe(item => {
-      if (typeof item === 'object' && item.constructor== Object) {
+      if (typeof item === 'object' && item.constructor === Object) {
         this.langselected = item.value;
         } else if (item === undefined) {
            this.langselected = 'en';
@@ -314,16 +314,17 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
      const filterArray = [];
     _.forEach(this.filtersDetails, (value) => {
       if (value.translations) {
-        this.parseObj=JSON.parse(value.translations);
-        if (this.parseObj)
-          value.translations = this.parseObj; 
-        console.log("After changing translations", this.filtersDetails);
+        this.parseObj = JSON.parse(value.translations);
+        if (this.parseObj) {
+          value.translations = this.parseObj;
+        }
+        console.log('After changing translations', this.filtersDetails);
       }
       filterArray.push(value.code);
       this.flagArray.push(false);
     });
 
-    
+
     this.filters.emit(filterArray);
   }
 
