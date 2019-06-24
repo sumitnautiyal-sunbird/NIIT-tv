@@ -22,5 +22,5 @@ WORKDIR /opt/player/app
 ARG commit_hash=0
 ENV commit_hash ${commit_hash}
 CMD ["/bin/bash","-x","../vcs-config.sh"]
-~
+
 
