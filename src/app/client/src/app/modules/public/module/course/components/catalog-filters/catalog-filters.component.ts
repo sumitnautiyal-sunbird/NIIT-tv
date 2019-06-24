@@ -133,11 +133,13 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
     this.formInputData = {};
     this.router.onSameUrlNavigation = 'reload';
     this.resourceService.languageSelected$.subscribe(item => {
-      if (item.value) {
+      if (typeof item === 'object' && item.constructor== Object) {
         this.langselected = item.value;
-      } else {
-        this.langselected = item;
-      }
+        } else if (item === undefined) {
+           this.langselected = 'en';
+        } else {
+          this.langselected = item;
+        }
       console.log('language selected in browse courses', this.langselected);
 
     });
@@ -308,23 +310,20 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
     this.createFacets();
   }
   createFacets() {
-    this.translationsobj = [];
     this.filtersDetails = _.cloneDeep(this.formFieldProperties);
-
-    const filterArray = [];
+     const filterArray = [];
     _.forEach(this.filtersDetails, (value) => {
       if (value.translations) {
-        this.parseObj = JSON.parse(value.translations);
-        console.log('parsed data', this.parseObj);
-        if (this.parseObj) {
-          this.translationsobj.push(this.parseObj);
-        }
-
+        this.parseObj=JSON.parse(value.translations);
+        if (this.parseObj)
+          value.translations = this.parseObj; 
+        console.log("After changing translations", this.filtersDetails);
       }
       filterArray.push(value.code);
       this.flagArray.push(false);
-
     });
+
+    
     this.filters.emit(filterArray);
   }
 
