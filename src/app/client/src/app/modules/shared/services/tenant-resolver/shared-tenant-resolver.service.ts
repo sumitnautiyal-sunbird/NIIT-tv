@@ -58,7 +58,7 @@ export class SharedTenantResolverService {
   /**
    * Generic method called in app component to initiate the tenant retrieval process
    */
-  getTenantInfo(): Observable<string | boolean> {
+  getTenantInfo(): Observable<string | boolean | any> {
     const themedata = this.cookieSrvc.getCookie('theming');
     let userid;
 
