@@ -31,11 +31,15 @@ h6 {
     background: #F3F3F3;
   }
 
+
   .filter-reset-text-div .filter-text{
     font-size: 1.5em;
     text-shadow: 0.9px 0px black;
+    cursor: context-menu;
   }
-
+span.float-right.mr-2.reset-blue-text.mt-2,.minus,h6,.form-check-input{
+  cursor: pointer;
+}
   .filter-reset-text-div .reset-blue-text{
     color:#006FF9;
     font-size: 1.3em;
@@ -78,3 +82,5 @@ h6 {
     text-shadow: 0.2px 0px black;
 
   }
+
+  
