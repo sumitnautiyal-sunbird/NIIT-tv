@@ -12,7 +12,7 @@ WORKDIR /opt/player/app
 RUN npm cache -f clean
 RUN npm install -g @angular/cli@6
 RUN npm set progress=false
-RUN npm install  --unsafe-perm
+RUN npm install --production  --unsafe-perm
 RUN npm update
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
