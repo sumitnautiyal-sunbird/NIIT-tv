@@ -258,7 +258,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         const starttime = start.setHours(starthours, startmin);
         const endtime = start.setHours(endhours, endmin);
         const now = new Date().getTime();
-        if ( starttime < now && now < endtime ) {
+        if ( (starttime < now) && (now < endtime) ) {
           this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
         );
