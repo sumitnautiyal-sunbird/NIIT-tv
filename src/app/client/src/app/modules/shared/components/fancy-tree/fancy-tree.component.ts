@@ -244,27 +244,26 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       }
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
-        let start = new Date(this.contentDetails.startDate);
+        const start = new Date(this.contentDetails.startDate);
         let starthours;
         let startmin;
         let endhours;
         let endmin;
-        debugger;
-        if(this.contentDetails.startTime && this.contentDetails.endTime){
-         starthours = this.contentDetails.startTime.split(":")[0];
-         startmin = this.contentDetails.startTime.split(":")[1];
-         endhours = this.contentDetails.endTime.split(":")[0];
-         endmin = this.contentDetails.endTime.split(":")[1];
+        if (this.contentDetails.startTime && this.contentDetails.endTime) {
+         starthours = this.contentDetails.startTime.split(':')[0];
+         startmin = this.contentDetails.startTime.split(':')[1];
+         endhours = this.contentDetails.endTime.split(':')[0];
+         endmin = this.contentDetails.endTime.split(':')[1];
         }
-        let starttime = start.setHours(starthours,startmin);
-        let endtime = start.setHours(endhours,endmin);
-        let now = new Date().getTime();
-        if(starttime < now && now < endtime){
-          this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
+        const starttime = start.setHours(starthours, startmin);
+        const endtime = start.setHours(endhours, endmin);
+        const now = new Date().getTime();
+        if ( starttime < now && now < endtime ) {
+          this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
         );
-        }else{
-          this.toasterService.error('session is not yet started');
+        } else {
+        this.toasterService.error('session is not yet started');
         }
       } else {
         this.toasterService.error('please enable the flash on your browser');

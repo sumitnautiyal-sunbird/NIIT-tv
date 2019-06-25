@@ -26,7 +26,7 @@ export class LiveSessionUrlComponent implements OnInit {
     sessionUrl: any;
   status = false;
   sessionStatus: any;
-  fsstatus: boolean = false;
+  fsstatus = false;
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
     config: ConfigService, contentServe: ContentService , private rout: Router) {
       this.activatedRoute = activated;
@@ -71,8 +71,8 @@ export class LiveSessionUrlComponent implements OnInit {
         this.route.navigate(['learn/course/' + this.path + '/batch/', this.path1]);
   }
 
-  fullscreentoggle(){
-    this.fsstatus = !this.fsstatus;       
+  fullscreentoggle() {
+    this.fsstatus = !this.fsstatus;
   }
 
 }
