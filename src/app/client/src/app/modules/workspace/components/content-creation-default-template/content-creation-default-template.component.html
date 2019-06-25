@@ -5,7 +5,7 @@
       *ngIf="(field.inputType==='text' || field.inputType==='number') && field.code !== 'duration' && field.code !=='price' && (field.code !=='live_link' && field.code !== 'live_link_start' && field.code !== 'live_link_end') "
       class="field" [ngClass]="{ 'disabled':!field.editable}">
       <label>
-        {{translationsobj[i][langselected]}}
+        {{field.translations[langselected]}}
 
       </label>
       <div class="field">
@@ -17,7 +17,7 @@
       *ngIf="(field.inputType==='text' || field.inputType==='number') && field.code !=='price' &&  (field.code === 'duration' && show_duration)"
       class="field" [ngClass]="{ 'disabled':!field.editable}">
       <label>
-        {{translationsobj[i][langselected]}}
+        {{field.translations[langselected]}}
       </label>
       <div class="field">
         <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]"
@@ -35,7 +35,7 @@
     <div *ngIf="(field.inputType==='text' || field.inputType==='number') && (field.code === 'price' && !freecourse)"
       class="field" [ngClass]="{ 'disabled':!field.editable}">
       <label>
-        {{translationsobj[i][langselected]}}
+        {{field.translations[langselected]}}
       </label>
       <div class="field">
         <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]"
@@ -45,7 +45,7 @@
     <div
       *ngIf="field.inputType==='select' && field.code!='year' && field.code !=='create_or_upload' && field.code !== 'createcontent'"
       class="field" [ngClass]="{ 'disabled':!field.editable}">
-      <label>{{translationsobj[i][langselected]}}</label>
+      <label>{{field.translations[langselected]}}</label>
       <div class="field">
         <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]"
           (ngModelChange)="updateForm({index:i, field:field, value:formInputData[field.code]})">
@@ -56,7 +56,7 @@
     </div>
 
     <div *ngIf="field.code !== 'createcontent' && (field.code === 'create_or_upload' && show_create_or_upload_content)">
-      <label>{{translationsobj[i][langselected]}}</label>
+      <label>{{field.translations[langselected]}}</label>
       <div class="field">
         <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]"
           (ngModelChange)="updateForm({index:i, field:field, value:formInputData[field.code]})">
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div *ngIf="field.code === 'createcontent' && other_value">
-      <label>{{translationsobj[i][langselected]}}</label>
+      <label>{{field.translations[langselected]}}</label>
       <div class="field">
         <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]"
           (ngModelChange)="updateForm({index:i, field:field, value:formInputData[field.code]})">
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div *ngIf="field.inputType==='multiSelect'" class="field" [ngClass]="{ 'disabled':!field.editable}">
-      <label>{{translationsobj[i][langselected]}}</label>
+      <label>{{field.translations[langselected]}}</label>
       <div class="field">
         <sui-multi-select id={{field.code}} name={{field.code}} class="selection"
           [(ngModel)]="formInputData[field.code]"
@@ -86,7 +86,7 @@
       </div>
     </div>
     <div *ngIf="field.code==='year'" class="field" [ngClass]="{ 'disabled':!field.editable}">
-      <label>{{translationsobj[i][langselected]}}</label>
+      <label>{{field.translations[langselected]}}</label>
       <div class="field">
         <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]">
           <sui-select-option *ngFor="let option of years" [value]="option"> </sui-select-option>
@@ -95,7 +95,7 @@
     </div>
     <div *ngIf="field.code==='concept'" class="field" [ngClass]="{ 'disabled':!field.editable}">
       <form class="conceptSelector ui form">
-        <label>{{translationsobj[i][langselected]}}</label>
+        <label>{{field.translations[langselected]}}</label>
         <app-concept-picker [selectedConcepts]="formInputData[field.code]"
           [conceptPickerClass]="'content-creation-concept-picker'" (Concepts)="concepts($event)"></app-concept-picker>
       </form>
