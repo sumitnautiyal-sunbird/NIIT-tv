@@ -1,25 +1,26 @@
 <div class="col-md-1">
     <button type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToDetailsPage()"><i
         class="fa fs-2 fa-angle-left"></i></button>
-  </div>
-  
- <div *ngIf= "!status">
-  <div class="container mt-30" *ngIf="!showLoader ">
-    <iframe [src]="assetDetail" class="url" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"
-      allowfullscreen class="e2e-iframe-untrusted-src" ng-show="showvideo"></iframe>
-  
-  </div>
- </div>
-  <div *ngIf = 'status'  class="container mt-30">
-      <iframe  [src]="assetDetail" frameborder="0" style="width:100%;  height:550px" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div *ngIf="!status">
+    <!-- container mt-30 -->
+    <div id="fullscreen" [ngClass]="fsstatus ? 'fullscreen' : 'container mt-30'" *ngIf="!showLoader ">
+        <button class="fullscreenbtn" (click)="fullscreentoggle()"><i [ngClass]="fsstatus ? 'fa fa-compress' : 'fa fa-expand'"></i></button>
+        <iframe [src]="assetDetail" class="url" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen class="e2e-iframe-untrusted-src" ng-show="showvideo"></iframe>
+
+    </div>
+</div>
+<div *ngIf='status' class="container mt-30">
+    <iframe [src]="assetDetail" frameborder="0" style="width:100%;  height:550px" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <!-- <video width="1000" controls>
       <source [src]="assetDetail" type="video/mp4">
       Your browser does not support HTML5 video.
     </video> -->
-  </div>
-  
-  <div class="container mt-20" *ngIf="showLoader ">
-  
+</div>
+
+<div class="container mt-20" *ngIf="showLoader ">
+
     <app-loader [data]="loaderMessage"></app-loader>
-  
-  </div>
+
+</div>
