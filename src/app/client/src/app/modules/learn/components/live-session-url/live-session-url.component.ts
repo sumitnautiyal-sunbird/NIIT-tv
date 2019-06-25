@@ -30,7 +30,6 @@ export class LiveSessionUrlComponent implements OnInit {
     config: ConfigService, contentServe: ContentService , private rout: Router) {
       this.activatedRoute = activated;
       this.activatedRoute.queryParams.subscribe(url => {
-          console.log('parm url', url);
         this.sessionUrl = url.sessionUrl;
         this.sessionStatus = url.status;
       });
@@ -45,9 +44,9 @@ export class LiveSessionUrlComponent implements OnInit {
   ngOnInit() {
     if (this.sessionStatus === 'recorded') {
       this.status = true;
-      this.assetDetail = this.sessionUrl;
+      this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.sessionUrl);
       this.showLoader = false;
-      console.log('asset details', this.sessionUrl);
     } else {
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.sessionUrl);
@@ -58,7 +57,6 @@ export class LiveSessionUrlComponent implements OnInit {
   }
   navigateToDetailsPage() {
     this.activatedRoute.url.subscribe(url => {
-        console.log('liove session url', url);
       this.path = url[0].path;
       this.path1 = url[2].path;
       });

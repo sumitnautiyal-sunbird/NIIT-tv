@@ -70,12 +70,10 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     // $("#date").val( moment().format('MMM D, YYYY') );
     //  // set a currentDate
     //  this.currentDate = moment().format('MMM D, YYYY');
-    console.log('current Date', this.currentDate);
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
     });
-    console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
 
       topic['expanded'] = true;
@@ -114,7 +112,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       },
       renderNode: (event, data) => {
         // Optionally tweak data.node.span
-        console.log('data in famcy tree', data);
         if (data.node.data.activityType) {
           $(data.node.span).append(
             '<span class=\'activitytypeicon fas fa-' +
@@ -124,7 +121,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         }
       },
       click: (event, data): boolean => {
-        console.log(data);
         const node = data.node;
         this.currentNode = node;
         this.contentTitle = node.title;
@@ -144,20 +140,16 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   }
 
   getSessionDetails() {
-    console.log('session details function is called');
     this.liveSessionService.getSessionDetails().subscribe(contents => {
-      // _.forOwn(contents, (content: any) => {
-        _.forOwn(contents['sessionDetail'], (sessions: any) => {
-          if (sessions.contentDetails.length > 0) {
-            _.forOwn(sessions.contentDetails, (session: any) => {
-              console.log(session);
-              this.sessionDetails[session.contentId] = session;
-            });
-          }
-        });
+      _.forOwn(contents['sessionDetail'], (sessions: any) => {
+        if (sessions.contentDetails.length > 0) {
+          _.forOwn(sessions.contentDetails, (session: any) => {
+            this.sessionDetails[session.contentId] = session;
+          });
+        }
       });
-    // });
-    // console.log(this.sessionDetails);
+    });
+
   }
   getContentDetails(contentId) {
 
@@ -172,30 +164,37 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.toasterService.error('Sorry this content does not have any Live Session');
       }
     }
-    const liveSessionDate = this.contentDetails.startDate.split('/');
-    if (liveSessionDate[2] < this.currentDate.getFullYear()) {
+
+    const time = this.contentDetails.endTime.split(':');
+    const liveSessionDate = this.contentDetails.startDate.split('-');
+
+    if (liveSessionDate[0] < this.currentDate.getFullYear()) {
       this.sessionExpired = true;
     } else {
       if (liveSessionDate[1] < (this.currentDate.getMonth() + 1)) {
         this.sessionExpired = true;
       } else {
-        if (liveSessionDate[0] < this.currentDate.getDate()) {
+        if (liveSessionDate[2] < this.currentDate.getDate()) {
           this.sessionExpired = true;
+        } else if (!(liveSessionDate[2] > this.currentDate.getDate())) {
+          if (time[0] < this.currentDate.getHours()) {
+            this.sessionExpired = true;
+          } else {
+            if (time[1] < this.currentDate.getMinutes()) {
+              this.sessionExpired = true;
+            }
+          }
         }
       }
     }
-
   }
+
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
-    console.log('check', this.isFlashEnabled);
     if (this.isFlashEnabled) {
       this.flashEnable = true;
-      console.log('this.flashEnable', this.flashEnable);
     } else {
-      //
       this.flashEnable = false;
-      console.log('this.flashEnable', this.flashEnable);
     }
   }
   checkFlashEnable() {
@@ -227,11 +226,10 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.sessionUrl = this.url.split('&');
     this.participantName = '?guestName=' + this.userName;
     this.liveUrl = this.sessionUrl[0] + this.participantName;
-    console.log('session url', this.liveUrl);
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
-          { queryParams: { sessionUrl: this.recordedSessionUrl , status: 'recorded'} }
+          { queryParams: { sessionUrl: this.recordedSessionUrl, status: 'recorded' } }
         );
       }
     } else {

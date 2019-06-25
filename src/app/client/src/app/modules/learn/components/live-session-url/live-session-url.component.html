@@ -1,5 +1,5 @@
 <div class="col-md-1">
-    <button type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToDetailsPage()"><i
+    <button type="button" class="btn text-secondary ml-4 mt-20" id="style" (click)="navigateToDetailsPage()"><i
         class="fa fs-2 fa-angle-left"></i></button>
   </div>
   
@@ -10,8 +10,8 @@
   
   </div>
  </div>
-  <div *ngIf = '!status'>
-      <iframe width="560" height="315"  [src]="assetDetail" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div *ngIf = 'status'>
+      <iframe class="video"   [src]="assetDetail" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <!-- <video width="1000" controls>
       <source [src]="assetDetail" type="video/mp4">
       Your browser does not support HTML5 video.
