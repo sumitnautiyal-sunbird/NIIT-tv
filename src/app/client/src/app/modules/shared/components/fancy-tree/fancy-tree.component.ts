@@ -74,6 +74,18 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
+      if (params.hasOwnProperty('userEnrolledBatch')) {
+        this.userEnrolledBatch = params.userEnrolledBatch;
+      }
+      if (params.hasOwnProperty('userName')) {
+        this.userName = params.userName;
+      }
+      if (params.hasOwnProperty('isEnrolled')) {
+        this.isEnrolled = params.isEnrolled;
+      }
+      if (params.hasOwnProperty('isLoggedIn')) {
+        this.isLoggedIn = params.isLoggedIn;
+      }
     });
     console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
@@ -128,14 +140,16 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       },
       click: (event, data): boolean => {
         flag = false;
-        console.log(data);
-        const node = data.node;
+        console.log('data', data);
+        const node = _.cloneDeep(data.node);
         this.currentNode = node;
+        console.log('data', data);
         this.contentTitle = node.title;
-        if (data.node.data.activityType !== 'headset') {
+        if (node.data.activityType !== 'headset') {
           this.itemSelect.emit(node);
           return true;
         } else {
+          console.log('in else block', node.data.id);
           this.getContentDetails(node.data.id);
         }
       }

@@ -68,7 +68,8 @@ export class LiveSessionUrlComponent implements OnInit {
       this.path = url[0].path;
       this.path1 = url[2].path;
       });
-        this.route.navigate(['learn/course/' + this.path + '/batch/', this.path1]);
+      history.back();
+        // this.route.navigate(['learn/course/' + this.path + '/batch/', this.path1]);
   }
 
   fullscreentoggle() {
