@@ -1,10 +1,25 @@
 import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 import { takeUntil, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterNavigationService, ResourceService, ToasterService, ServerResponse, LivesessionService } from '@sunbird/shared';
-import { FormGroup, FormControl, Validators, FormBuilder, NgForm } from '@angular/forms';
+import {
+  RouterNavigationService,
+  ResourceService,
+  ToasterService,
+  ServerResponse,
+  LivesessionService
+} from '@sunbird/shared';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+  NgForm
+} from '@angular/forms';
 import { UserService } from '@sunbird/core';
-import { CourseConsumptionService, CourseBatchService } from './../../../services';
+import {
+  CourseConsumptionService,
+  CourseBatchService
+} from './../../../services';
 import { IImpressionEventInput } from '@sunbird/telemetry';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -27,61 +42,62 @@ export class LivesessionComponent implements OnInit {
   @Input() courseId;
   // private courseId: string;
   /**
-  * courseCreator
-  */
+   * courseCreator
+   */
   courseCreator = false;
   /**
-  * participantList for mentorList
-  */
+   * participantList for mentorList
+   */
   participantList = [];
 
   public selectedParticipants: any = [];
 
   public selectedMentors: any = [];
   /**
-  * batchData for form
-  */
+   * batchData for form
+   */
   batchData: any;
   /**
-  * mentorList for mentors in the batch
-  */
+   * mentorList for mentors in the batch
+   */
   mentorList: Array<any> = [];
   /**
    * form group for batchAddUserForm
-  */
+   */
   /**
-  * To navigate to other pages
-  */
+   * To navigate to other pages
+   */
   router: Router;
   /**
    * To send activatedRoute.snapshot to router navigation
    * service for redirection to update batch  component
-  */
+   */
   private activatedRoute: ActivatedRoute;
   /**
-  * Reference of UserService
-  */
+   * Reference of UserService
+   */
   private userService: UserService;
   /**
-  * Reference of UserService
-  */
+   * Reference of UserService
+   */
   private courseBatchService: CourseBatchService;
   /**
-  * To call resource service which helps to use language constant
-  */
+   * To call resource service which helps to use language constant
+   */
   public resourceService: ResourceService;
   /**
-  * To show toaster(error, success etc) after any API calls
-  */
+   * To show toaster(error, success etc) after any API calls
+   */
   private toasterService: ToasterService;
   /**
-	 * telemetryImpression object for create batch page
-	*/
+   * telemetryImpression object for create batch page
+   */
   telemetryImpression: IImpressionEventInput;
 
   public unsubscribe = new Subject<void>();
   unitDetails = [];
   batchId;
+  nonliveunit = [];
   public courseConsumptionService: CourseConsumptionService;
   public courseDetails;
   public children = [];
@@ -92,7 +108,8 @@ export class LivesessionComponent implements OnInit {
   constructor(routerNavigationService: RouterNavigationService,
     activatedRoute: ActivatedRoute,
     route: Router,
-    resourceService: ResourceService, userService: UserService,
+    resourceService: ResourceService,
+    userService: UserService,
     courseBatchService: CourseBatchService,
     toasterService: ToasterService,
     courseConsumptionService: CourseConsumptionService,
@@ -212,7 +229,6 @@ export class LivesessionComponent implements OnInit {
             } else if (key.split(' ')[1] === 'endTime') {
               object['endTime'] = formvalue;
             } else if (key.split(' ')[1] === 'recordedSessionUrl') {
-              console.log('recorded session value', formvalue);
               object['recordedSessionUrl'] = formvalue;
             }
           }
@@ -220,7 +236,6 @@ export class LivesessionComponent implements OnInit {
         if (object['livesessionurl'] !== '' && object['startTime'] !== '' && object['startDate'] !== '' &&
           object['endTime'] !== '' && object['recordedSessionUrl'] !== '') {
           units.push(object);
-          console.log('recorded session value', units);
         }
       });
     });

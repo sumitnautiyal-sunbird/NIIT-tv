@@ -15,6 +15,7 @@ export class PlayerComponent implements OnInit, OnChanges {
   @ViewChild('contentIframe') contentIframe: ElementRef;
   @Output() playerOnDestroyEvent = new EventEmitter<any>();
   @Output() sceneChangeEvent = new EventEmitter<any>();
+
   buildNumber: string;
   constructor(public configService: ConfigService) {
     try {
@@ -27,6 +28,7 @@ export class PlayerComponent implements OnInit, OnChanges {
    * showPlayer method will be called
    */
   ngOnInit() {
+    console.log('progres eveny', this.contentProgressEvent);
     this.showPlayer();
   }
 
@@ -70,6 +72,7 @@ export class PlayerComponent implements OnInit, OnChanges {
       console.log('emiting the read event ', event);
       this.contentProgressEvent.emit(event);
     } else if (event.detail.telemetryData.eid && (event.detail.telemetryData.eid === 'IMPRESSION')) {
+      console.log('inside player if');
       this.emitSceneChangeEvent();
     }
   }
