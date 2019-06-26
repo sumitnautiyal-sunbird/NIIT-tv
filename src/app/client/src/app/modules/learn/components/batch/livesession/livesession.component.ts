@@ -115,7 +115,6 @@ export class LivesessionComponent implements OnInit {
       this.courseBatchService.getEnrolledBatchDetails(this.batchId),
       this.liveSessionService.getSessionDetails()
     ).pipe(mergeMap(data => {
-      debugger;
       let params = data[0];
       let getSessionData = [data[1], data[2]];
 
@@ -192,7 +191,6 @@ export class LivesessionComponent implements OnInit {
     }, 500);
   }
   create(form: NgForm) {
-    debugger;
     console.log('Form Submitted', form.value);
     const unitDetail = [];
     const units = [];
