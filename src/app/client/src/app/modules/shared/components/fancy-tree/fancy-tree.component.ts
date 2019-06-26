@@ -1,4 +1,3 @@
-
 import {
   Component,
   AfterViewInit,
@@ -26,7 +25,6 @@ declare var jQuery: any;
   templateUrl: './fancy-tree.component.html',
   styleUrls: ['./fancy-tree.component.scss']
 })
-
 export class FancyTreeComponent implements AfterViewInit, OnInit {
   @ViewChild('fancyTree') public tree: ElementRef;
   @Input() public nodes: any;
@@ -54,24 +52,26 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   contentDetails;
   @Input() userEnrolledBatch;
   contentTitle;
-  currentNode; sessionUrl: any;
+  currentNode;
+  sessionUrl: any;
   url: any;
   liveUrl: any;
   participantName: any;
-  public currentDate = new Date;
+  public currentDate = new Date();
   public sessionExpired = false;
   public recordedSessionUrl;
-  constructor(public liveSessionService: LivesessionService, public router: Router,
+  constructor(
+    public liveSessionService: LivesessionService,
+    public router: Router,
     public activatedRoute: ActivatedRoute,
     public toasterService: ToasterService
-  ) {
-  }
+  ) {}
   ngOnInit() {
     // $("#date").val( moment().format('MMM D, YYYY') );
     //  // set a currentDate
     //  this.currentDate = moment().format('MMM D, YYYY');
     console.log('current Date', this.currentDate);
-    this.activatedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe(params => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
       if (params.hasOwnProperty('userEnrolledBatch')) {
@@ -89,18 +89,29 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     });
     console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
-
       topic['expanded'] = true;
       if (this.enrolledDate) {
         topic.startDate = this.addDate(topic.model.activitystart);
         topic.endDate = this.addDate(topic.model.activityend);
-        topic.title = topic.title + '<span class="date">' + topic.startDate + ' - ' + topic.endDate + '</span>';
+        topic.title =
+          topic.title +
+          '<span class="date">' +
+          topic.startDate +
+          ' - ' +
+          topic.endDate +
+          '</span>';
 
         _.forEach(topic.children, child => {
           if (child.children.length) {
             child['startDate'] = this.addDate(child.model.activitystart);
             child['endDate'] = this.addDate(child.model.activityend);
-            child['title'] = child.title + '<span class="date">' + child.startDate + '-' + child.endDate + '</span>';
+            child['title'] =
+              child.title +
+              '<span class="date">' +
+              child.startDate +
+              '-' +
+              child.endDate +
+              '</span>';
           }
         });
       }
@@ -110,7 +121,9 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   }
 
   addDate(day) {
-    return moment(this.enrolledDate).add(day, 'days').format('D MMMM YYYY');
+    return moment(this.enrolledDate)
+      .add(day, 'days')
+      .format('D MMMM YYYY');
   }
   ngAfterViewInit() {
     let flag = true;
@@ -132,8 +145,8 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
           if (data.node.data.activityType) {
             $(data.node.span).append(
               '<span class=\'activitytypeicon fas fa-' +
-              data.node.data.activityType +
-              '\'></span>'
+                data.node.data.activityType +
+                '\'></span>'
             );
           }
         }
@@ -165,48 +178,57 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     console.log('session details function is called');
     this.liveSessionService.getSessionDetails().subscribe(contents => {
       // _.forOwn(contents, (content: any) => {
-        _.forOwn(contents['sessionDetail'], (sessions: any) => {
-          if (sessions.contentDetails.length > 0) {
-            _.forOwn(sessions.contentDetails, (session: any) => {
-              console.log(session);
-              this.sessionDetails[session.contentId] = session;
-            });
-          }
-        });
+      _.forOwn(contents['sessionDetail'], (sessions: any) => {
+        if (sessions.contentDetails.length > 0) {
+          _.forOwn(sessions.contentDetails, (session: any) => {
+            console.log(session);
+            this.sessionDetails[session.contentId] = session;
+          });
+        }
       });
+    });
     // });
     // console.log(this.sessionDetails);
   }
   getContentDetails(contentId) {
-
-    if (this.sessionDetails.hasOwnProperty(contentId) && this.userEnrolledBatch) {
+    if (
+      this.sessionDetails.hasOwnProperty(contentId) &&
+      this.userEnrolledBatch
+    ) {
       this.openModal = true;
       this.contentDetails = this.sessionDetails[contentId];
     } else {
       this.openModal = false;
       if (!this.userEnrolledBatch) {
-        this.toasterService.error('Sorry you should enroll to this course to be a part of this live sessions');
+        this.toasterService.error(
+          'Sorry you should enroll to this course to be a part of this live sessions'
+        );
       } else {
-        this.toasterService.error('Sorry this content does not have any Live Session');
+        this.toasterService.error(
+          'Sorry this content does not have any Live Session'
+        );
       }
     }
-    const sessionData = {'startDate': this.contentDetails.startDate, 'endTime': this.contentDetails.endTime };
+    const sessionData = {
+      startDate: this.contentDetails.startDate,
+      endTime: this.contentDetails.endTime
+    };
 
     this.sessionExpired = this.isSessionExpired(sessionData);
-    }
+  }
 
-    isSessionExpired(sessionExpiration) {
-      const liveSessionDate = sessionExpiration.startDate;
-      if (liveSessionDate) {
-        const endTime = sessionExpiration.endTime;
-        if (endTime) {
-          const newDate = new Date(liveSessionDate);
-          newDate.setHours(endTime.split(':')[0], endTime.split(':')[1]);
-          // compare the dates
-          return (new Date().getTime() - newDate.getTime() ) > 0 ? true : false;
-        }
+  isSessionExpired(sessionExpiration) {
+    const liveSessionDate = sessionExpiration.startDate;
+    if (liveSessionDate) {
+      const endTime = sessionExpiration.endTime;
+      if (endTime) {
+        const newDate = new Date(liveSessionDate);
+        newDate.setHours(endTime.split(':')[0], endTime.split(':')[1]);
+        // compare the dates
+        return new Date().getTime() - newDate.getTime() > 0 ? true : false;
       }
     }
+  }
 
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
@@ -225,10 +247,12 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     try {
       const flash =
         navigator.mimeTypes &&
-          navigator.mimeTypes['application/x-shockwave-flash']
+        navigator.mimeTypes['application/x-shockwave-flash']
           ? navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin
           : 0;
-      if (flash) { hasFlash = true; }
+      if (flash) {
+        hasFlash = true;
+      }
     } catch (e) {
       if (navigator.mimeTypes['application/x-shockwave-flash'] !== undefined) {
         hasFlash = true;
@@ -252,8 +276,20 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     console.log('session url', this.liveUrl);
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled) {
-        this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
-          { queryParams: { sessionUrl: this.recordedSessionUrl , status: 'recorded'} }
+        this.router.navigate(
+          [
+            '/learn/course/' +
+              this.courseId +
+              '/batch/' +
+              this.batchId +
+              '/live-session'
+          ],
+          {
+            queryParams: {
+              sessionUrl: this.recordedSessionUrl,
+              status: 'recorded'
+            }
+          }
         );
       }
     } else {
@@ -264,20 +300,27 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         let endhours;
         let endmin;
         if (this.contentDetails.startTime && this.contentDetails.endTime) {
-         starthours = this.contentDetails.startTime.split(':')[0];
-         startmin = this.contentDetails.startTime.split(':')[1];
-         endhours = this.contentDetails.endTime.split(':')[0];
-         endmin = this.contentDetails.endTime.split(':')[1];
+          starthours = this.contentDetails.startTime.split(':')[0];
+          startmin = this.contentDetails.startTime.split(':')[1];
+          endhours = this.contentDetails.endTime.split(':')[0];
+          endmin = this.contentDetails.endTime.split(':')[1];
         }
         const starttime = start.setHours(starthours, startmin);
         const endtime = start.setHours(endhours, endmin);
         const now = new Date().getTime();
-        if ( (starttime < now) && (now < endtime) ) {
-          this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
-          { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
-        );
+        if (starttime < now && now < endtime) {
+          this.router.navigate(
+            [
+              '/learn/course/' +
+                this.courseId +
+                '/batch/' +
+                this.batchId +
+                '/live-session'
+            ],
+            { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
+          );
         } else {
-        this.toasterService.error('session is not yet started');
+          this.toasterService.error('session is not yet started');
         }
       } else {
         this.toasterService.error('please enable the flash on your browser');
