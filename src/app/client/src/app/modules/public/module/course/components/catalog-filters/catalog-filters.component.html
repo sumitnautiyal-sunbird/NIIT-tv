@@ -1,12 +1,12 @@
 
   <div>
     <div class="filter-reset-text-div p-3 computer only">
-      <span class="filter-text"><i class="mr-2 ml-2 fas fa-filter"></i>{{resourceService.frmelmnts.lbl.Filters}}</span>
-      <span class="float-right mr-2 reset-blue-text mt-2" (click)="resetFilters()">{{resourceService.frmelmnts.lbl.ResetAll}}</span>
+      <span class="filter-text"><i class="mr-2 ml-2 fas fa-filter"></i>{{resourceService.frmelmnts.lbl.filters}}</span>
+      <span class="float-right mr-2 reset-blue-text mt-2" (click)="resetFilters()">{{resourceService.frmelmnts.lbl.resetall}}</span>
     </div>
     <div class="filter-reset-text-div p-3 mt-3 mobile only">
-        <span class="filter-text" (click)="expandFilters()"><i class="mr-2 ml-2 fas fa-filter"></i>{{resourceService.frmelmnts.lbl.Filters}}</span>
-        <span class="float-right mr-2 reset-blue-text" (click)="resetFilters()">{{resourceService.frmelmnts.lbl.ResetAll}}</span>
+        <span class="filter-text" (click)="expandFilters()"><i class="mr-2 ml-2 fas fa-filter"></i>{{resourceService.frmelmnts.lbl.filters}}</span>
+        <span class="float-right mr-2 reset-blue-text" (click)="resetFilters()">{{resourceService.frmelmnts.lbl.resetall}}</span>
       </div>
   </div>
   <div class="row computer only">
@@ -17,7 +17,7 @@
             <div *ngFor="let field of filtersDetails;let i=index;">
               <div class="" *ngIf="field.inputType==='select' && field.code!==browsingCategory">
                 <div>
-                  <h6 class="mt-3 mb-1 ml-4" (click)="iconChange(i)">{{field.name}}
+                  <h6 class="mt-3 mb-1 ml-4" (click)="iconChange(i)">{{field.translations[langselected]}}
                     <i class="minus mr-3"
                       [ngClass]="{'fas':true , 'fa-plus': flagArray[i] === true, 'fa-minus': flagArray[i] === false}">
                     </i>

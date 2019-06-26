@@ -58,7 +58,7 @@ export class SharedTenantResolverService {
   /**
    * Generic method called in app component to initiate the tenant retrieval process
    */
-  getTenantInfo(): Observable<string | boolean> {
+  getTenantInfo(): Observable<string | boolean | any> {
     const themedata = this.cookieSrvc.getCookie('theming');
     let userid;
 
@@ -68,9 +68,9 @@ export class SharedTenantResolverService {
 
     if (userid === null) {
       // user is not logged in
-      if (performance.navigation.type === 1 && !!!this.badReload) {
+      if (performance.navigation.type === 1 && !this.badReload) {
         // if the page is reloaded
-        if (themedata === 'null' || themedata === '' || !!themedata)  {
+        if (themedata === 'null' || !themedata)  {
           // set the reload to false so that new tenant information can be fetched
           this.badReload = true;
           return this.getTenantInfo();

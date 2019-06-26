@@ -33,6 +33,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   @Input() enrolledDate: any;
   @Input() isLoggedIn: boolean;
   @Input() isEnrolled: boolean;
+  @Input() contentStatus;
   // @Input() public courseId: any;
   // @Input() public batchId: any;
   @Input() userName: any;
@@ -52,6 +53,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   isFlashEnabled: any;
   public sessionDetails = {};
   contentDetails;
+  public local;
   @Input() userEnrolledBatch;
   contentTitle;
   currentNode; sessionUrl: any;
@@ -67,9 +69,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   ) {
   }
   ngOnInit() {
-    // $("#date").val( moment().format('MMM D, YYYY') );
-    //  // set a currentDate
-    //  this.currentDate = moment().format('MMM D, YYYY');
+console.log('content ', this.contentStatus);
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
@@ -99,6 +99,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     return moment(this.enrolledDate).add(day, 'days').format('D MMMM YYYY');
   }
   ngAfterViewInit() {
+    let flag = true;
     let options: IFancytreeOptions = {
       extensions: ['glyph'],
       clickFolderMode: 3,
@@ -112,15 +113,20 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       },
       renderNode: (event, data) => {
         // Optionally tweak data.node.span
-        if (data.node.data.activityType) {
-          $(data.node.span).append(
-            '<span class=\'activitytypeicon fas fa-' +
-            data.node.data.activityType +
-            '\'></span>'
-          );
+        console.log('data in famcy tree', data);
+        if (flag) {
+          if (data.node.data.activityType) {
+            $(data.node.span).append(
+              '<span class=\'activitytypeicon fas fa-' +
+              data.node.data.activityType +
+              '\'></span>'
+            );
+          }
         }
       },
       click: (event, data): boolean => {
+        flag = false;
+        console.log('data in onclick of each content', data);
         const node = data.node;
         this.currentNode = node;
         this.contentTitle = node.title;
@@ -128,7 +134,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
           this.itemSelect.emit(node);
           return true;
         } else {
-          this.getContentDetails(node.data.id);
+        this.getContentDetails(node.data.id);
         }
       }
     };
@@ -228,12 +234,14 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.liveUrl = this.sessionUrl[0] + this.participantName;
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+        this.setStatusofLiveSession();
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.recordedSessionUrl, status: 'recorded' } }
         );
       }
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+        this.setStatusofLiveSession();
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
         );
@@ -241,5 +249,23 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.toasterService.error('please enable the flash on your browser');
       }
     }
+  }
+  setStatusofLiveSession() {
+    console.log('inside status function');
+    this.contentStatus.forEach(contentid => {
+      if (contentid.contentId === this.currentNode.data.id) {
+       localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+       this.local = localStorage.getItem(contentid.contentId);
+       this.local  = JSON.parse(this.local);
+       this.local.status = 2;
+       contentid.status = 2;
+       localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+       this.contentStatus.push(contentid);
+        console.log('id same', this.local);
+      }
+     });
+     this.currentNode.icon = 'fa fa-circle fa-lg fancy-tree-green';
+     this.currentNode.data.iconColor = 'fancy-tree-green';
+   console.log('icon', this.currentNode.icon);
   }
 }

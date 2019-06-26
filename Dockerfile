@@ -1,8 +1,6 @@
-#FROM node:8.11-slim
-FROM node:10.16.0
+FROM node:8.11-slim
 
 MAINTAINER "Rajesh R <rajesh.r@optit.co>"
-
 RUN useradd -u 1001 -md /home/sunbird sunbird
 WORKDIR /home/sunbird
 ADD player-dist.tar.gz /home/sunbird/

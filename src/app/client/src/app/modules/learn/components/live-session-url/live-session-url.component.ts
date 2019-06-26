@@ -41,18 +41,22 @@ export class LiveSessionUrlComponent implements OnInit {
 
     }
 
+    getOrigin() {
+      const host = (window.location.hostname === 'localhost') ? window.location.host : window.location.origin;
+      console.log('host is ', host);
+      return host;
+    }
+
   ngOnInit() {
     if (this.sessionStatus === 'recorded') {
       this.status = true;
-      this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.sessionUrl);
+      this.assetDetail = this.sessionUrl + '&origin=' + this.getOrigin();
       this.showLoader = false;
     } else {
-      this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
-          this.sessionUrl);
       this.showLoader = false;
-
     }
+    this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.sessionUrl);
 
   }
   navigateToDetailsPage() {

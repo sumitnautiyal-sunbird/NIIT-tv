@@ -34,6 +34,7 @@ export class LanguageDropdownComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getChannelId();
+
    this.isCachedDataExists = this._cacheService.exists('portalLanguage');
    if (this.isCachedDataExists) {
      const data: any | null = this._cacheService.get('portalLanguage');
@@ -63,7 +64,6 @@ export class LanguageDropdownComponent implements OnInit, OnDestroy {
   }
 
   getLanguage() {
-
     this.isCachedDataExists = this._cacheService.exists(this.filterEnv + this.formAction);
     if (this.isCachedDataExists) {
       const data: any | null = this._cacheService.get(this.filterEnv + this.formAction);
@@ -87,6 +87,7 @@ export class LanguageDropdownComponent implements OnInit, OnDestroy {
               });
           },
           (err: ServerResponse) => {
+
             this.languages = [{ 'value': 'en', 'name': 'English' }];
             this.onLanguageChange('en');
           }
@@ -95,6 +96,7 @@ export class LanguageDropdownComponent implements OnInit, OnDestroy {
   }
 
   onLanguageChange(event) {
+
    this._cacheService.set('portalLanguage' , event,
     {
       maxAge: this.configService.appConfig.cacheServiceConfig.setTimeInMinutes *

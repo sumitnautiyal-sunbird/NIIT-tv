@@ -40,7 +40,9 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
   public configService: ConfigService;
 
   public resourceService: ResourceService;
-
+ langselected: any;
+ translationsobj: any;
+ parseObj: any;
   public filterType: string;
   /**
  * To navigate to other pages
@@ -130,6 +132,17 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
     this.permissionService = permissionService;
     this.formInputData = {};
     this.router.onSameUrlNavigation = 'reload';
+    this.resourceService.languageSelected$.subscribe(item => {
+      if (typeof item === 'object' && item.constructor === Object) {
+        this.langselected = item.value;
+        } else if (item === undefined) {
+           this.langselected = 'en';
+        } else {
+          this.langselected = item;
+        }
+      console.log('language selected in browse courses', this.langselected);
+
+    });
   }
 
   ngOnInit() {
@@ -231,6 +244,8 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
           this.formService.getFormConfig(formServiceInputParams, this.hashTagId).subscribe(
             (data: ServerResponse) => {
               this.formFieldProperties = data;
+              //  this.translationsobj.push(JSON.parse(this.formFieldProperties.translations));
+              // console.log("translation object",this.translationsobj);
               _.forEach(this.formFieldProperties, (formFieldCategory) => {
                 if (formFieldCategory && formFieldCategory.allowedRoles) {
                   const userRoles = formFieldCategory.allowedRoles.filter(element => this.userRoles.includes(element));
@@ -278,6 +293,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
  * @param {formFieldProperties} formFieldProperties  - Field information
  */
   getFormConfig() {
+
     _.forEach(this.categoryMasterList, (category) => {
       _.forEach(this.formFieldProperties, (formFieldCategory) => {
         if (category.code === formFieldCategory.code && category.terms) {
@@ -295,13 +311,20 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy, OnChanges, Af
   }
   createFacets() {
     this.filtersDetails = _.cloneDeep(this.formFieldProperties);
-
-    const filterArray = [];
+     const filterArray = [];
     _.forEach(this.filtersDetails, (value) => {
+      if (value.translations) {
+        this.parseObj = JSON.parse(value.translations);
+        if (this.parseObj) {
+          value.translations = this.parseObj;
+        }
+        console.log('After changing translations', this.filtersDetails);
+      }
       filterArray.push(value.code);
       this.flagArray.push(false);
-
     });
+
+
     this.filters.emit(filterArray);
   }
 
