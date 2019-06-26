@@ -266,13 +266,13 @@ export class LivesessionComponent implements OnInit {
     });
     this.createSessions(unitDetail, unitIds);
   }
-createSessions(sessionDetails, unitIds) {
-  const sessiondetail = [];
-  _.forOwn(sessionDetails, (session: any, key) => {
-    const obj = {
-      unitId: key,
-      contentDetails: session
-    };
+  createSessions(sessionDetails, unitIds) {
+    const sessiondetail = [];
+    _.forOwn(sessionDetails, (session: any, key) => {
+      const obj = {
+        unitId: key,
+        contentDetails: session
+      };
 
       sessiondetail.push(obj);
     });
@@ -283,17 +283,21 @@ createSessions(sessionDetails, unitIds) {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
-    this.liveSessionService.saveSessionDetails(request)
-    .subscribe(response => {
-      if (response) {
-        this.toasterService.success('Session Updated Successfully');
-      }
-    }, err => {
-      if (err.status === 200) {
-        this.toasterService.success('Session Updated Successfully');
-      } else {
-        console.log('error while updating live session :', err);
-        this.toasterService.error('Failed to update live session. Try again later');
+    this.liveSessionService.saveSessionDetails(request).subscribe(
+      response => {
+        if (response) {
+          this.toasterService.success('Session Updated Successfully');
+        }
+      },
+      err => {
+        if (err.status === 200) {
+          this.toasterService.success('Session Updated Successfully');
+        } else {
+          console.log('error while updating live session :', err);
+          this.toasterService.error(
+            'Failed to update live session. Try again later'
+          );
+        }
       }
     );
   }
@@ -308,17 +312,17 @@ createSessions(sessionDetails, unitIds) {
           }
         });
       });
-      this.liveSessionService.getSessionDetails().subscribe(contents => {
-        _.forOwn(contents, (content: any) => {
-          _.forOwn(content.sessionDetail, (sessions: any) => {
-            if (sessions.contentDetails.length > 0) {
-              _.forOwn(sessions.contentDetails, (session: any) => {
-                this.sessionDetails[session.contentId] = session;
-              });
-            }
-          });
+    this.liveSessionService.getSessionDetails().subscribe(contents => {
+      _.forOwn(contents, (content: any) => {
+        _.forOwn(content.sessionDetail, (sessions: any) => {
+          if (sessions.contentDetails.length > 0) {
+            _.forOwn(sessions.contentDetails, (session: any) => {
+              this.sessionDetails[session.contentId] = session;
+            });
+          }
         });
       });
+    });
   }
   onUnitChange(event) {
     console.log(event);
