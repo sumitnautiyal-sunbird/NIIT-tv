@@ -1,16 +1,30 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-.ui.styled.accordion, .ui.styled.accordion .accordion {
-    background: inherit ;
+.ui.styled.accordion,
+.ui.styled.accordion .accordion {
+    background: inherit;
 }
+
 .ui.styled.accordion .active.title {
-    color: inherit ;
+    color: inherit;
 }
+
 #course-content .ui.styled.accordion .active.title {
     background: #f0f0f0;
     color: black;
 }
+
 #title {
     width: 58% !important;
 }
+
 .tooltip-arrow,
-.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+.red-tooltip+.tooltip>.tooltip-inner {
+    background-color: #f00;
+}
+
+#sidebar .ui.styled.accordion .accordion .active.title,
+.ui.styled.accordion .accordion .title:hover,
+.ui.styled.accordion .active.title,
+.ui.styled.accordion .title:hover {
+    color: #fff;
+}
