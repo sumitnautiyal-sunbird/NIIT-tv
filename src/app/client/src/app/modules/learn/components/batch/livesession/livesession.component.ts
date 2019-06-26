@@ -146,7 +146,9 @@ export class LivesessionComponent implements OnInit {
         data => {
           console.log(data);
           this.unitDetails = data.courseDetails.children;
+          this.nonliveunit = [];
           _.forOwn(this.unitDetails, (courseData: any) => {
+            this.livesessionfound = false;
             this.getContent(courseData.identifier, courseData);
             this.preContent[courseData.identifier] = this.children;
             this.activityContents[courseData.identifier] = this.childContents;
