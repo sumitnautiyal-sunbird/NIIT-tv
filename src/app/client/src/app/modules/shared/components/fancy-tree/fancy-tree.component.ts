@@ -236,16 +236,15 @@ console.log('content ', this.contentStatus);
     this.liveUrl = this.sessionUrl[0] + this.participantName;
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled) {
-        jQuery('#Mymodal').remove();
         this.setStatusofLiveSession();
+        jQuery('#Mymodal').remove();
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.recordedSessionUrl, status: 'recorded' } }
         );
       }
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
-        this.setStatusofLiveSession();
-        const start = new Date(this.contentDetails.startDate);
+       const start = new Date(this.contentDetails.startDate);
         let starthours;
         let startmin;
         let endhours;
@@ -260,6 +259,7 @@ console.log('content ', this.contentStatus);
         const endtime = start.setHours(endhours, endmin);
         const now = new Date().getTime();
         if ( (starttime < now) && (now < endtime) ) {
+          this.setStatusofLiveSession();
           jQuery('#Mymodal').remove();
           this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }

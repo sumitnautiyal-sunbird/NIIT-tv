@@ -89,6 +89,7 @@ export class LivesessionComponent implements OnInit {
   public activityContents = [];
   public childContents = [];
   public sessionDetails = {};
+  public validationStatus = false;
   constructor(routerNavigationService: RouterNavigationService,
     activatedRoute: ActivatedRoute,
     route: Router,
@@ -202,6 +203,7 @@ export class LivesessionComponent implements OnInit {
         });
         if (object['livesessionurl'] !== '' && object['startTime'] !== '' && object['startDate'] !== '' &&
          object['endTime'] !== '' &&  object['recordedSessionUrl'] !== '') {
+           this.validationStatus = true;
           units.push(object);
         }
       });
@@ -235,19 +237,24 @@ createSessions(sessionDetails, unitIds) {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
-    this.liveSessionService.saveSessionDetails(request)
-    .subscribe(response => {
-      if (response) {
-        this.toasterService.success('Session Updated Successfully');
-      }
-    }, err => {
-      if (err.status === 200) {
-        this.toasterService.success('Session Updated Successfully');
-      } else {
-        console.log('error while updating live session :', err);
-        this.toasterService.error('Failed to update live session. Try again later');
-      }
-    });
+if (this.validationStatus) {
+  this.liveSessionService.saveSessionDetails(request)
+  .subscribe(response => {
+    if (response) {
+      this.toasterService.success('Session Updated Successfully');
+    }
+  }, err => {
+    if (err.status === 200) {
+      this.toasterService.success('Session Updated Successfully');
+    } else {
+      console.log('error while updating live session :', err);
+      this.toasterService.error('Failed to update live session. Try again later');
+    }
+  });
+  this.validationStatus = false;
+} else {
+  this.toasterService.error('Please fill all the required fileds');
+}
   }
   getSessionDetails() {
     this.courseBatchService.getEnrolledBatchDetails(this.batchId).pipe(
