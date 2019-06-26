@@ -68,7 +68,7 @@ export class LiveSessionUrlComponent implements OnInit {
       this.path = url[0].path;
       this.path1 = url[2].path;
       });
-      history.back();
+      window.history.go(-2);
         // this.route.navigate(['learn/course/' + this.path + '/batch/', this.path1]);
   }
 
