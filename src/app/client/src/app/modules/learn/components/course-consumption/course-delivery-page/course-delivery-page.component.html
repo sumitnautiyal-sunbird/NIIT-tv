@@ -12,7 +12,7 @@
       </div>
       <app-collection-tree
         *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
-        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
+        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes" [userEnrolledBatch]="true"  [contentId]="contentId"
         [options]="collectionTreeOptions" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" ></app-collection-tree>
         <ng-template #dataCommingSoon>
           <div class="placeholder mt-40">
@@ -33,6 +33,7 @@
      
       <div class="video-player-wrapper" [appTelemetryImpression]="telemetryContentImpression">
         <app-player (contentProgressEvent)="contentProgressEvent($event)" class="content-player full-size" *ngIf="enableContentPlayer"
+       
           [playerConfig]="playerConfig"></app-player>
       </div>
     </div>

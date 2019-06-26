@@ -219,7 +219,10 @@ export class LivesessionComponent implements OnInit {
     }, 500);
   }
   create(form: NgForm) {
+<<<<<<< HEAD
     console.log('Form Submitted', form.value);
+=======
+>>>>>>> 5f61748917227e9335e8fbc456da03735f42032a
     const unitDetail = [];
     const units = [];
     const unitIds = [];
@@ -240,7 +243,6 @@ export class LivesessionComponent implements OnInit {
             } else if (key.split(' ')[1] === 'endTime') {
               object['endTime'] = formvalue;
             } else if (key.split(' ')[1] === 'recordedSessionUrl') {
-              console.log('recorded session value', formvalue);
               object['recordedSessionUrl'] = formvalue;
             }
           }
@@ -253,7 +255,6 @@ export class LivesessionComponent implements OnInit {
           object['recordedSessionUrl'] !== ''
         ) {
           units.push(object);
-          console.log('recorded session value', units);
         }
       });
     });
@@ -269,6 +270,7 @@ export class LivesessionComponent implements OnInit {
     });
     this.createSessions(unitDetail, unitIds);
   }
+<<<<<<< HEAD
   createSessions(sessionDetails, unitIds) {
     console.log('session details', sessionDetails, 'unit id', unitIds);
     const sessiondetail = [];
@@ -277,6 +279,15 @@ export class LivesessionComponent implements OnInit {
         unitId: key,
         contentDetails: session
       };
+=======
+createSessions(sessionDetails, unitIds) {
+  const sessiondetail = [];
+  _.forOwn(sessionDetails, (session: any, key) => {
+    const obj = {
+      unitId: key,
+      contentDetails: session
+    };
+>>>>>>> 5f61748917227e9335e8fbc456da03735f42032a
 
       sessiondetail.push(obj);
     });
@@ -287,6 +298,7 @@ export class LivesessionComponent implements OnInit {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
+<<<<<<< HEAD
     console.log(JSON.stringify(request));
     this.liveSessionService.saveSessionDetails(request).subscribe(
       response => {
@@ -304,6 +316,19 @@ export class LivesessionComponent implements OnInit {
             'Failed to update live session. Try again later'
           );
         }
+=======
+    this.liveSessionService.saveSessionDetails(request)
+    .subscribe(response => {
+      if (response) {
+        this.toasterService.success('Session Updated Successfully');
+      }
+    }, err => {
+      if (err.status === 200) {
+        this.toasterService.success('Session Updated Successfully');
+      } else {
+        console.log('error while updating live session :', err);
+        this.toasterService.error('Failed to update live session. Try again later');
+>>>>>>> 5f61748917227e9335e8fbc456da03735f42032a
       }
     );
   }
@@ -318,6 +343,7 @@ export class LivesessionComponent implements OnInit {
           }
         });
       });
+<<<<<<< HEAD
     this.liveSessionService.getSessionDetails().subscribe(contents => {
       console.log('get session details ', contents);
       _.forOwn(contents, (content: any) => {
@@ -327,6 +353,17 @@ export class LivesessionComponent implements OnInit {
               this.sessionDetails[session.contentId] = session;
             });
           }
+=======
+      this.liveSessionService.getSessionDetails().subscribe(contents => {
+        _.forOwn(contents, (content: any) => {
+          _.forOwn(content.sessionDetail, (sessions: any) => {
+            if (sessions.contentDetails.length > 0) {
+              _.forOwn(sessions.contentDetails, (session: any) => {
+                this.sessionDetails[session.contentId] = session;
+              });
+            }
+          });
+>>>>>>> 5f61748917227e9335e8fbc456da03735f42032a
         });
       });
       console.log(

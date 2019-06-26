@@ -173,6 +173,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
   enrolledDate: any;
   @ViewChild('target') targetEl: ElementRef;
   @ViewChild('top') topEl: ElementRef;
+  public localobj;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -215,6 +216,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
           this.courseId = courseId;
           this.batchId = batchId;
           this.courseStatus = courseStatus;
+          console.log('course status', this.courseStatus, this.courseId, this.batchId);
           this.setTelemetryCourseImpression();
 
           if (this.batchId) {
@@ -265,6 +267,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
           if (this.batchId) {
             this.enrolledBatchInfo = enrolledBatchDetails;
             this.enrolledCourse = true;
+
             this.setTelemetryStartEndData();
             if (this.enrolledBatchInfo.status && this.contentIds.length) {
               this.getContentState();
@@ -393,11 +396,13 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(({ contentId }) => {
+        console.log('content id', contentId);
         if (contentId) {
           const content = this.findContentById(contentId);
           const isExtContentMsg = this.coursesService.showExtContentMsg
             ? this.coursesService.showExtContentMsg
             : false;
+            console.log('content' , content);
           if (content) {
             this.OnPlayContent(
               {
@@ -434,6 +439,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
         ) ||
         this.courseHierarchy.createdBy === this.userService.userid)
     ) {
+      console.log('inside on play content');
       this.contentId = content.id;
       this.setTelemetryContentImpression();
       this.setContentNavigators();
@@ -441,6 +447,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
     } else {
       this.closeContentPlayer();
     }
+
   }
   private setContentNavigators() {
     const index = _.findIndex(this.contentDetails, ['id', this.contentId]);
@@ -477,6 +484,23 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
             this.showExtContentMsg = false;
           }
           this.enableContentPlayer = true;
+          if (this.enableContentPlayer) {
+              this.contentStatus.forEach(contentid => {
+           if (contentid.contentId === this.contentId) {
+            localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+            this.localobj = localStorage.getItem(contentid.contentId);
+            this.localobj  = JSON.parse(this.localobj);
+         if (this.localobj.status === 0) {
+          this.localobj.status = 1;
+          contentid.status = 1;
+         }
+            localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+            this.contentStatus.push(contentid);
+             console.log('id same', this.localobj);
+           }
+          });
+                 }
+          console.log('status of content playeer', this.enableContentPlayer);
           // this.loader = false;
           this.contentTitle = data.title;
           this.breadcrumbsService.setBreadcrumbs([
@@ -525,17 +549,12 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
     }
   }
   public contentProgressEvent(event) {
-    /* console.log(
-      'recieved content progress event fro the content player ',
-      event
-    ); */
-    /* if (!this.batchId || _.get(this.enrolledBatchInfo, 'status') !== 1) {
-      return;
-    } */
+//  debugger;
     const eid = event.detail.telemetryData.eid;
     if (eid === 'END' && !this.validEndEvent(event)) {
       return;
     }
+    console.log('eid', eid);
     const request: any = {
       userId: this.userService.userid,
       contentId: this.contentId,
@@ -543,6 +562,17 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
       batchId: this.batchId,
       status: eid === 'END' ? 2 : 1
     };
+
+    this.contentStatus = {
+      userId: this.userService.userid,
+      contentId: this.contentId,
+      courseId: this.courseId,
+      batchId: this.batchId,
+      status: eid === 'END' ? 2 : 1
+    };
+    localStorage.setItem(this.contentId, JSON.stringify(this.contentStatus));
+    const local = localStorage.getItem(this.contentId);
+    console.log('local', JSON.parse(local), this.contentId, this.courseId);
     this.courseConsumptionService
       .updateContentsState(request)
       .pipe(first())
@@ -550,6 +580,9 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
         updatedRes => (this.contentStatus = updatedRes.content),
         err => console.log('updating content status failed', err)
       );
+      if (!this.batchId || _.get(this.enrolledBatchInfo, 'status') !== 1) {
+        return;
+      }
   }
   private validEndEvent(event) {
     const playerSummary: Array<any> = _.get(
@@ -615,6 +648,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
     this.unsubscribe.complete();
   }
   private setTelemetryStartEndData() {
+    console.log('telemetry start', this.activatedRoute);
     const deviceInfo = this.deviceDetectorService.getDeviceInfo();
     this.telemetryCourseStart = {
       context: {
