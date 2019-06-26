@@ -74,6 +74,18 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
+      if (params.hasOwnProperty('userEnrolledBatch')) {
+        this.userEnrolledBatch = params.userEnrolledBatch;
+      }
+      if (params.hasOwnProperty('userName')) {
+        this.userName = params.userName;
+      }
+      if (params.hasOwnProperty('isEnrolled')) {
+        this.isEnrolled = params.isEnrolled;
+      }
+      if (params.hasOwnProperty('isLoggedIn')) {
+        this.isLoggedIn = params.isLoggedIn;
+      }
     });
     console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
@@ -128,14 +140,16 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       },
       click: (event, data): boolean => {
         flag = false;
-        console.log(data);
-        const node = data.node;
+        console.log('data', data);
+        const node = _.cloneDeep(data.node);
         this.currentNode = node;
+        console.log('data', data);
         this.contentTitle = node.title;
-        if (data.node.data.activityType !== 'headset') {
+        if (node.data.activityType !== 'headset') {
           this.itemSelect.emit(node);
           return true;
         } else {
+          console.log('in else block', node.data.id);
           this.getContentDetails(node.data.id);
         }
       }
@@ -237,16 +251,34 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.liveUrl = this.sessionUrl[0] + this.participantName;
     console.log('session url', this.liveUrl);
     if (this.sessionExpired) {
-      if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+      if (this.isLoggedIn && this.isEnrolled) {
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.recordedSessionUrl , status: 'recorded'} }
         );
       }
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
-        this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
+        const start = new Date(this.contentDetails.startDate);
+        let starthours;
+        let startmin;
+        let endhours;
+        let endmin;
+        if (this.contentDetails.startTime && this.contentDetails.endTime) {
+         starthours = this.contentDetails.startTime.split(':')[0];
+         startmin = this.contentDetails.startTime.split(':')[1];
+         endhours = this.contentDetails.endTime.split(':')[0];
+         endmin = this.contentDetails.endTime.split(':')[1];
+        }
+        const starttime = start.setHours(starthours, startmin);
+        const endtime = start.setHours(endhours, endmin);
+        const now = new Date().getTime();
+        if ( (starttime < now) && (now < endtime) ) {
+          this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
         );
+        } else {
+        this.toasterService.error('session is not yet started');
+        }
       } else {
         this.toasterService.error('please enable the flash on your browser');
       }
