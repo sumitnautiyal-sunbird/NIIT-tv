@@ -13,13 +13,13 @@ const telemtryEventConfig = JSON.parse(fs.readFileSync(path.join(__dirname, './t
 telemtryEventConfig['pdata']['id'] = appId
 const successResponseStatusCode = 200
 const request = require('request');
-const livesessionFilePath = path.join(__dirname,'../' ,'livesession.json');
+const livesessionFilePath = path.join(__dirname, '../', 'livesession.json');
 
 function readFromFile() {
   let fileData = fs.readFileSync(livesessionFilePath, 'utf-8');
-  if(fileData.length > 0) {
+  if (fileData.length > 0) {
     try {
-      fileData =  JSON.parse(fileData);
+      fileData = JSON.parse(fileData);
       return fileData;
     }
     catch (e) {
@@ -38,8 +38,8 @@ function createData(reqData, fileData) {
   console.log(JSON.stringify(reqSessionDetails));
   console.log('\n\nFILE SESSION DETAILS');
   console.log(JSON.stringify(fileSessionDetails));
-  reqSessionDetails = reqSessionDetails.filter(function(a,b){
-    return a.contentDetails.length 
+  reqSessionDetails = reqSessionDetails.filter(function (a, b) {
+    return a.contentDetails.length
   });
   console.log('\n\nfiltered REQUEST SESSION DETAILS ');
   console.log(JSON.stringify(reqSessionDetails));
@@ -48,10 +48,10 @@ function createData(reqData, fileData) {
       if (reqSession.unitId === fileSession.unitId) {
         reqSession.contentDetails.forEach(reqContent => {
           fileSession.contentDetails.forEach(fileContent => {
-            if(reqContent.contentId === fileContent.contentId) {
+            if (reqContent.contentId === fileContent.contentId) {
               fileContent = reqContent;
             } else {
-              console.log('adding new entry into the contentDetails of ',fileContent.contentId);
+              console.log('adding new entry into the contentDetails of ', fileContent.contentId);
               fileSession.contentDetails.push(reqContent);
             }
           });
@@ -63,15 +63,15 @@ function createData(reqData, fileData) {
   return fileData;
 }
 
-function writeToFile(res,dataToWrite) {
+function writeToFile(res, dataToWrite) {
   dataToWrite = JSON.stringify(dataToWrite) ? JSON.stringify(dataToWrite) : '';
   console.log('data given to write is ', JSON.stringify(dataToWrite));
   let response = fs.writeFileSync(livesessionFilePath, dataToWrite);
-    if(response === false) {
-      console.log('unable to write into the file');
-      return res.status(500);
-    }
-    return res.sendStatus(200);
+  if (response === false) {
+    console.log('unable to write into the file');
+    return res.status(500);
+  }
+  return res.sendStatus(200);
 }
 
 module.exports = {
@@ -92,7 +92,7 @@ module.exports = {
         })
     }
   },
-  getLocalImage: function(baseUrl, tenantId, image, callback) {
+  getLocalImage: function (baseUrl, tenantId, image, callback) {
     fs.stat(path.join(__dirname, '../tenant', tenantId, image), function (err, stat) {
       if (err) {
         if (envHelper.DEFAULT_CHANNEL && _.isString(envHelper.DEFAULT_CHANNEL)) {
@@ -138,7 +138,7 @@ module.exports = {
         }
       }, function (err, results) {
         if (err) { }
-        console.log('eerr', err , 'resul', results);
+        console.log('eerr', err, 'resul', results);
         responseObj.logo = results.logo
           ? results.logo : baseUrl + '/assets/images/niit.png'
         responseObj.poster = results.poster
@@ -197,7 +197,7 @@ module.exports = {
       return false;
     }
   },
-  getLiveSession: function(req,res){
+  getLiveSession: function (req, res) {
     console.log('get data')
     let data = fs.readFileSync(livesessionFilePath, 'utf-8');
     console.log('data is ', data);
@@ -206,34 +206,33 @@ module.exports = {
       data = [];
       return res.send(data);
     } else {
-        try {
-          data = JSON.parse(data);
-        }
-        catch (e) {
-          console.log('An error occured while parsing data from the file  ', e);
-          data = [];
-        }
+      try {
+        data = JSON.parse(data);
+      }
+      catch (e) {
+        console.log('An error occured while parsing data from the file  ', e);
+        data = [];
+      }
       return res.json(data);
     }
   },
-  updateLiveSession: function(req,res) {
+  updateLiveSession: function (req, res) {
     console.log('update');
     console.log('\n\n ', req.body);
     //write contents in the file
-    let fileData = readFromFile();  //return json of data if exists else empty string
-    let dataToWrite;
-    if (!!fileData) {
-      //combine the data
-      // console.log('there is some data in the file', JSON.stringify(fileData));
-      // dataToWrite = Object.assign({},req.body,fileData);
-      dataToWrite = createData(req.body, fileData);
-      // console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
-      writeToFile(res,dataToWrite);
-    }
-    else {
-      console.log('no data in the file, writing new one');
-      // write directly to file
-      writeToFile(res,req.body);
-    }
+    // let fileData = readFromFile();  //return json of data if exists else empty string
+    //let dataToWrite;
+    //if (!!fileData) {
+    //combine the data
+    // console.log('there is some data in the file', JSON.stringify(fileData));
+    // dataToWrite = Object.assign({},req.body,fileData);
+    //dataToWrite = createData(req.body, fileData);
+    // console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
+    // writeToFile(res,dataToWrite);
+    //}
+    //else {
+    //console.log('no data in the file, writing new one');
+    // write directly to file
+    writeToFile(res, req.body);
   }
 }
