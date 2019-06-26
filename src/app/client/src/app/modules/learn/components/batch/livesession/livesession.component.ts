@@ -176,7 +176,6 @@ export class LivesessionComponent implements OnInit {
     }, 500);
   }
   create(form: NgForm) {
-    console.log('Form Submitted', form.value );
     const unitDetail = [];
     const units = [];
     const unitIds = [];
@@ -197,7 +196,6 @@ export class LivesessionComponent implements OnInit {
             } else if (key.split(' ')[1] === 'endTime') {
               object['endTime'] = formvalue;
             } else if (key.split(' ')[1] === 'recordedSessionUrl') {
-              console.log('recorded session value', formvalue);
               object['recordedSessionUrl'] = formvalue;
             }
           }
@@ -205,7 +203,6 @@ export class LivesessionComponent implements OnInit {
         if (object['livesessionurl'] !== '' && object['startTime'] !== '' && object['startDate'] !== '' &&
          object['endTime'] !== '' &&  object['recordedSessionUrl'] !== '') {
           units.push(object);
-          console.log('recorded session value', units);
         }
       });
     });
@@ -222,7 +219,6 @@ export class LivesessionComponent implements OnInit {
     this.createSessions(unitDetail, unitIds);
   }
 createSessions(sessionDetails, unitIds) {
-  console.log('session details', sessionDetails, 'unit id', unitIds);
   const sessiondetail = [];
   _.forOwn(sessionDetails, (session: any, key) => {
     const obj = {
@@ -239,10 +235,8 @@ createSessions(sessionDetails, unitIds) {
       unitIds: unitIds,
       sessionDetail: sessiondetail
     };
-    console.log(JSON.stringify(request));
     this.liveSessionService.saveSessionDetails(request)
     .subscribe(response => {
-      console.log('res is ', response);
       if (response) {
         this.toasterService.success('Session Updated Successfully');
       }
@@ -266,7 +260,6 @@ createSessions(sessionDetails, unitIds) {
         });
       });
       this.liveSessionService.getSessionDetails().subscribe(contents => {
-        console.log('get session details ', contents);
         _.forOwn(contents, (content: any) => {
           _.forOwn(content.sessionDetail, (sessions: any) => {
             if (sessions.contentDetails.length > 0) {
@@ -276,7 +269,6 @@ createSessions(sessionDetails, unitIds) {
             }
           });
         });
-        console.log('session details after live service called', this.sessionDetails);
       });
   }
   onUnitChange(event) {

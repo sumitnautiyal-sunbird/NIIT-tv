@@ -33,6 +33,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   @Input() enrolledDate: any;
   @Input() isLoggedIn: boolean;
   @Input() isEnrolled: boolean;
+  @Input() contentStatus;
   // @Input() public courseId: any;
   // @Input() public batchId: any;
   @Input() userName: any;
@@ -52,6 +53,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   isFlashEnabled: any;
   public sessionDetails = {};
   contentDetails;
+  public local;
   @Input() userEnrolledBatch;
   contentTitle;
   currentNode; sessionUrl: any;
@@ -67,10 +69,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   ) {
   }
   ngOnInit() {
-    // $("#date").val( moment().format('MMM D, YYYY') );
-    //  // set a currentDate
-    //  this.currentDate = moment().format('MMM D, YYYY');
-    console.log('current Date', this.currentDate);
+console.log('content ', this.contentStatus);
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
@@ -87,7 +86,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.isLoggedIn = params.isLoggedIn;
       }
     });
-    console.log('content details', this.nodes);
     _.forEach(this.nodes, topic => {
 
       topic['expanded'] = true;
@@ -162,20 +160,16 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   }
 
   getSessionDetails() {
-    console.log('session details function is called');
     this.liveSessionService.getSessionDetails().subscribe(contents => {
-      // _.forOwn(contents, (content: any) => {
-        _.forOwn(contents['sessionDetail'], (sessions: any) => {
-          if (sessions.contentDetails.length > 0) {
-            _.forOwn(sessions.contentDetails, (session: any) => {
-              console.log(session);
-              this.sessionDetails[session.contentId] = session;
-            });
-          }
-        });
+      _.forOwn(contents['sessionDetail'], (sessions: any) => {
+        if (sessions.contentDetails.length > 0) {
+          _.forOwn(sessions.contentDetails, (session: any) => {
+            this.sessionDetails[session.contentId] = session;
+          });
+        }
       });
-    // });
-    // console.log(this.sessionDetails);
+    });
+
   }
   getContentDetails(contentId) {
 
@@ -211,14 +205,10 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
 
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
-    console.log('check', this.isFlashEnabled);
     if (this.isFlashEnabled) {
       this.flashEnable = true;
-      console.log('this.flashEnable', this.flashEnable);
     } else {
-      //
       this.flashEnable = false;
-      console.log('this.flashEnable', this.flashEnable);
     }
   }
   checkFlashEnable() {
@@ -244,16 +234,17 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     this.sessionUrl = this.url.split('&');
     this.participantName = '?guestName=' + this.userName;
     this.liveUrl = this.sessionUrl[0] + this.participantName;
-    console.log('session url', this.liveUrl);
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled) {
         jQuery('#Mymodal').remove();
+        this.setStatusofLiveSession();
         this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
-          { queryParams: { sessionUrl: this.recordedSessionUrl , status: 'recorded'} }
+          { queryParams: { sessionUrl: this.recordedSessionUrl, status: 'recorded' } }
         );
       }
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
+        this.setStatusofLiveSession();
         const start = new Date(this.contentDetails.startDate);
         let starthours;
         let startmin;
@@ -280,5 +271,23 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         this.toasterService.error('please enable the flash on your browser');
       }
     }
+  }
+  setStatusofLiveSession() {
+    console.log('inside status function');
+    this.contentStatus.forEach(contentid => {
+      if (contentid.contentId === this.currentNode.data.id) {
+       localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+       this.local = localStorage.getItem(contentid.contentId);
+       this.local  = JSON.parse(this.local);
+       this.local.status = 2;
+       contentid.status = 2;
+       localStorage.setItem(contentid.contentId, JSON.stringify(contentid));
+       this.contentStatus.push(contentid);
+        console.log('id same', this.local);
+      }
+     });
+     this.currentNode.icon = 'fa fa-circle fa-lg fancy-tree-green';
+     this.currentNode.data.iconColor = 'fancy-tree-green';
+   console.log('icon', this.currentNode.icon);
   }
 }

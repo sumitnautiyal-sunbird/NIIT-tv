@@ -40,6 +40,7 @@ export class CollectionTreeComponent implements OnInit, OnChanges {
   @Input() public name: any;
   @Input() public courseId: any;
   @Input() public batchId: any;
+  @Input() contentId;
   date: Date;
   @Output() public contentSelect: EventEmitter<{
     id: string;
@@ -54,6 +55,7 @@ export class CollectionTreeComponent implements OnInit, OnChanges {
   public preContent = {};
   public contentsStatus = [];
   public completedUnits = [];
+  public local;
   @Input() userEnrolledBatch;
 openLock = false;
 open: boolean;
@@ -69,7 +71,11 @@ open: boolean;
     this.resourceService = resourceService;
   }
   ngOnInit() {
-    console.log('enrolled date', this.enrolledDate, this.enrolled, this.loggedIn, this.name, this.batchId, this.courseId);
+    console.log('enrolled date', this.contentId, this.enrolledDate, this.enrolled, this.loggedIn,
+     this.name, this.batchId, this.courseId, this.contentsStatus);
+//      this.local = localStorage.getItem('');
+//    this.local  = JSON.parse(this.local);
+// console.log('local storage', this.local);
     this.initialize();
   }
 
@@ -135,8 +141,10 @@ open: boolean;
     return model.parse(this.nodes.data);
   }
   private addNodeMeta() {
+
     if (!this.rootNode) { return; }
     this.rootNode.walk((node) => {
+      console.log('this.contentsStatus', this.contentsStatus, node);
       node.fileType = MimeTypeTofileType[node.model.mimeType];
       if (!!node.model.activityType) {
         node.activityType = IactivityType[node.model.activityType];
@@ -160,12 +168,22 @@ open: boolean;
         } else {
           const indexOf = _.findIndex(this.contentStatus, {});
           if (this.contentStatus) {
+            this.local = localStorage.getItem(node.model.identifier);
+            this.local  = JSON.parse(this.local);
+
             const content: any = _.find(this.contentStatus, {
               contentId: node.model.identifier
             });
-            this.contentsStatus.push(content);
-            const status =
+
+         let status =
               content && content.status ? content.status.toString() : 0;
+              if (this.local) {
+                console.log('local defined');
+               content.status = this.local.status;
+               status = this.local.status;
+              }
+              this.contentsStatus.push(content);
+              console.log('status color', this.local, content, this.contentStatus, status);
             node.iconColor = this.iconColor[status];
           } else {
             node.iconColor = this.iconColor['0'];
