@@ -14,6 +14,3 @@
 }
 .tooltip-arrow,
 .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
-.active {
-    color: white;
-}
