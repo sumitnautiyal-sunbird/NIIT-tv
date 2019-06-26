@@ -196,6 +196,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
       this.userEnrolledBatch
     ) {
       this.openModal = true;
+      jQuery('#Mymodal').modal('show');
       this.contentDetails = this.sessionDetails[contentId];
     } else {
       this.openModal = false;
@@ -262,12 +263,6 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     return hasFlash;
   }
   gotoLiveSession(openModal) {
-    jQuery(document).ready(() => {
-      jQuery('button').click(() => {
-        jQuery('#Mymodal').remove();
-      });
-    });
-    jQuery('#Mymodal').modal('close');
     this.url = this.contentDetails.livesessionurl;
     this.recordedSessionUrl = this.contentDetails.recordedSessionUrl;
     this.sessionUrl = this.url.split('&');
@@ -276,6 +271,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
     console.log('session url', this.liveUrl);
     if (this.sessionExpired) {
       if (this.isLoggedIn && this.isEnrolled) {
+        jQuery('#Mymodal').remove();
         this.router.navigate(
           [
             '/learn/course/' +
@@ -309,6 +305,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
         const endtime = start.setHours(endhours, endmin);
         const now = new Date().getTime();
         if (starttime < now && now < endtime) {
+          jQuery('#Mymodal').remove();
           this.router.navigate(
             [
               '/learn/course/' +
@@ -320,7 +317,7 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
             { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
           );
         } else {
-          this.toasterService.error('session is not yet started');
+          this.toasterService.warning('session is not yet started');
         }
       } else {
         this.toasterService.error('please enable the flash on your browser');
