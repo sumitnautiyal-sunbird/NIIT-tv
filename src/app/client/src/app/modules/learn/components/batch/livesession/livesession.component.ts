@@ -132,8 +132,8 @@ export class LivesessionComponent implements OnInit {
       this.courseBatchService.getEnrolledBatchDetails(this.batchId),
       this.liveSessionService.getSessionDetails()
     ).pipe(mergeMap(data => {
-      let params = data[0];
-      let getSessionData = [data[1], data[2]];
+      const params = data[0];
+      const getSessionData = [data[1], data[2]];
 
       this.courseId = params.courseId;
       this.setTelemetryImpressionData();
@@ -145,7 +145,7 @@ export class LivesessionComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.unitDetails = data.courseDetails.children;
-        console.log("unit details", this.unitDetails);
+        console.log('unit details', this.unitDetails);
         _.forOwn(this.unitDetails, (courseData: any) => {
           this.getContent(courseData.identifier, courseData);
           this.preContent[courseData.identifier] = this.children;
@@ -173,7 +173,7 @@ export class LivesessionComponent implements OnInit {
         if (child.hasOwnProperty('activityType') && child.activityType === 'live Session') {
           for (let l = 0; l < this.sessionDetails.length; l++) {
             if (child.identifier === this.sessionDetails[l].contentId) {
-              child['livesessiondata'] = this.sessionDetails[l]
+              child['livesessiondata'] = this.sessionDetails[l];
 
             }
           }
@@ -286,8 +286,8 @@ export class LivesessionComponent implements OnInit {
       });
   }
   getSessionDetails(getSessionData: Array<object>) {
-    let data1 = getSessionData[0];
-    let data2 = getSessionData[1];
+    const data1 = getSessionData[0];
+    const data2 = getSessionData[1];
     console.log('data recieved in getSessionDetails', getSessionData);
     _.forOwn(data1, (batch: any, key) => {
       if (key === 'createdDate') {
