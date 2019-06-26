@@ -29,6 +29,7 @@ h6 {
 }
   .filter-reset-text-div{
     background: #F3F3F3;
+    overflow: hidden;
   }
 
 

@@ -244,6 +244,7 @@ createSessions(sessionDetails, unitIds) {
       if (err.status === 200) {
         this.toasterService.success('Session Updated Successfully');
       } else {
+        console.log('error while updating live session :', err);
         this.toasterService.error('Failed to update live session. Try again later');
       }
     });

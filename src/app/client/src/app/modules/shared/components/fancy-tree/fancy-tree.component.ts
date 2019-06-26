@@ -73,6 +73,18 @@ console.log('content ', this.contentStatus);
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = params.courseId;
       this.batchId = params.batchId;
+      if (params.hasOwnProperty('userEnrolledBatch')) {
+        this.userEnrolledBatch = params.userEnrolledBatch;
+      }
+      if (params.hasOwnProperty('userName')) {
+        this.userName = params.userName;
+      }
+      if (params.hasOwnProperty('isEnrolled')) {
+        this.isEnrolled = params.isEnrolled;
+      }
+      if (params.hasOwnProperty('isLoggedIn')) {
+        this.isLoggedIn = params.isLoggedIn;
+      }
     });
     _.forEach(this.nodes, topic => {
 
@@ -126,15 +138,17 @@ console.log('content ', this.contentStatus);
       },
       click: (event, data): boolean => {
         flag = false;
-        console.log('data in onclick of each content', data);
-        const node = data.node;
+        console.log('data', data);
+        const node = _.cloneDeep(data.node);
         this.currentNode = node;
+        console.log('data', data);
         this.contentTitle = node.title;
-        if (data.node.data.activityType !== 'headset') {
+        if (node.data.activityType !== 'headset') {
           this.itemSelect.emit(node);
           return true;
         } else {
-        this.getContentDetails(node.data.id);
+          console.log('in else block', node.data.id);
+          this.getContentDetails(node.data.id);
         }
       }
     };
@@ -170,30 +184,23 @@ console.log('content ', this.contentStatus);
         this.toasterService.error('Sorry this content does not have any Live Session');
       }
     }
+    const sessionData = {'startDate': this.contentDetails.startDate, 'endTime': this.contentDetails.endTime };
 
-    const time = this.contentDetails.endTime.split(':');
-    const liveSessionDate = this.contentDetails.startDate.split('-');
+    this.sessionExpired = this.isSessionExpired(sessionData);
+    }
 
-    if (liveSessionDate[0] < this.currentDate.getFullYear()) {
-      this.sessionExpired = true;
-    } else {
-      if (liveSessionDate[1] < (this.currentDate.getMonth() + 1)) {
-        this.sessionExpired = true;
-      } else {
-        if (liveSessionDate[2] < this.currentDate.getDate()) {
-          this.sessionExpired = true;
-        } else if (!(liveSessionDate[2] > this.currentDate.getDate())) {
-          if (time[0] < this.currentDate.getHours()) {
-            this.sessionExpired = true;
-          } else {
-            if (time[1] < this.currentDate.getMinutes()) {
-              this.sessionExpired = true;
-            }
-          }
+    isSessionExpired(sessionExpiration) {
+      const liveSessionDate = sessionExpiration.startDate;
+      if (liveSessionDate) {
+        const endTime = sessionExpiration.endTime;
+        if (endTime) {
+          const newDate = new Date(liveSessionDate);
+          newDate.setHours(endTime.split(':')[0], endTime.split(':')[1]);
+          // compare the dates
+          return (new Date().getTime() - newDate.getTime() ) > 0 ? true : false;
         }
       }
     }
-  }
 
   getFlashDetails() {
     this.isFlashEnabled = this.checkFlashEnable();
@@ -242,9 +249,27 @@ console.log('content ', this.contentStatus);
     } else {
       if (this.isLoggedIn && this.isEnrolled && this.flashEnable) {
         this.setStatusofLiveSession();
-        this.router.navigate(['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
+        const start = new Date(this.contentDetails.startDate);
+        let starthours;
+        let startmin;
+        let endhours;
+        let endmin;
+        if (this.contentDetails.startTime && this.contentDetails.endTime) {
+         starthours = this.contentDetails.startTime.split(':')[0];
+         startmin = this.contentDetails.startTime.split(':')[1];
+         endhours = this.contentDetails.endTime.split(':')[0];
+         endmin = this.contentDetails.endTime.split(':')[1];
+        }
+        const starttime = start.setHours(starthours, startmin);
+        const endtime = start.setHours(endhours, endmin);
+        const now = new Date().getTime();
+        if ( (starttime < now) && (now < endtime) ) {
+          this.router.navigate( ['/learn/course/' + this.courseId + '/batch/' + this.batchId + '/live-session'],
           { queryParams: { sessionUrl: this.liveUrl, status: 'live' } }
         );
+        } else {
+        this.toasterService.error('session is not yet started');
+        }
       } else {
         this.toasterService.error('please enable the flash on your browser');
       }

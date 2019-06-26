@@ -18,7 +18,15 @@ const livesessionFilePath = path.join(__dirname,'../' ,'livesession.json');
 function readFromFile() {
   let fileData = fs.readFileSync(livesessionFilePath, 'utf-8');
   if(fileData.length > 0) {
-    return JSON.parse(fileData);
+    try {
+      fileData =  JSON.parse(fileData);
+      return fileData;
+    }
+    catch (e) {
+      console.log('\n\nerror while reading JSON from File');
+      console.log(e);
+      return '';
+    }
   }
   return ''
 }
@@ -26,21 +34,32 @@ function readFromFile() {
 function createData(reqData, fileData) {
   let reqSessionDetails = reqData.sessionDetail;
   let fileSessionDetails = fileData.sessionDetail;
-  reqSessionDetails =reqSessionDetails.filter(function(a,b){
+  console.log('\n\nREQUEST SESSION DETAILS ');
+  console.log(JSON.stringify(reqSessionDetails));
+  console.log('\n\nFILE SESSION DETAILS');
+  console.log(JSON.stringify(fileSessionDetails));
+  reqSessionDetails = reqSessionDetails.filter(function(a,b){
     return a.contentDetails.length 
   });
+  console.log('\n\nfiltered REQUEST SESSION DETAILS ');
+  console.log(JSON.stringify(reqSessionDetails));
   reqSessionDetails.forEach(reqSession => {
     fileSessionDetails.forEach(fileSession => {
       if (reqSession.unitId === fileSession.unitId) {
-        if (reqSession.contentDetails.length > 0) {
-          console.log('updating');
-          fileSession.contentDetails = reqSession.contentDetails;
-        }
+        reqSession.contentDetails.forEach(reqContent => {
+          fileSession.contentDetails.forEach(fileContent => {
+            if(reqContent.contentId === fileContent.contentId) {
+              fileContent = reqContent;
+            } else {
+              console.log('adding new entry into the contentDetails of ',fileContent.contentId);
+              fileSession.contentDetails.push(reqContent);
+            }
+          });
+        });
       }
     });
   });
   fileData.sessionDetail = fileSessionDetails;
-  console.log('FILE DATA SESSION ', JSON.stringify(fileData.sessionDetail));
   return fileData;
 }
 
@@ -202,18 +221,18 @@ module.exports = {
     console.log('\n\n ', req.body);
     //write contents in the file
     let fileData = readFromFile();  //return json of data if exists else empty string
-    let dataToWrite = undefined;
+    let dataToWrite;
     if (!!fileData) {
       //combine the data
-      console.log('there is some data in the file', JSON.stringify(fileData));
+      // console.log('there is some data in the file', JSON.stringify(fileData));
       // dataToWrite = Object.assign({},req.body,fileData);
       dataToWrite = createData(req.body, fileData);
-      console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
+      // console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
       writeToFile(res,dataToWrite);
     }
     else {
       console.log('no data in the file, writing new one');
-      //write directly to file
+      // write directly to file
       writeToFile(res,req.body);
     }
   }

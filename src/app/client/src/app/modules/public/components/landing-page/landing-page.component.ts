@@ -172,15 +172,16 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     this.sortingOptions = this.configService.dropDownConfig.FILTER.RESOURCES.sortingOptions;
   }
   ngOnInit() {
-    // this.homeConfig = this.tenantTheme.getTenantThemeConfig('Home');
-    this.tenantData = this.cookieSrvc.getCookie('theming') || null;
-    if (!!this.tenantData) {
-      this.tenantData = JSON.parse(this.tenantData);
-      this.homeConfig = this.tenantData['tenantPreferenceDetails']['Home'];
-    }
-    // this.homeConfig = this.cookieSrvc.getCookieKey('theming', 'tenantPreferenceDetails')['Home'];
-    if (this.homeConfig) {
-      console.log('this ishomeConfig in landingPage ', this.homeConfig);
+    let cookieData = this.cookieSrvc.getCookie('theming');
+    if (!!cookieData) {
+      cookieData = JSON.parse(cookieData);
+      if (cookieData.constructor === Object) {
+        this.tenantData = _.cloneDeep(cookieData);
+      this.homeConfig = _.cloneDeep(cookieData['tenantPreferenceDetails']['Home']);
+      console.log('RECIEVED THE TENANT THEME AS in ngOninit ', this.homeConfig);
+      }
+    } else {
+      console.log('Did not recieve tenantPrefereneDetails in landing page oninit');
     }
     // set the active class behaviour in  the navtabs of popular section
     jQuery(document).ready(() => {
@@ -389,7 +390,19 @@ if (this.userService.loggedIn) {
   }
 
   ngAfterViewInit(): void {
-    this.homeConfig = this.cookieSrvc.getCookieKey('theming', 'tenantPreferenceDetails')['Home'];
-    console.log('RECIEVED THE TENANT THEME AS  ', this.homeConfig);
+    if (!this.tenantData || !this.homeConfig) {
+      console.log('tenantData ot homeConfig is now undefined, need to refetch them if possible');
+      let cookieData = this.cookieSrvc.getCookie('theming');
+    if (!!cookieData) {
+      cookieData = JSON.parse(cookieData);
+      if (cookieData.constructor === Object) {
+        this.tenantData = _.cloneDeep(cookieData);
+      this.homeConfig = _.cloneDeep(cookieData['tenantPreferenceDetails']['Home']);
+      console.log('RECIEVED THE TENANT THEME AS in AfterngViewInit ', this.homeConfig);
+      }
+    } else {
+      console.log('Did not recieve tenantPrefereneDetails in landing page AfterngViewinit');
+    }
+    }
   }
 }

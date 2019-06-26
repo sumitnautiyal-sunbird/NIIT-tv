@@ -530,7 +530,16 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.permissionService.checkRolesPermissions(this.previewContentRoles) ||
         this.courseHierarchy.createdBy === this.userService.userid && this.userEnrolledBatch
       ) {
-        this.route.navigate(['/learn/play/batch', this.batchId, 'course', this.courseId, {enrolledDate: this.enrolledDate}],
+// tslint:disable-next-line: max-line-length
+        this.route.navigate(['/learn/play/batch', this.batchId, 'course', this.courseId,
+        {
+          enrolledDate: this.enrolledDate,
+          userEnrolledBatch: this.userEnrolledBatch,
+          userName: this.userName,
+          isEnrolled: this.isEnrolled,
+          isLoggedIn: this.isLoggedIn
+        }
+      ],
          navigationExtras);
         this.enableContentPlayer = false;
 
