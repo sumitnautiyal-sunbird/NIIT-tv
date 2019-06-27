@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { ContentService } from "@sunbird/core";
-import { ConfigService } from "@sunbird/shared";
-import { BadgesService } from "../../../core/services/badges/badges.service";
-import { DomSanitizer } from "@angular/platform-browser";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContentService } from '@sunbird/core';
+import { ConfigService } from '@sunbird/shared';
+import { BadgesService } from '../../../core/services/badges/badges.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: "app-live-session-url",
-  templateUrl: "./live-session-url.component.html",
-  styleUrls: ["./live-session-url.component.scss"]
+  selector: 'app-live-session-url',
+  templateUrl: './live-session-url.component.html',
+  styleUrls: ['./live-session-url.component.scss']
 })
 export class LiveSessionUrlComponent implements OnInit {
   public activatedRoute: ActivatedRoute;
@@ -19,7 +19,7 @@ export class LiveSessionUrlComponent implements OnInit {
   assetDetail: any;
   sanitizer: any;
   showLoader = true;
-  loaderMessage = "Loading abobe please wait";
+  loaderMessage = 'Loading abobe please wait';
   path: string;
   path1: string;
   userName: string;
@@ -48,17 +48,17 @@ export class LiveSessionUrlComponent implements OnInit {
 
   getOrigin() {
     const host =
-      window.location.hostname === "localhost"
+      window.location.hostname === 'localhost'
         ? window.location.host
         : window.location.origin;
-    console.log("host is ", host);
+    console.log('host is ', host);
     return host;
   }
 
   ngOnInit() {
-    if (this.sessionStatus === "recorded") {
+    if (this.sessionStatus === 'recorded') {
       this.status = true;
-      this.assetDetail = this.sessionUrl + "&origin=" + this.getOrigin();
+      this.assetDetail = this.sessionUrl + '&origin=' + this.getOrigin();
       this.showLoader = false;
     } else {
       this.showLoader = false;
