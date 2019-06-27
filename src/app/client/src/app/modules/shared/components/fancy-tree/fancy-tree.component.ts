@@ -90,6 +90,7 @@ console.log('content ', this.contentStatus);
 
       topic['expanded'] = true;
       if (this.enrolledDate) {
+        debugger;
         topic.startDate = this.addDate(topic.model.activitystart);
         topic.endDate = this.addDate(topic.model.activityend);
         topic.title = topic.title + '<span class="date">' + topic.startDate + ' - ' + topic.endDate + '</span>';
@@ -142,7 +143,7 @@ console.log('content ', this.contentStatus);
         const node = _.cloneDeep(data.node);
         this.currentNode = node;
         console.log('data', data);
-        this.contentTitle = node.title;
+        this.contentTitle = node.title.split('<')[0];
         if (node.data.activityType !== 'headset') {
           this.itemSelect.emit(node);
           return true;
