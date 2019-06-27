@@ -104,7 +104,7 @@ export class LivesessionComponent implements OnInit {
   public preContent = [];
   public activityContents = [];
   public childContents = [];
-  public sessionDetails = {};
+  public sessionDetails = [];
   public validationStatus = false;
   livesessionfound: boolean;
   constructor(
@@ -130,51 +130,58 @@ export class LivesessionComponent implements OnInit {
 
   ngOnInit() {
     this.batchId = this.activatedRoute.snapshot.params.batchId;
-    this.activatedRoute.parent.params
-      .pipe(
-        mergeMap(params => {
-          console.log(params);
-          this.courseId = params.courseId;
-          this.setTelemetryImpressionData();
-          this.showCreateModal = true;
-          this.getSessionDetails();
-          return this.fetchBatchDetails();
-        }),
-        takeUntil(this.unsubscribe)
-      )
-      .subscribe(
-        data => {
-          console.log(data);
-          this.unitDetails = data.courseDetails.children;
-          this.nonliveunit = [];
-          _.forOwn(this.unitDetails, (courseData: any) => {
-            this.livesessionfound = false;
-            this.getContent(courseData.identifier, courseData);
-            this.preContent[courseData.identifier] = this.children;
-            this.activityContents[courseData.identifier] = this.childContents;
-            this.children = [];
-            this.childContents = [];
-          });
-          const uniquedata = _.uniqBy(this.nonliveunit, e => {
-            return e;
-          });
-          this.filterUnitData(this.unitDetails, uniquedata);
-        },
-        err => {
-          if (err.error && err.error.params.errmsg) {
-            this.toasterService.error(err.error.params.errmsg);
-          } else {
-            this.toasterService.error(this.resourceService.messages.fmsg.m0056);
-          }
-          this.redirect();
+    combineLatest(
+      this.activatedRoute.parent.params,
+      this.courseBatchService.getEnrolledBatchDetails(this.batchId),
+      this.liveSessionService.getSessionDetails()
+    ).pipe(mergeMap(data => {
+      const params = data[0];
+      const getSessionData = [data[1], data[2]];
+
+      this.courseId = params.courseId;
+      this.setTelemetryImpressionData();
+      this.showCreateModal = true;
+      this.getSessionDetails(getSessionData);
+      return this.fetchBatchDetails();
+
+    })
+	
+	,takeUntil(this.unsubscribe)
+	)
+      .subscribe((data) => {
+        console.log(data);
+        this.unitDetails = data.courseDetails.children;
+        this.nonliveunit = [];
+        console.log('unit details', this.unitDetails);
+        _.forOwn(this.unitDetails, (courseData: any) => {
+          this.livesessionfound = false;
+          this.getContent(courseData.identifier, courseData);
+          this.preContent[courseData.identifier] = this.children;
+          this.activityContents[courseData.identifier] = this.childContents;
+          this.children = [];
+          this.childContents = [];
+        });
+        const uniquedata = _.uniqBy(this.nonliveunit, e => {
+          return e;
+        });
+        this.filterUnitData(this.unitDetails, uniquedata);
+      }, (err) => {
+        if (err.error && err.error.params.errmsg) {
+          this.toasterService.error(err.error.params.errmsg);
+        } else {
+          this.toasterService.error(this.resourceService.messages.fmsg.m0056);
         }
-      );
+        this.redirect();
+      });
+    console.log('Pre Content', this.preContent);
+    console.log('ActivityContent', this.activityContents);
   }
   public filterUnitData(unitDetails: any[], uniquedata: any[]) {
     const result = unitDetails.filter(({ identifier }) =>
       uniquedata.includes(identifier)
     );
     this.unitDetails = result;
+    console.log("new unit details",this.unitDetails);
   }
   public getContent(rootId, children) {
     _.forOwn(children.children, child => {
@@ -185,6 +192,12 @@ export class LivesessionComponent implements OnInit {
           child.hasOwnProperty('activityType') &&
           child.activityType === 'live Session'
         ) {
+          for (let l = 0; l < this.sessionDetails.length; l++) {
+            if (child.identifier === this.sessionDetails[l].contentId) {
+              child['livesessiondata'] = this.sessionDetails[l];
+
+            }
+          }
           this.livesessionfound = true;
           this.children.push(child);
           this.childContents.push(child.identifier);
@@ -226,8 +239,10 @@ export class LivesessionComponent implements OnInit {
     const unitIds = [];
     let unitContents = [];
     let object = {};
+    let validatedtofalse=true;
     _.forOwn(this.activityContents, (contents: any, unitId) => {
       _.forEach(contents, content => {
+        if(validatedtofalse){
         object = {};
         _.forOwn(form.value, (formvalue: any, key) => {
           if (key.split(' ')[0] === content) {
@@ -244,19 +259,38 @@ export class LivesessionComponent implements OnInit {
               object['recordedSessionUrl'] = formvalue;
             }
           }
-        });
+        });}
         if (
-          object['livesessionurl'] !== '' &&
-          object['startTime'] !== '' &&
-          object['startDate'] !== '' &&
-          object['endTime'] !== '' &&
-          object['recordedSessionUrl'] !== ''
+          !!object['livesessionurl']  &&
+          !!object['startTime']  &&
+          !!object['startDate']  &&
+          !!object['endTime']  &&
+          !!object['recordedSessionUrl'] 
         ) {
           this.validationStatus = true;
           units.push(object);
         }
+        else if (
+          !object['livesessionurl'] &&
+          !object['startTime'] &&
+          !object['startDate'] &&
+          !object['endTime'] &&
+          !object['recordedSessionUrl']
+        ) {
+          this.validationStatus = true;
+        }
+        else
+        { 
+          if(validatedtofalse){
+          this.toasterService.error('Please fill all the required fileds');
+          }
+          validatedtofalse=false;
+          this.validationStatus = false;
+          
+        } 
       });
     });
+    if(this.validationStatus){
     _.forOwn(this.activityContents, (contents: any, unitId) => {
       _.forOwn(units, (content: any) => {
         if (_.includes(contents, content.contentId)) {
@@ -268,6 +302,7 @@ export class LivesessionComponent implements OnInit {
       unitContents = [];
     });
     this.createSessions(unitDetail, unitIds);
+  }
   }
   createSessions(sessionDetails, unitIds) {
     const sessiondetail = [];
@@ -305,32 +340,26 @@ export class LivesessionComponent implements OnInit {
         }
       );
       this.validationStatus = false;
-    } else {
-      this.toasterService.error('Please fill all the required fileds');
     }
   }
-  getSessionDetails() {
-    this.courseBatchService
-      .getEnrolledBatchDetails(this.batchId)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((data: ServerResponse) => {
-        _.forOwn(data, (batch: any, key) => {
-          if (key === 'createdDate') {
-            this.batchCreatedDate = batch;
-          }
-        });
-      });
-    this.liveSessionService.getSessionDetails().subscribe(contents => {
-      _.forOwn(contents, (content: any) => {
-        _.forOwn(content.sessionDetail, (sessions: any) => {
-          if (sessions.contentDetails.length > 0) {
-            _.forOwn(sessions.contentDetails, (session: any) => {
-              this.sessionDetails[session.contentId] = session;
-            });
-          }
-        });
-      });
+  getSessionDetails(getSessionData: Array<object>) {
+    const data1 = getSessionData[0];
+    const data2 = getSessionData[1];
+    console.log('data recieved in getSessionDetails', getSessionData);
+    _.forOwn(data1, (batch: any, key) => {
+      if (key === 'createdDate') {
+        this.batchCreatedDate = batch;
+      }
     });
+    _.forOwn(data2['sessionDetail'], (sessions: any) => {
+      if (sessions.contentDetails.length > 0) {
+        _.forOwn(sessions.contentDetails, (session: any) => {
+          this.sessionDetails.push(session);
+        });
+      }
+    });
+
+    console.log('session details after live service called', this.sessionDetails);
   }
   onUnitChange(event) {
     console.log(event);
