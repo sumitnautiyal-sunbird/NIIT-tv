@@ -145,9 +145,9 @@ export class LivesessionComponent implements OnInit {
       return this.fetchBatchDetails();
 
     })
-	
-	,takeUntil(this.unsubscribe)
-	)
+
+  , takeUntil(this.unsubscribe)
+  )
       .subscribe((data) => {
         console.log(data);
         this.unitDetails = data.courseDetails.children;
@@ -181,7 +181,7 @@ export class LivesessionComponent implements OnInit {
       uniquedata.includes(identifier)
     );
     this.unitDetails = result;
-    console.log("new unit details",this.unitDetails);
+    console.log('new unit details', this.unitDetails);
   }
   public getContent(rootId, children) {
     _.forOwn(children.children, child => {
@@ -239,10 +239,10 @@ export class LivesessionComponent implements OnInit {
     const unitIds = [];
     let unitContents = [];
     let object = {};
-    let validatedtofalse=true;
+    let validatedtofalse = true;
     _.forOwn(this.activityContents, (contents: any, unitId) => {
       _.forEach(contents, content => {
-        if(validatedtofalse){
+        if (validatedtofalse) {
         object = {};
         _.forOwn(form.value, (formvalue: any, key) => {
           if (key.split(' ')[0] === content) {
@@ -259,18 +259,17 @@ export class LivesessionComponent implements OnInit {
               object['recordedSessionUrl'] = formvalue;
             }
           }
-        });}
+        }); }
         if (
           !!object['livesessionurl']  &&
           !!object['startTime']  &&
           !!object['startDate']  &&
           !!object['endTime']  &&
-          !!object['recordedSessionUrl'] 
+          !!object['recordedSessionUrl']
         ) {
           this.validationStatus = true;
           units.push(object);
-        }
-        else if (
+        } else if (
           !object['livesessionurl'] &&
           !object['startTime'] &&
           !object['startDate'] &&
@@ -278,19 +277,17 @@ export class LivesessionComponent implements OnInit {
           !object['recordedSessionUrl']
         ) {
           this.validationStatus = true;
-        }
-        else
-        { 
-          if(validatedtofalse){
+        } else {
+          if (validatedtofalse) {
           this.toasterService.error('Please fill all the required fileds');
           }
-          validatedtofalse=false;
+          validatedtofalse = false;
           this.validationStatus = false;
-          
-        } 
+
+        }
       });
     });
-    if(this.validationStatus){
+    if (this.validationStatus) {
     _.forOwn(this.activityContents, (contents: any, unitId) => {
       _.forOwn(units, (content: any) => {
         if (_.includes(contents, content.contentId)) {
