@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@sunbird/shared';
 import { SuiModule } from 'ng2-semantic-ui/dist';
 import { SlickModule } from 'ngx-slick';
+import { ImagePreloadDirective } from './components/course-consumption/course-player/directive/image-preload.directive';
 import { NgInviewModule } from 'angular-inport';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -75,6 +76,7 @@ import { LiveSessionUrlComponent } from './components/live-session-url/live-sess
     CourseDeliveryPageComponent,
     LiveSessionUrlComponent,
     LivesessionComponent,
+    ImagePreloadDirective,
     UpdateLivesessionComponent,
   ]
 })
