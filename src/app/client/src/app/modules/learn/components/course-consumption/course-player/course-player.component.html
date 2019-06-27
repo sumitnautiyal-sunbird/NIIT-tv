@@ -5,8 +5,8 @@
         <div class="row banner-main-row">
           <div class="col-xs-12 col-sm-12 col-md-5 image-section">
             <div class="image-wrapper">
-              <img *ngIf="courseHierarchy?.appIcon || defaultImageSrc" class="float-right" [src]='courseHierarchy?.appIcon || defaultImageSrc' alt="course-image"
-                width="300px" height="250px">
+              <img *ngIf="courseHierarchy?.appIcon || defaultImageSrc" class="float-right"
+                [src]='courseHierarchy?.appIcon || defaultImageSrc' alt="course-image" width="300px" height="250px">
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 offset-md-1 banner-content-section float-right white-text">
@@ -48,32 +48,34 @@
         </div>
       </div>
     </div>
-    </header>
-    <!--banner section ends-->
-    <div class="container custom-margin">
-        <div class="tab-view" *ngIf="!enableContentPlayer && !loader">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#overview">{{resourceService.frmelmnts.lbl.overview}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#course-content">{{resourceService.frmelmnts.lbl.CourseContent}}</a>
-                </li>
-                <li class="nav-item">
-                    <!-- <a class="nav-link" data-toggle="pill" href="#qa">QA</a> -->
-                    <a class="nav-link" data-toggle="pill" href="#notes">{{resourceService.frmelmnts.lbl.Notes}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#discussions">{{resourceService.frmelmnts.lbl.Discussions}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#announcement">{{resourceService.frmelmnts.lbl.Announcements}}</a>
-                </li>
-                <li class="nav-item" *ngIf="courseStatus !== 'Unlisted'">
-                    <a class="nav-link" data-toggle="pill" href="#batchdetails">{{resourceService.frmelmnts.lbl.BatchDetails}}</a>
-                </li>
-            </ul>
-        </div>
+  </header>
+  <!--banner section ends-->
+  <div class="container custom-margin">
+    <div class="tab-view" *ngIf="!enableContentPlayer && !loader">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#overview">{{resourceService.frmelmnts.lbl.overview}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="pill"
+            href="#course-content">{{resourceService.frmelmnts.lbl.CourseContent}}</a>
+        </li>
+        <li class="nav-item">
+          <!-- <a class="nav-link" data-toggle="pill" href="#qa">QA</a> -->
+          <a class="nav-link" data-toggle="pill" href="#notes">{{resourceService.frmelmnts.lbl.Notes}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#discussions">{{resourceService.frmelmnts.lbl.Discussions}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill"
+            href="#announcement">{{resourceService.frmelmnts.lbl.Announcements}}</a>
+        </li>
+        <li class="nav-item" *ngIf="courseStatus !== 'Unlisted'">
+          <a class="nav-link" data-toggle="pill" href="#batchdetails">{{resourceService.frmelmnts.lbl.BatchDetails}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="ui container" [appTelemetryStart]="telemetryCourseStart" [appTelemetryEnd]="telemetryCourseEndEvent">
     <div class="ui stackable grid mt-20">
@@ -98,11 +100,14 @@
                             <p>{{ courseHierarchy.description}}</p>
                             <div class="meta">
                               <p>{{resourceService.frmelmnts.lbl.courseCreatedBy}}: {{courseHierarchy.creator}}</p>
-                              <p>{{resourceService.frmelmnts.lbl.organisation}} : {{courseHierarchy.orgDetails.orgName}}</p>
+                              <p>{{resourceService.frmelmnts.lbl.organisation}} : {{courseHierarchy.orgDetails.orgName}}
+                              </p>
                             </div>
-                            <app-activitytype-card *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-activitytype-card>
+                            <app-activitytype-card *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity">
+                            </app-activitytype-card>
                             <div class="extra content">
-                              <p>{{resourceService.frmelmnts.lbl.createdon}} : {{courseHierarchy.createdOn | dateFormat}}
+                              <p>{{resourceService.frmelmnts.lbl.createdon}} :
+                                {{courseHierarchy.createdOn | dateFormat}}
                               </p>
                               <p>{{resourceService.frmelmnts.lbl.LastUpdatedOn}} :
                                 {{courseHierarchy.lastUpdatedOn | dateFormat}}</p>
@@ -128,32 +133,37 @@
                                         </p>
                                       </div>
                                 </div> -->
-                                        </div>
-                                        <!--course content section-->
-                                        <div class="tab-pane container active" id="course-content">
-                                            <div class="ui header text-align-right" style="font-size : 1em;">
-                                                    <span class="fas fa-circle" style="color : grey">&nbsp; {{resourceService.frmelmnts.lbl.Unvisited}}</span> | <span class="fas fa-circle" style="color : #024F9D">&nbsp; {{resourceService.frmelmnts.lbl.Incomplete}}</span> | <span class="fas fa-circle" style="color : #07BC81">&nbsp; {{resourceService.frmelmnts.lbl.Complete}}</span>
-                                                <!-- <img src="src/app/dist/assets/images/sunbird_logo.png"> -->
-                                                <!-- <img src="../../../../../../../../dist/assets/images/sunbird_logo.png"> -->
-                                            </div>
-                                            <app-collection-tree
-                                                *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
-                                                (contentSelect)="navigateToContent($event)"
-                                                [nodes]="collectionTreeNodes" [options]="collectionTreeOptions" [courseId]="courseId" [batchId]="batchId"
-                                                [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" [loggedIn]="isLoggedIn" [enrolled]="isEnrolled" [name]="userName"
-                                                [userEnrolledBatch] = "userEnrolledBatch"></app-collection-tree>
-                                            <ng-template #dataCommingSoon>
-                                                <div class="placeholder mt-40">
-                                                    <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
-                                                    <h5 class="header placeholder-heading mb-5">
-                                                        {{resourceService?.messages?.stmsg?.m0121}}</h5>
-                                                    <p class="placeholder-content">
-                                                        {{resourceService?.messages?.stmsg?.m0122}}</p>
-                                                </div>
-                                            </ng-template>
-                                        </div>
-                                        <!--QA section-->
-                                        <!-- <div class="tab-pane fade container" id="qa">
+                    </div>
+                    <!--course content section-->
+                    <div class="tab-pane container active" id="course-content">
+                      <div class="ui header text-align-right" style="font-size : 1em;">
+                        <span class="fas fa-circle" style="color : grey">&nbsp;
+                          {{resourceService.frmelmnts.lbl.Unvisited}}</span> | <span class="fas fa-circle"
+                          style="color : #024F9D">&nbsp; {{resourceService.frmelmnts.lbl.Incomplete}}</span> | <span
+                          class="fas fa-circle" style="color : #07BC81">&nbsp;
+                          {{resourceService.frmelmnts.lbl.Complete}}</span>
+                        <!-- <img src="src/app/dist/assets/images/sunbird_logo.png"> -->
+                        <!-- <img src="../../../../../../../../dist/assets/images/sunbird_logo.png"> -->
+                      </div>
+                      <app-collection-tree
+                        *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
+                        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
+                        [options]="collectionTreeOptions" [courseId]="courseId" [batchId]="batchId"
+                        [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" [loggedIn]="isLoggedIn"
+                        [enrolled]="isEnrolled" [name]="userName" [userEnrolledBatch]="userEnrolledBatch">
+                      </app-collection-tree>
+                      <ng-template #dataCommingSoon>
+                        <div class="placeholder mt-40">
+                          <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
+                          <h5 class="header placeholder-heading mb-5">
+                            {{resourceService?.messages?.stmsg?.m0121}}</h5>
+                          <p class="placeholder-content">
+                            {{resourceService?.messages?.stmsg?.m0122}}</p>
+                        </div>
+                      </ng-template>
+                    </div>
+                    <!--QA section-->
+                    <!-- <div class="tab-pane fade container" id="qa">
                                             <div class="container card-wrapper">
                                                 <div class="ui card">
                                                     <div class="content">
@@ -163,74 +173,74 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <!--notes section-->
-                                        <div class="tab-pane fade container" id="notes">
-                                            <div class="container card-wrapper">
-                                                <div class="ui card">
-                                                    <!-- <div class="content">
+                    <!--notes section-->
+                    <div class="tab-pane fade container" id="notes">
+                      <div class="container card-wrapper">
+                        <div class="ui card">
+                          <!-- <div class="content">
                                                         <div class="header text-align-center no-content">No content available to
                                                             display in notes </div>
                                                     </div> -->
-                                                    <app-note-card [ids]="{contentId:contentId, courseId:courseId}"
-                                                [createNoteData]="createNoteData">
-                                            </app-note-card>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--Discussions section-->
-                                        <div class="tab-pane fade container" id="discussions">
-                                            <div class="container card-wrapper">
-                                                <div class="ui card">
-                                                    <div class="content">
-                                                        <div class="header text-align-center no-content">{{resourceService.frmelmnts.lbl.discussionsSoon}} </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--announcements section-->
-                                        <div class="tab-pane fade container" id="announcement">
-                                            <div class="container card-wrapper">
-                                                <div class="ui card">
-                                                    <div class="content">
-                                                        <div class="header text-align-center no-content">{{resourceService.frmelmnts.lbl.NoContent}} </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--Batach Details section-->
-                                        <div class="tab-pane fade container" id="batchdetails" *ngIf="courseStatus !== 'Unlisted'">
-                                            <div class="container card-wrapper">
-                                                <div class="ui card">
-                                                    <!-- <div class="content">
+                          <app-note-card [ids]="{contentId:contentId, courseId:courseId}"
+                            [createNoteData]="createNoteData">
+                          </app-note-card>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Discussions section-->
+                    <div class="tab-pane fade container" id="discussions">
+                      <div class="container card-wrapper">
+                        <div class="ui card">
+                          <div class="content">
+                            <div class="header text-align-center no-content">
+                              {{resourceService.frmelmnts.lbl.discussionsSoon}} </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--announcements section-->
+                    <div class="tab-pane fade container" id="announcement">
+                      <div class="container card-wrapper">
+                        <div class="ui card">
+                          <div class="content">
+                            <div class="header text-align-center no-content">{{resourceService.frmelmnts.lbl.NoContent}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Batach Details section-->
+                    <div class="tab-pane fade container" id="batchdetails" *ngIf="courseStatus !== 'Unlisted'">
+                      <div class="container card-wrapper">
+                        <div class="ui card">
+                          <!-- <div class="content">
 
                                                     </div> -->
-                                                    <app-batch-details [courseId]="courseId"
-                                        [batchId]="batchId" [enrolledCourse]="enrolledCourse"
-                                        [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
-                                    </app-batch-details>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ui fitted divider mb-20 mt-30"></div>
-                                </div>
-                                <div class='three wide column'>
-                                    <div *ngIf="enrolledCourse" class="my-15">
-                                        <div>
-                                            <br>
-                                            <span (click)="showNoteEditor=!showNoteEditor" class="cursor-pointer">
-                                                    <button class="btn btn-md btn-default m-0 notesBtn">
-                                                      <i class="circular icon plus"></i>{{resourceService.frmelmnts.lbl.addnote}}
-                                                    </button>
-                                                <app-popup-editor *ngIf="showNoteEditor" [mode]="'create'"
-                                                    [ids]="{contentId:contentId, courseId:courseId}"
-                                                    (exitModal)="showNoteEditor=false"
-                                                    (createEventEmitter)="createEventEmitter($event)">
-                                                </app-popup-editor>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- <br>
+                          <app-batch-details [courseId]="courseId" [batchId]="batchId" [enrolledCourse]="enrolledCourse"
+                            [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
+                          </app-batch-details>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui fitted divider mb-20 mt-30"></div>
+                </div>
+                <div class='three wide column'>
+                  <div *ngIf="enrolledCourse" class="my-15">
+                    <div>
+                      <br>
+                      <span (click)="showNoteEditor=!showNoteEditor" class="cursor-pointer">
+                        <button class="btn btn-md btn-default m-0 notesBtn">
+                          <i class="circular icon plus"></i>{{resourceService.frmelmnts.lbl.addnote}}
+                        </button>
+                        <app-popup-editor *ngIf="showNoteEditor" [mode]="'create'"
+                          [ids]="{contentId:contentId, courseId:courseId}" (exitModal)="showNoteEditor=false"
+                          (createEventEmitter)="createEventEmitter($event)">
+                        </app-popup-editor>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- <br>
                                     <app-curriculum-card *ngIf="curriculum && curriculum.length > 0" [curriculum]="curriculum"
                                       [activitytypecount]="curriculumactivity">
                                     </app-curriculum-card>
@@ -254,8 +264,8 @@
                                             {{courseHierarchy.lastUpdatedOn | dateFormat}}</p>
                                         <a *ngIf="contributionsLength>0" popupTrigger="outsideClick" [popupPlacement]="'bottom left'" suiPopup popupText={{contributions}}>{{resourceService.frmelmnts.lbl.viewCredits}}</a>
                                     </div> -->
-                                </div>
                 </div>
+              </div>
 
             </div>
           </div>
@@ -300,7 +310,7 @@
                       <i class="far fa-star"></i><i class="far fa-star"></i>
                     </p>
                     <p class="text-capitalize">
-                    {{resourceService.frmelmnts.lbl.LastUpdated}} : {{courseHierarchy.lastUpdatedOn | dateFormat}}
+                      {{resourceService.frmelmnts.lbl.LastUpdated}} : {{courseHierarchy.lastUpdatedOn | dateFormat}}
                     </p>
                   </div>
                 </div>
@@ -332,7 +342,8 @@
                         <div class="text-center">
                           <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">
                             {{mimeTypeCount}}</h4>
-                          <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService.frmelmnts.lbl.curriculum}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService.frmelmnts.lbl.curriculum}}
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -344,7 +355,8 @@
                           <i class="far fa-2x fa-clock "></i>
                         </div>
                         <div class="text-center">
-                          <h4 class="card-title pt-3">{{courseHierarchy?.courseduration || 'NA'}}<span class="tiny-text">hrs</span>></h4>
+                          <h4 class="card-title pt-3">{{courseHierarchy?.courseduration || 'NA'}}<span
+                              class="tiny-text">hrs</span></h4>
                           <h6 class="card-subtitle mb-2 pt-3 text-muted">{{resourceService.frmelmnts.lbl.DURATION}}</h6>
                         </div>
 
@@ -359,7 +371,8 @@
                         </div>
                         <div class="text-center">
                           <h6 class="card-title pt-3">{{courseHierarchy.language}}</h6>
-                          <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}</h6>
+                          <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -372,7 +385,8 @@
                         </div>
                         <div class="text-center">
                           <h4 class="card-title pt-3">NA</h4>
-                          <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -422,7 +436,8 @@
                   <ul class="nav nav-tabs py-3" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab"
-                        aria-controls="content" aria-selected="true" #top>{{resourceService?.frmelmnts.lbl.Tableofcontent}}</a>
+                        aria-controls="content" aria-selected="true"
+                        #top>{{resourceService?.frmelmnts.lbl.Tableofcontent}}</a>
                     </li>
 
                     <li class="nav-item">
@@ -434,8 +449,8 @@
                       <app-collection-tree #top
                         *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
                         (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
-                        [userEnrolledBatch] = "userEnrolledBatch"
-                        [options]="collectionTreeOptions" [contentStatus]="contentStatus" >
+                        [userEnrolledBatch]="userEnrolledBatch" [options]="collectionTreeOptions"
+                        [contentStatus]="contentStatus">
                       </app-collection-tree>
 
                       <div #target *ngIf="courseHierarchy.description" class="mt-10" id="course-description">
@@ -494,7 +509,8 @@
                     </div>
                     <div class="text-center">
                       <h4 class="card-title pt-3">186</h4>
-                      <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService?.frmelmnts.lbl.curriculumCaps}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService?.frmelmnts.lbl.curriculumCaps}}
+                      </h6>
                     </div>
                   </div>
                 </div>
@@ -521,7 +537,8 @@
                     </div>
                     <div class="text-center">
                       <h6 class="card-title pt-3">English, Hindi</h6>
-                      <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}</h6>
+                      <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
+                      </h6>
                     </div>
                   </div>
                 </div>
@@ -534,7 +551,8 @@
                     </div>
                     <div class="text-center">
                       <h4 class="card-title pt-3">537,713</h4>
-                      <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
+                      </h6>
                     </div>
                   </div>
                 </div>

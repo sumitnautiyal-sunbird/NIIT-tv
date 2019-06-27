@@ -16,17 +16,19 @@
 //     margin-top: 0;
 // }
 .tiny-text {
-  font-size : 15px;
+  font-size: 15px;
 }
+
 #logoHeader {
   background: #451771;
   height: 78px;
 }
 
 .no-content {
-  color : darkgray !important;
-  font-weight : 400 !important;
+  color: darkgray !important;
+  font-weight: 400 !important;
 }
+
 #dashboardBtn {
   margin: 13px 20px 0 0;
   position: absolute;
@@ -62,3 +64,6 @@
   padding: 0 0 0 5px;
 }
 
+#sidebar ::ng-deep .title {
+  color: #fff;
+}
