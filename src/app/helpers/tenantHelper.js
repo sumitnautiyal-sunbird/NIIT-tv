@@ -218,19 +218,18 @@ module.exports = {
     console.log('update');
     console.log('\n\n ', req.body);
     //write contents in the file
-    let fileData = readFromFile(); //return json of data if exists else empty string
-    let dataToWrite;
-    if (!!fileData) {
-      //combine the data
-      // console.log('there is some data in the file', JSON.stringify(fileData));
-      // dataToWrite = Object.assign({},req.body,fileData);
-      dataToWrite = createData(req.body, fileData);
-      // console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
-      writeToFile(res, dataToWrite);
-    } else {
-      console.log('no data in the file, writing new one');
-      // write directly to file
-      writeToFile(res, req.body);
-    }
+    // let fileData = readFromFile(); //return json of data if exists else empty string
+    // let dataToWrite;
+    // if (!!fileData) {
+    //combine the data
+    // console.log('there is some data in the file', JSON.stringify(fileData));
+    // dataToWrite = Object.assign({},req.body,fileData);
+    //dataToWrite = createData(req.body, fileData);
+    // console.log('\n\n\nnew data to write is ', JSON.stringify(dataToWrite));
+    //writeToFile(res, dataToWrite);
+    //} else {
+    //console.log('no data in the file, writing new one');
+    // write directly to file
+    writeToFile(res, req.body);
   }
 }
