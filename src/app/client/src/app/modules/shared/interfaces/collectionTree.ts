@@ -31,7 +31,9 @@ export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
   'Classroom Session' = 'chalkboard',
-  'Assessments' = 'edit'
+  'Assessments' = 'edit',
+  'Survey'= 'line-chart',
+  'Feedback'='comment'
 }
 export enum MimeTypeTofileType {
   'application/vnd.ekstep.ecml-archive' = 'ECML',

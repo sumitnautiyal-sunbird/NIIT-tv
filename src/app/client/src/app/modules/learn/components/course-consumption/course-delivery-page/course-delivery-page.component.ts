@@ -47,7 +47,9 @@ export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
   'Classroom Session' = 'chalkboard',
-  'Assessments' = 'edit'
+  'Assessments' = 'edit',
+  'Survey'= 'line-chart',
+  'Feedback'='comment'
 }
 declare var $: any;
 @Component({
