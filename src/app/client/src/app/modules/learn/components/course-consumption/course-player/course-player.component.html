@@ -4,10 +4,9 @@
       <div class="container-fluid banner">
         <div class="row banner-main-row">
           <div class="col-xs-12 col-sm-12 col-md-5 image-section">
-            <div class="image-wrapper">
-              <img *ngIf="courseHierarchy?.appIcon || defaultImageSrc" class="float-right"
-                [src]='courseHierarchy?.appIcon || defaultImageSrc' alt="course-image" width="300px" height="250px">
-            </div>
+            <div class="image-wrapper float-right">
+              <img appImagePreload [srcimg]='courseHierarchy?.appIcon' defaultimage="./../../../../../../assets/images/book.png" class="img" width="300px" height="250px">
+          </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 offset-md-1 banner-content-section float-right white-text">
             <br />
