@@ -161,6 +161,19 @@ export class CatalogComponent implements OnInit {
     * This method calls the enrolled courses API.
     */
 
+   populateEnrolledCourse() {
+    this.showLoader = true;
+    this.coursesService.enrolledCourseData$.subscribe(
+      data => {
+        if (data && !data.err) {
+          if (data.enrolledCourses.length > 0) {
+            this.enrolledCourses = data.enrolledCourses;
+          }
+        }
+      });
+      this.populateCourseSearch();
+  }
+
   populateCourseSearch() {
     this.hashTagId = !!this.orgId ? this.orgId : this.activatedRoute.snapshot.data.orgdata.rootOrgId;
     this.framework = !!this.frameworkName ? this.frameworkName : this.activatedRoute.snapshot.data.orgdata.defaultFramework;
@@ -307,7 +320,7 @@ export class CatalogComponent implements OnInit {
         if (this.queryParams.sort_by && this.queryParams.sortType) {
           this.queryParams.sortType = this.queryParams.sortType.toString();
         }
-        this.populateCourseSearch();
+        this.populateEnrolledCourse();
       });
     this.setInteractEventData();
     this.telemetryImpression = {
@@ -350,6 +363,9 @@ export class CatalogComponent implements OnInit {
       event.data.metaData.contentType = 'Course';
     }
     this.changeDetectorRef.detectChanges();
+    if (!!event.data.enrolledDate) {
+      event.data.metaData.enrolledDate = event.data.enrolledDate;
+    }
     this.playerService.playContent(event.data.metaData);
     this.route.navigate(['/play/collection', event.data.metaData.identifier]);
 
