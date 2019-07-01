@@ -1,121 +1,115 @@
 <div *ngIf="userEnrolledBatch else previewCourse">
-  <header class="showcase-header">
-    <div class="jumbotron jumbotron-fluid course-image mb-0">
-      <div class="container-fluid banner">
-        <div class="row banner-main-row">
-          <div class="col-xs-12 col-sm-12 col-md-5 image-section">
-            <div class="image-wrapper float-right">
-              <img appImagePreload [srcimg]='courseHierarchy?.appIcon' defaultimage="./../../../../../../assets/images/book.png" class="img" width="300px" height="250px">
-          </div>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-5 offset-md-1 banner-content-section float-right white-text">
-            <br />
-            <h3 class="h3 responsive-align-text course-name banner-font">{{courseHierarchy?.name || 'NA'}}
-            </h3>
-            <h5 class="banner-content-description banner-desc-font">
-              {{ courseHierarchy?.description | slice:0:200 }}...&nbsp;
-              <!-- <span class="ui cardsKnowMore mouse-pointer"
+    <header class="showcase-header">
+        <div class="jumbotron jumbotron-fluid course-image mb-0">
+            <div class="container-fluid banner">
+                <div class="row banner-main-row">
+                    <div class="col-xs-12 col-sm-12 col-md-5 image-section">
+                        <div class="image-wrapper float-right">
+                            <img appImagePreload [srcimg]='courseHierarchy?.appIcon' defaultimage="https://camino.stackroute.com/assets/images/book.png" class="img" width="300px" height="250px">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 offset-md-1 banner-content-section float-right white-text">
+                        <br />
+                        <h3 class="h3 responsive-align-text course-name banner-font">{{courseHierarchy?.name || 'NA'}}
+                        </h3>
+                        <h5 class="banner-content-description banner-desc-font">
+                            {{ courseHierarchy?.description | slice:0:200 }}...&nbsp;
+                            <!-- <span class="ui cardsKnowMore mouse-pointer"
                                 *ngIf="courseHierarchy.description && courseHierarchy.description.length > 200 && readMore === false"
                                 (click)="readMore = !readMore;">{{resourceService.frmelmnts.lbl.readmore}}
                             </span> -->
-            </h5>
-            <!-- <h5 *ngIf="readMore" class="banner-content-description banner-desc-font"
+                        </h5>
+                        <!-- <h5 *ngIf="readMore" class="banner-content-description banner-desc-font"
                             style="font-size: 14px !important;">{{ courseHierarchy?.description}}&nbsp;
                             <span class="ui cardsKnowMore mouse-pointer"
                                 (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
                         </h5> -->
-            <div class="row icon-section mt-3 font-awesome-white">
-              <div class="col-sm-6 col-md-3 text-align-center">
-                <h4 class="h3">{{courseHierarchy?.courseduration || 'NA'}}</h4>
-                <p> {{resourceService.frmelmnts.lbl.Hours}}</p>
-              </div>
-              <div class="col-sm-6 col-md-3 text-align-center">
-                <i class="fas fa-graduation-cap fa-3x"></i>
-                <p class="jumbo-p"> {{courseHierarchy?.orgDetails.orgName || 'NA'}}</p>
-              </div>
-              <div class="col-sm-6 col-md-3 text-align-center">
-                <i class="fas fa-globe fa-3x"></i>
-                <p class="jumbo-p"> {{courseHierarchy?.language || 'English'}}</p>
-              </div>
-            </div>
-            <div>
-              <app-course-consumption-header [courseHierarchy]="courseHierarchy"
-                [enrolledBatchInfo]="enrolledBatchInfo"></app-course-consumption-header>
-            </div>
-            <!-- <button type="button" class="btn btn-success btn-lg enroll-button" href="/home">Enroll</button> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!--banner section ends-->
-  <div class="container custom-margin">
-    <div class="tab-view" *ngIf="!enableContentPlayer && !loader">
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#overview">{{resourceService.frmelmnts.lbl.overview}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="pill"
-            href="#course-content">{{resourceService.frmelmnts.lbl.CourseContent}}</a>
-        </li>
-        <li class="nav-item">
-          <!-- <a class="nav-link" data-toggle="pill" href="#qa">QA</a> -->
-          <a class="nav-link" data-toggle="pill" href="#notes">{{resourceService.frmelmnts.lbl.Notes}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#discussions">{{resourceService.frmelmnts.lbl.Discussions}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="pill"
-            href="#announcement">{{resourceService.frmelmnts.lbl.Announcements}}</a>
-        </li>
-        <li class="nav-item" *ngIf="courseStatus !== 'Unlisted'">
-          <a class="nav-link" data-toggle="pill" href="#batchdetails">{{resourceService.frmelmnts.lbl.BatchDetails}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="ui container" [appTelemetryStart]="telemetryCourseStart" [appTelemetryEnd]="telemetryCourseEndEvent">
-    <div class="ui stackable grid mt-20">
-      <div class="twelve wide column">
-        <div *ngIf="!enableContentPlayer && !loader">
-          <div class="content" [appTelemetryImpression]="telemetryCourseImpression"
-            style="padding-top : 0; margin-top: 0;">
-            <div class="ui stackable grid">
-              <div class="row">
-                <div class='nine wide column container'>
-                  <div class="tab-content">
-                    <!--overview section-->
-                    <div id="overview" class="tab-pane container">
-                      <div class="container card-wrapper">
-                        <div class="ui card">
-                          <div class="content">
-                            <div class="header">
-                              {{resourceService.frmelmnts.lbl.aboutthecourse}}
+                        <div class="row icon-section mt-3 font-awesome-white">
+                            <div class="col-sm-6 col-md-3 text-align-center">
+                                <h4 class="h3">{{courseHierarchy?.courseduration || 'NA'}}</h4>
+                                <p> {{resourceService.frmelmnts.lbl.Hours}}</p>
                             </div>
-                          </div>
-                          <div class="content">
-                            <p>{{ courseHierarchy.description}}</p>
-                            <div class="meta">
-                              <p>{{resourceService.frmelmnts.lbl.courseCreatedBy}}: {{courseHierarchy.creator}}</p>
-                              <p>{{resourceService.frmelmnts.lbl.organisation}} : {{courseHierarchy.orgDetails.orgName}}
-                              </p>
+                            <div class="col-sm-6 col-md-3 text-align-center">
+                                <i class="fas fa-graduation-cap fa-3x"></i>
+                                <p class="jumbo-p"> {{courseHierarchy?.orgDetails.orgName || 'NA'}}</p>
                             </div>
-                            <app-activitytype-card *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity">
-                            </app-activitytype-card>
-                            <div class="extra content">
-                              <p>{{resourceService.frmelmnts.lbl.createdon}} :
-                                {{courseHierarchy.createdOn | dateFormat}}
-                              </p>
-                              <p>{{resourceService.frmelmnts.lbl.LastUpdatedOn}} :
-                                {{courseHierarchy.lastUpdatedOn | dateFormat}}</p>
+                            <div class="col-sm-6 col-md-3 text-align-center">
+                                <i class="fas fa-globe fa-3x"></i>
+                                <p class="jumbo-p"> {{courseHierarchy?.language || 'English'}}</p>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                        <div>
+                            <app-course-consumption-header [courseHierarchy]="courseHierarchy" [enrolledBatchInfo]="enrolledBatchInfo"></app-course-consumption-header>
+                        </div>
+                        <!-- <button type="button" class="btn btn-success btn-lg enroll-button" href="/home">Enroll</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--banner section ends-->
+    <div class="container custom-margin">
+        <div class="tab-view" *ngIf="!enableContentPlayer && !loader">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#overview">{{resourceService.frmelmnts.lbl.overview}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="pill" href="#course-content">{{resourceService.frmelmnts.lbl.CourseContent}}</a>
+                </li>
+                <li class="nav-item">
+                    <!-- <a class="nav-link" data-toggle="pill" href="#qa">QA</a> -->
+                    <a class="nav-link" data-toggle="pill" href="#notes">{{resourceService.frmelmnts.lbl.Notes}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#discussions">{{resourceService.frmelmnts.lbl.Discussions}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#announcement">{{resourceService.frmelmnts.lbl.Announcements}}</a>
+                </li>
+                <li class="nav-item" *ngIf="courseStatus !== 'Unlisted'">
+                    <a class="nav-link" data-toggle="pill" href="#batchdetails">{{resourceService.frmelmnts.lbl.BatchDetails}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="ui container" [appTelemetryStart]="telemetryCourseStart" [appTelemetryEnd]="telemetryCourseEndEvent">
+        <div class="ui stackable grid mt-20">
+            <div class="twelve wide column">
+                <div *ngIf="!enableContentPlayer && !loader">
+                    <div class="content" [appTelemetryImpression]="telemetryCourseImpression" style="padding-top : 0; margin-top: 0;">
+                        <div class="ui stackable grid">
+                            <div class="row">
+                                <div class='nine wide column container'>
+                                    <div class="tab-content">
+                                        <!--overview section-->
+                                        <div id="overview" class="tab-pane container">
+                                            <div class="container card-wrapper">
+                                                <div class="ui card">
+                                                    <div class="content">
+                                                        <div class="header">
+                                                            {{resourceService.frmelmnts.lbl.aboutthecourse}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <p>{{ courseHierarchy.description}}</p>
+                                                        <div class="meta">
+                                                            <p>{{resourceService.frmelmnts.lbl.courseCreatedBy}}: {{courseHierarchy.creator}}</p>
+                                                            <p>{{resourceService.frmelmnts.lbl.organisation}} : {{courseHierarchy.orgDetails.orgName}}
+                                                            </p>
+                                                        </div>
+                                                        <app-activitytype-card *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity">
+                                                        </app-activitytype-card>
+                                                        <div class="extra content">
+                                                            <p>{{resourceService.frmelmnts.lbl.createdon}} : {{courseHierarchy.createdOn | dateFormat}}
+                                                            </p>
+                                                            <p>{{resourceService.frmelmnts.lbl.LastUpdatedOn}} : {{courseHierarchy.lastUpdatedOn | dateFormat}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                      <!-- <div class="container">
+                                            <!-- <div class="container">
                                     <h4 class="content courseStructureHeading">
                                         {{resourceService.frmelmnts.lbl.aboutthecourse}}
                                     </h4>
@@ -132,37 +126,32 @@
                                         </p>
                                       </div>
                                 </div> -->
-                    </div>
-                    <!--course content section-->
-                    <div class="tab-pane container active" id="course-content">
-                      <div class="ui header text-align-right" style="font-size : 1em;">
-                        <span class="fas fa-circle" style="color : grey">&nbsp;
-                          {{resourceService.frmelmnts.lbl.Unvisited}}</span> | <span class="fas fa-circle"
-                          style="color : #024F9D">&nbsp; {{resourceService.frmelmnts.lbl.Incomplete}}</span> | <span
-                          class="fas fa-circle" style="color : #07BC81">&nbsp;
+                                        </div>
+                                        <!--course content section-->
+                                        <div class="tab-pane container active" id="course-content">
+                                            <div class="ui header text-align-right" style="font-size : 1em;">
+                                                <span class="fas fa-circle" style="color : grey">&nbsp;
+                          {{resourceService.frmelmnts.lbl.Unvisited}}</span> | <span class="fas fa-circle" style="color : #024F9D">&nbsp; {{resourceService.frmelmnts.lbl.Incomplete}}</span> | <span class="fas fa-circle"
+                                                    style="color : #07BC81">&nbsp;
                           {{resourceService.frmelmnts.lbl.Complete}}</span>
-                        <!-- <img src="src/app/dist/assets/images/sunbird_logo.png"> -->
-                        <!-- <img src="../../../../../../../../dist/assets/images/sunbird_logo.png"> -->
-                      </div>
-                      <app-collection-tree
-                        *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
-                        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
-                        [options]="collectionTreeOptions" [courseId]="courseId" [batchId]="batchId"
-                        [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" [loggedIn]="isLoggedIn"
-                        [enrolled]="isEnrolled" [name]="userName" [userEnrolledBatch]="userEnrolledBatch">
-                      </app-collection-tree>
-                      <ng-template #dataCommingSoon>
-                        <div class="placeholder mt-40">
-                          <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
-                          <h5 class="header placeholder-heading mb-5">
-                            {{resourceService?.messages?.stmsg?.m0121}}</h5>
-                          <p class="placeholder-content">
-                            {{resourceService?.messages?.stmsg?.m0122}}</p>
-                        </div>
-                      </ng-template>
-                    </div>
-                    <!--QA section-->
-                    <!-- <div class="tab-pane fade container" id="qa">
+                                                <!-- <img src="src/app/dist/assets/images/sunbird_logo.png"> -->
+                                                <!-- <img src="../../../../../../../../dist/assets/images/sunbird_logo.png"> -->
+                                            </div>
+                                            <app-collection-tree *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes" [options]="collectionTreeOptions"
+                                                [courseId]="courseId" [batchId]="batchId" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" [loggedIn]="isLoggedIn" [enrolled]="isEnrolled" [name]="userName" [userEnrolledBatch]="userEnrolledBatch">
+                                            </app-collection-tree>
+                                            <ng-template #dataCommingSoon>
+                                                <div class="placeholder mt-40">
+                                                    <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
+                                                    <h5 class="header placeholder-heading mb-5">
+                                                        {{resourceService?.messages?.stmsg?.m0121}}</h5>
+                                                    <p class="placeholder-content">
+                                                        {{resourceService?.messages?.stmsg?.m0122}}</p>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                        <!--QA section-->
+                                        <!-- <div class="tab-pane fade container" id="qa">
                                             <div class="container card-wrapper">
                                                 <div class="ui card">
                                                     <div class="content">
@@ -172,63 +161,61 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                    <!--notes section-->
-                    <div class="tab-pane fade container" id="notes">
-                      <div class="container card-wrapper">
-                        <div class="ui card">
-                          <!-- <div class="content">
+                                        <!--notes section-->
+                                        <div class="tab-pane fade container" id="notes">
+                                            <div class="container card-wrapper">
+                                                <div class="ui card">
+                                                    <!-- <div class="content">
                                                         <div class="header text-align-center no-content">No content available to
                                                             display in notes </div>
                                                     </div> -->
-                          <app-note-card [ids]="{contentId:contentId, courseId:courseId}"
-                            [createNoteData]="createNoteData">
-                          </app-note-card>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Discussions section-->
-                    <div class="tab-pane fade container" id="discussions">
-                      <div class="container card-wrapper">
-                        <div class="ui card">
-                          <div class="content">
-                            <div class="header text-align-center no-content">
-                              {{resourceService.frmelmnts.lbl.discussionsSoon}} </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--announcements section-->
-                    <div class="tab-pane fade container" id="announcement">
-                      <div class="container card-wrapper">
-                        <div class="ui card">
-                          <div class="content">
-                            <div class="header text-align-center no-content">{{resourceService.frmelmnts.lbl.NoContent}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Batach Details section-->
-                    <div class="tab-pane fade container" id="batchdetails" *ngIf="courseStatus !== 'Unlisted'">
-                      <div class="container card-wrapper">
-                        <div class="ui card">
-                          <!-- <div class="content">
+                                                    <app-note-card [ids]="{contentId:contentId, courseId:courseId}" [createNoteData]="createNoteData">
+                                                    </app-note-card>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Discussions section-->
+                                        <div class="tab-pane fade container" id="discussions">
+                                            <div class="container card-wrapper">
+                                                <div class="ui card">
+                                                    <div class="content">
+                                                        <div class="header text-align-center no-content">
+                                                            {{resourceService.frmelmnts.lbl.discussionsSoon}} </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--announcements section-->
+                                        <div class="tab-pane fade container" id="announcement">
+                                            <div class="container card-wrapper">
+                                                <div class="ui card">
+                                                    <div class="content">
+                                                        <div class="header text-align-center no-content">{{resourceService.frmelmnts.lbl.NoContent}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Batach Details section-->
+                                        <div class="tab-pane fade container" id="batchdetails" *ngIf="courseStatus !== 'Unlisted'">
+                                            <div class="container card-wrapper">
+                                                <div class="ui card">
+                                                    <!-- <div class="content">
 
                                                     </div> -->
-                          <app-batch-details [courseId]="courseId" [batchId]="batchId" [enrolledCourse]="enrolledCourse"
-                            [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
-                          </app-batch-details>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui fitted divider mb-20 mt-30"></div>
-                </div>
-                <div class='three wide column'>
-                  <div *ngIf="enrolledCourse" class="my-15">
-                    <div>
-                      <br>
-                      <span (click)="showNoteEditor=!showNoteEditor" class="cursor-pointer">
+                                                    <app-batch-details [courseId]="courseId" [batchId]="batchId" [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
+                                                    </app-batch-details>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui fitted divider mb-20 mt-30"></div>
+                                </div>
+                                <div class='three wide column'>
+                                    <div *ngIf="enrolledCourse" class="my-15">
+                                        <div>
+                                            <br>
+                                            <span (click)="showNoteEditor=!showNoteEditor" class="cursor-pointer">
                         <button class="btn btn-md btn-default m-0 notesBtn">
                           <i class="circular icon plus"></i>{{resourceService.frmelmnts.lbl.addnote}}
                         </button>
@@ -237,9 +224,9 @@
                           (createEventEmitter)="createEventEmitter($event)">
                         </app-popup-editor>
                       </span>
-                    </div>
-                  </div>
-                  <!-- <br>
+                                        </div>
+                                    </div>
+                                    <!-- <br>
                                     <app-curriculum-card *ngIf="curriculum && curriculum.length > 0" [curriculum]="curriculum"
                                       [activitytypecount]="curriculumactivity">
                                     </app-curriculum-card>
@@ -263,354 +250,336 @@
                                             {{courseHierarchy.lastUpdatedOn | dateFormat}}</p>
                                         <a *ngIf="contributionsLength>0" popupTrigger="outsideClick" [popupPlacement]="'bottom left'" suiPopup popupText={{contributions}}>{{resourceService.frmelmnts.lbl.viewCredits}}</a>
                                     </div> -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-              </div>
 
+                <div *ngIf="loader">
+                    <app-loader [data]="loaderMessage"></app-loader>
+                </div>
+                <div *ngIf="showError">
+                </div>
             </div>
-          </div>
         </div>
-
-        <div *ngIf="loader">
-          <app-loader [data]="loaderMessage"></app-loader>
-        </div>
-        <div *ngIf="showError">
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 <ng-template #previewCourse>
 
-  <div [appTelemetryStart]="telemetryCourseStart" [appTelemetryEnd]="telemetryCourseEndEvent">
-    <div *ngIf="!loader">
-      <div [appTelemetryImpression]="telemetryCourseImpression">
-        <section class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-3">
-                <img [src]="courseHierarchy.appIcon" class="card-img-top image" alt="...">
-              </div>
-              <div class="col-md-5">
-                <div>
-                  <h2 class="mobile only text-capitalize"> {{courseHierarchy.name | slice:0:25}}
-                    <span *ngIf="courseHierarchy.name.length>25">...</span>
-                  </h2>
-                  <h2 class="tablet computer only text-capitalize"> {{courseHierarchy.name | slice:0:50}}
-                    <span *ngIf="courseHierarchy.name.length>50">...</span>
-                  </h2>
-                  <div>
-                    <span>
+    <div [appTelemetryStart]="telemetryCourseStart" [appTelemetryEnd]="telemetryCourseEndEvent">
+        <div *ngIf="!loader">
+            <div [appTelemetryImpression]="telemetryCourseImpression">
+                <section class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img [src]="courseHierarchy.appIcon" class="card-img-top image" alt="...">
+                            </div>
+                            <div class="col-md-5">
+                                <div>
+                                    <h2 class="mobile only text-capitalize"> {{courseHierarchy.name | slice:0:25}}
+                                        <span *ngIf="courseHierarchy.name.length>25">...</span>
+                                    </h2>
+                                    <h2 class="tablet computer only text-capitalize"> {{courseHierarchy.name | slice:0:50}}
+                                        <span *ngIf="courseHierarchy.name.length>50">...</span>
+                                    </h2>
+                                    <div>
+                                        <span>
                       <img class="profile"
                         src="https://akm-img-a-in.tosshub.com/indiatoday/anirudh---exlarge_121917022608.jpg?6S3c11U_KaSLS3L7kcFsVrVx1d5BO_Wi">
                     </span>
-                    <span class="mb-0 ml-0"> Anirudh Ravichander</span>
-                    <p class="pl-5 ml-4 pb-4">
-                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                      <i class="far fa-star"></i><i class="far fa-star"></i>
-                    </p>
-                    <p class="text-capitalize">
-                      {{resourceService.frmelmnts.lbl.LastUpdated}} : {{courseHierarchy.lastUpdatedOn | dateFormat}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <!-- <div class="tablet computer only button">
+                                        <span class="mb-0 ml-0"> Anirudh Ravichander</span>
+                                        <p class="pl-5 ml-4 pb-4">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i><i class="far fa-star"></i>
+                                        </p>
+                                        <p class="text-capitalize">
+                                            {{resourceService.frmelmnts.lbl.LastUpdated}} : {{courseHierarchy.lastUpdatedOn | dateFormat}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- <div class="tablet computer only button">
                                 <button type="button" class="btn btn-primary">ENROLL</button>
                             </div>
                             <div class="mobile only">
                                 <button type="button" class="btn btn-primary">ENROLL</button>
 
                             </div> -->
-              </div>
-            </div>
-          </div>
-        </section>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <section class="container">
-          <div class="course-details">
-            <div class="row">
-              <div class="col-md-10">
-                <div class="row tablet computer only">
-                  <div class="col-md-3">
-                    <div class="card course-card">
-                      <div class="card-body">
-                        <div class="circle icon1">
-                          <i class="fas fa-2x fa-book-reader"></i>
-                        </div>
-                        <div class="text-center">
-                          <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">
-                            {{mimeTypeCount}}</h4>
-                          <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService.frmelmnts.lbl.curriculum}}
-                          </h6>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card course-card">
-                      <div class="card-body">
-                        <div class="circle icon2">
-                          <i class="far fa-2x fa-clock "></i>
-                        </div>
-                        <div class="text-center">
-                          <h4 class="card-title pt-3">{{courseHierarchy?.courseduration || 'NA'}}<span
-                              class="tiny-text">hrs</span></h4>
-                          <h6 class="card-subtitle mb-2 pt-3 text-muted">{{resourceService.frmelmnts.lbl.DURATION}}</h6>
-                        </div>
+                <section class="container">
+                    <div class="course-details">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row tablet computer only">
+                                    <div class="col-md-3">
+                                        <div class="card course-card">
+                                            <div class="card-body">
+                                                <div class="circle icon1">
+                                                    <i class="fas fa-2x fa-book-reader"></i>
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">
+                                                        {{mimeTypeCount}}</h4>
+                                                    <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService.frmelmnts.lbl.curriculum}}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card course-card">
+                                            <div class="card-body">
+                                                <div class="circle icon2">
+                                                    <i class="far fa-2x fa-clock "></i>
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="card-title pt-3">{{courseHierarchy?.courseduration || 'NA'}}<span class="tiny-text">hrs</span></h4>
+                                                    <h6 class="card-subtitle mb-2 pt-3 text-muted">{{resourceService.frmelmnts.lbl.DURATION}}</h6>
+                                                </div>
 
-                      </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card course-card">
+                                            <div class="card-body">
+                                                <div class="circle icon3">
+                                                    <i class="fas fa-2x fa-language "></i>
+                                                </div>
+                                                <div class="text-center">
+                                                    <h6 class="card-title pt-3">{{courseHierarchy.language}}</h6>
+                                                    <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card course-card">
+                                            <div class="card-body">
+                                                <div class="circle  icon4">
+                                                    <i class="fas fa-2x fa-users"></i>
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="card-title pt-3">NA</h4>
+                                                    <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="card preview-video" (click)="showPreviewVideo()">
+                                    <img src="{{courseHierarchy.appIcon}}" class="card-img-top video" alt="...">
+                                    <div class="overlay mt-4">
+                                        <div class="play">
+
+                                            <i class="fas fa-3x fa-play"></i>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="text-center preview">
+                                        <p>{{resourceService?.frmelmnts.lbl.PreviewCourse}}</p>
+                                    </div>
+                                    <div class=" d-flex justify-content-end remove">
+                                        <div class="circle1 "></div>
+                                        <div class="circle2 "></div>
+                                        <div class="circle3 "></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card course-card">
-                      <div class="card-body">
-                        <div class="circle icon3">
-                          <i class="fas fa-2x fa-language "></i>
+                </section>
+                <sui-modal *ngIf="preview">
+                    <div class="basicpreview">
+                        <div class="ui right-float py-2 basic icon circular  mouse-pointer" (click)="showPreviewVideo()">
+                            <i class="ui remove icon"></i>
                         </div>
-                        <div class="text-center">
-                          <h6 class="card-title pt-3">{{courseHierarchy.language}}</h6>
-                          <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
-                          </h6>
-                        </div>
-                      </div>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe [src]='safeUrl' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </div>
                     </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card course-card">
-                      <div class="card-body">
-                        <div class="circle  icon4">
-                          <i class="fas fa-2x fa-users"></i>
+                </sui-modal>
+                <section class="container">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="card course-content">
+                                    <ul class="nav nav-tabs py-3" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true" #top>{{resourceService?.frmelmnts.lbl.Tableofcontent}}</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="scroll(target)">{{resourceService?.frmelmnts.lbl.description}}</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                                            <app-collection-tree #top *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes" [userEnrolledBatch]="userEnrolledBatch"
+                                                [options]="collectionTreeOptions" [contentStatus]="contentStatus">
+                                            </app-collection-tree>
+
+                                            <div #target *ngIf="courseHierarchy.description" class="mt-10" id="course-description">
+                                                <h3>{{resourceService?.frmelmnts.lbl.description}}</h3>
+                                                <p *ngIf="!readMore" class="courseStructureDesc">
+                                                    {{ courseHierarchy.description | slice:0:200 }}&nbsp;
+                                                    <span class="ui cardsKnowMore mouse-pointer readmore" *ngIf="courseHierarchy.description && courseHierarchy.description.length > 200 && readMore === false" (click)="readMore = !readMore;"><span>{{resourceService.frmelmnts.lbl.readmore}}</span></span>
+                                                </p>
+                                                <p *ngIf="readMore" class="courseStructureDesc ">
+                                                    {{ courseHierarchy.description}}&nbsp;
+                                                    <span class="ui cardsKnowMore mouse-pointer readless" (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
+                                                </p>
+                                            </div>
+                                            <div class="smooth-scroll d-flex justify-content-end">
+                                                <a (click)="scrollTop(top)" data-toggle="tooltip" data-placement="bottom" title="Go to Contents"><i class="fas fa-3x fa-chevron-up"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 computer only ">
+                                <div class="py-5 pl-4">
+                                    <app-batch-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId" [batchId]="batchId" [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
+                                    </app-batch-details>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-center">
-                          <h4 class="card-title pt-3">NA</h4>
-                          <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
-                          </h6>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                </section>
+                <div class="mobile only container py-5">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="batch">
+                                <app-batch-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId" [batchId]="batchId" [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy" [courseProgressData]="courseProgressData">
+                                </app-batch-details>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-2">
-                <div class="card preview-video" (click)="showPreviewVideo()">
-                  <img src="{{courseHierarchy.appIcon}}" class="card-img-top video" alt="...">
-                  <div class="overlay mt-4">
-                    <div class="play">
+                <section class="container mobile only ">
+                    <div class="">
+                        <div class="mobile-view">
+                            <div class="px-5 py-5">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon1">
+                                            <i class="fas fa-2x fa-book-reader"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3">186</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService?.frmelmnts.lbl.curriculumCaps}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-5 py-5">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon2">
+                                            <i class="far fa-2x fa-clock "></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3">24:10:28</h4>
+                                            <h6 class="card-subtitle mb-2 pt-3 text-muted">{{resourceService.frmelmnts.lbl.DURATION}}</h6>
+                                        </div>
 
-                      <i class="fas fa-3x fa-play"></i>
-
-
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-5 py-5">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon3">
+                                            <i class="fas fa-2x fa-language "></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h6 class="card-title pt-3">English, Hindi</h6>
+                                            <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-5 py-5">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle  icon4">
+                                            <i class="fas fa-2x fa-users"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3">537,713</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="text-center preview">
-                    <p>{{resourceService?.frmelmnts.lbl.PreviewCourse}}</p>
-                  </div>
-                  <div class=" d-flex justify-content-end remove">
-                    <div class="circle1 "></div>
-                    <div class="circle2 "></div>
-                    <div class="circle3 "></div>
-                  </div>
+                </section>
+
+
+            </div>
+        </div>
+
+        <sui-modal *ngIf="enableContentPlayer && !loader" id="preview-modal">
+            <div class="modal-height">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="pt-2 pb-3" id="app-player-collection-renderer">
+                            <div>
+                                <span class="ui HomeAccordianHeading left floated text-capitalize">{{contentTitle}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="right-float">
+                            <h5 appTelemetryInteract [telemetryInteractEdata]="closeContentIntractEdata" [telemetryInteractObject]="contentInteractObject" class="ui right floated basic icon circular  mouse-pointer" (click)="closeContentPlayer()">
+                                <i class="ui remove icon"></i>
+                            </h5>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
+                    <div class="column twelve wide">
+                        <p>{{resourceService.messages.imsg.m0036}}</p>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="" [appTelemetryImpression]="telemetryContentImpression">
+                        <app-player (contentProgressEvent)="contentProgressEvent($event)" [playerConfig]="playerConfig">
+                        </app-player>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
-        <sui-modal *ngIf="preview">
-          <div class="basicpreview">
-            <div class="ui right-float py-2 basic icon circular  mouse-pointer" (click)="showPreviewVideo()">
-              <i class="ui remove icon"></i>
-            </div>
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe [src]='safeUrl' frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe> </div>
-          </div>
+
+
+
+
         </sui-modal>
-        <section class="container">
-          <div class="content">
-            <div class="row">
-              <div class="col-md-9">
-                <div class="card course-content">
-                  <ul class="nav nav-tabs py-3" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab"
-                        aria-controls="content" aria-selected="true"
-                        #top>{{resourceService?.frmelmnts.lbl.Tableofcontent}}</a>
-                    </li>
 
-                    <li class="nav-item">
-                      <a class="nav-link" (click)="scroll(target)">{{resourceService?.frmelmnts.lbl.description}}</a>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
-                      <app-collection-tree #top
-                        *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
-                        (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
-                        [userEnrolledBatch]="userEnrolledBatch" [options]="collectionTreeOptions"
-                        [contentStatus]="contentStatus">
-                      </app-collection-tree>
-
-                      <div #target *ngIf="courseHierarchy.description" class="mt-10" id="course-description">
-                        <h3>{{resourceService?.frmelmnts.lbl.description}}</h3>
-                        <p *ngIf="!readMore" class="courseStructureDesc">
-                          {{ courseHierarchy.description | slice:0:200 }}&nbsp;
-                          <span class="ui cardsKnowMore mouse-pointer readmore"
-                            *ngIf="courseHierarchy.description && courseHierarchy.description.length > 200 && readMore === false"
-                            (click)="readMore = !readMore;"><span>{{resourceService.frmelmnts.lbl.readmore}}</span></span>
-                        </p>
-                        <p *ngIf="readMore" class="courseStructureDesc ">
-                          {{ courseHierarchy.description}}&nbsp;
-                          <span class="ui cardsKnowMore mouse-pointer readless"
-                            (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
-                        </p>
-                      </div>
-                      <div class="smooth-scroll d-flex justify-content-end">
-                        <a (click)="scrollTop(top)" data-toggle="tooltip" data-placement="bottom"
-                          title="Go to Contents"><i class="fas fa-3x fa-chevron-up"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 computer only ">
-                <div class="py-5 pl-4">
-                  <app-batch-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId" [batchId]="batchId"
-                    [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy"
-                    [courseProgressData]="courseProgressData">
-                  </app-batch-details>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div class="mobile only container py-5">
-          <div class="row">
-            <div class="col-sm-12 col-md-12">
-              <div class="batch">
-                <app-batch-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId" [batchId]="batchId"
-                  [enrolledCourse]="enrolledCourse" [courseHierarchy]="courseHierarchy"
-                  [courseProgressData]="courseProgressData">
-                </app-batch-details>
-              </div>
-            </div>
-          </div>
+        <div *ngIf="loader">
+            <app-loader [data]="loaderMessage"></app-loader>
         </div>
-        <section class="container mobile only ">
-          <div class="">
-            <div class="mobile-view">
-              <div class="px-5 py-5">
-                <div class="card course-card">
-                  <div class="card-body">
-                    <div class="circle icon1">
-                      <i class="fas fa-2x fa-book-reader"></i>
-                    </div>
-                    <div class="text-center">
-                      <h4 class="card-title pt-3">186</h4>
-                      <h6 class="card-subtitle mb-2 text-muted pt-3"> {{resourceService?.frmelmnts.lbl.curriculumCaps}}
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="px-5 py-5">
-                <div class="card course-card">
-                  <div class="card-body">
-                    <div class="circle icon2">
-                      <i class="far fa-2x fa-clock "></i>
-                    </div>
-                    <div class="text-center">
-                      <h4 class="card-title pt-3">24:10:28</h4>
-                      <h6 class="card-subtitle mb-2 pt-3 text-muted">{{resourceService.frmelmnts.lbl.DURATION}}</h6>
-                    </div>
+        <div *ngIf="showError">
+        </div>
 
-                  </div>
-                </div>
-              </div>
-              <div class="px-5 py-5">
-                <div class="card course-card">
-                  <div class="card-body">
-                    <div class="circle icon3">
-                      <i class="fas fa-2x fa-language "></i>
-                    </div>
-                    <div class="text-center">
-                      <h6 class="card-title pt-3">English, Hindi</h6>
-                      <h6 class="card-subtitle mb-2 pt-4 text-muted">{{resourceService?.frmelmnts.lbl.LanguageCaps}}
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="px-5 py-5">
-                <div class="card course-card">
-                  <div class="card-body">
-                    <div class="circle  icon4">
-                      <i class="fas fa-2x fa-users"></i>
-                    </div>
-                    <div class="text-center">
-                      <h4 class="card-title pt-3">537,713</h4>
-                      <h6 class="card-subtitle mb-2 text-muted pt-3">{{resourceService?.frmelmnts.lbl.learnersCaps}}
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-      </div>
     </div>
-
-    <sui-modal *ngIf="enableContentPlayer && !loader" id="preview-modal">
-      <div class="modal-height">
-
-        <div class="row">
-          <div class="col">
-            <div class="pt-2 pb-3" id="app-player-collection-renderer">
-              <div>
-                <span class="ui HomeAccordianHeading left floated text-capitalize">{{contentTitle}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-
-            <div class="right-float">
-              <h5 appTelemetryInteract [telemetryInteractEdata]="closeContentIntractEdata"
-                [telemetryInteractObject]="contentInteractObject"
-                class="ui right floated basic icon circular  mouse-pointer" (click)="closeContentPlayer()">
-                <i class="ui remove icon"></i>
-              </h5>
-            </div>
-          </div>
-        </div>
-
-        <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
-          <div class="column twelve wide">
-            <p>{{resourceService.messages.imsg.m0036}}</p>
-          </div>
-        </div>
-        <div class="">
-          <div class="" [appTelemetryImpression]="telemetryContentImpression">
-            <app-player (contentProgressEvent)="contentProgressEvent($event)" [playerConfig]="playerConfig">
-            </app-player>
-          </div>
-        </div>
-      </div>
-
-
-
-
-    </sui-modal>
-
-    <div *ngIf="loader">
-      <app-loader [data]="loaderMessage"></app-loader>
-    </div>
-    <div *ngIf="showError">
-    </div>
-
-  </div>
 </ng-template>
 <router-outlet></router-outlet>
