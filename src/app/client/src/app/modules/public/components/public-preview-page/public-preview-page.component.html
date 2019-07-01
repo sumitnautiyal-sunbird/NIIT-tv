@@ -19,7 +19,7 @@
                                                 <img class="profile"
                                                     src="https://akm-img-a-in.tosshub.com/indiatoday/anirudh---exlarge_121917022608.jpg?6S3c11U_KaSLS3L7kcFsVrVx1d5BO_Wi">
                                             </span>
-                                            <span class="mb-0 ml-0"> Anirudh Ravichander</span>
+                                            <span class="mb-0 ml-3">{{creatorforcourse}}</span>
                                             <p class="pl-5 ml-4 pb-4">
                                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i
                                                     class="fas fa-star"></i>
@@ -55,7 +55,7 @@
                                                             <i class="fas fa-2x fa-book-reader"></i>
                                                         </div>
                                                         <div class="text-center">
-                                                            <h4 class="card-title" data-toggle="tooltip" data-placement="top" title="{{curriculumactivity}}">{{mimeTypeCount}}</h4>
+                                                            <h4 class="card-title">{{mimeTypeCount}}</h4>
                                                             <h6 class="card-subtitle text-muted pt-2"> CURRICULUM</h6>
                                                         </div>
                                                         <app-allcurriculum *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-allcurriculum>
@@ -69,7 +69,7 @@
                                                             <i class="far fa-2x fa-clock "></i>
                                                         </div>
                                                         <div class="text-center">
-                                                            <h4 class="card-title pt-3">NA</h4>
+                                                            <h4 class="card-title pt-3">{{coursedur || 'NA'}}<span *ngIf="coursedur" class="tiny-text">hrs</span></h4>
                                                             <h6 class="card-subtitle mb-2 pt-3 text-muted">DURATION</h6>
                                                         </div>
             

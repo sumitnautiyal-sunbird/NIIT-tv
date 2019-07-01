@@ -91,6 +91,8 @@ userEnrolledBatch;
 	 * dialCode
 	*/
   public dialCode: string;
+  coursedur: any;
+  creatorforcourse: any;
 
   scroll(el: ElementRef) {
     console.log(el);
@@ -197,6 +199,9 @@ console.log(this.activatedRoute, this.userEnrolledBatch);
     const model = new TreeModel();
     const mimeTypeCount = {};
     const activityTypeCount = {};
+    this.coursedur=collection.data.courseduration;
+    this.creatorforcourse=collection.data.creator;
+    debugger;
     if (collection.data) {
       this.treeModel = model.parse(collection.data);
       this.treeModel.walk((node) => {

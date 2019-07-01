@@ -1,6 +1,6 @@
 <div class="item" *ngFor="let act of activitytypecount">
   <div class="content curriculum-content">
-    <i class="fas " [ngClass]="[type !== 'mybutton' ?'fa-'+ act.activityTypeIcon : '']"></i>
+    <i data-toggle="tooltip" data-placement="top" title="{{act.activityType}}" class="fas " [ngClass]="[type !== 'mybutton' ?'fa-'+ act.activityTypeIcon : '']"></i>
     <span class="details"> {{act.count}}&nbsp;</span>
   </div>
 
