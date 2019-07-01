@@ -199,9 +199,8 @@ console.log(this.activatedRoute, this.userEnrolledBatch);
     const model = new TreeModel();
     const mimeTypeCount = {};
     const activityTypeCount = {};
-    this.coursedur=collection.data.courseduration;
-    this.creatorforcourse=collection.data.creator;
-    debugger;
+    this.coursedur = collection.data.courseduration;
+    this.creatorforcourse = collection.data.creator;
     if (collection.data) {
       this.treeModel = model.parse(collection.data);
       this.treeModel.walk((node) => {

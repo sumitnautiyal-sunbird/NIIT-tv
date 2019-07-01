@@ -269,7 +269,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(
         ({ courseHierarchy, enrolledBatchDetails }: any) => {
           this.courseHierarchy = courseHierarchy;
-          console.log("this is course hierarchy for logged in course",this.courseHierarchy);
+          console.log('this is course hierarchy for logged in course', this.courseHierarchy);
           this.contributions = _.join(
             _.map(this.courseHierarchy.contentCredits, 'name')
           );
