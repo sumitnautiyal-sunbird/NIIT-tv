@@ -33,7 +33,7 @@ export enum IactivityType {
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',
-  'Feedback'='comment'
+  'Feedback'= 'comment'
 }
 export enum MimeTypeTofileType {
   'application/vnd.ekstep.ecml-archive' = 'ECML',

@@ -52,7 +52,7 @@ import { AllcurriculumComponent } from './components/allcurriculum/allcurriculum
     PageSectionComponent, DisplayPopularCourseComponent , NoResultComponent, CollectionTreeComponent, FancyTreeComponent,
     PlayerComponent, CardComponent, CardCreationComponent, FilterPipe, ShareLinkComponent, CollectionPlayerMetadataComponent,
     BrowserCompatibilityComponent, QrCodeModalComponent, CdnprefixPipe, InterpolatePipe, RedirectComponent, CustomMultiSelectComponent,
-    InstallAppComponent, LockInfoPopupComponent ,AllcurriculumComponent,
+    InstallAppComponent, LockInfoPopupComponent , AllcurriculumComponent,
 
   ]
 })

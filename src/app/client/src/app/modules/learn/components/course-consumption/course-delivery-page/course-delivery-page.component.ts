@@ -49,7 +49,7 @@ export enum IactivityType {
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',
-  'Feedback'='comment'
+  'Feedback'= 'comment'
 }
 declare var $: any;
 @Component({

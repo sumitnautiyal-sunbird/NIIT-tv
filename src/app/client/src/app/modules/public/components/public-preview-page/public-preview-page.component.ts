@@ -18,7 +18,7 @@ export enum IactivityType {
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',
-  'Feedback'='comment'
+  'Feedback'= 'comment'
 }
 @Component({
   selector: 'app-public-preview-page',
