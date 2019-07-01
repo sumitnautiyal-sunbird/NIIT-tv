@@ -27,6 +27,7 @@ import { LandingpageCardComponent } from './components/landingpage-card/landingp
 import { SharedUserService} from './services/sharedUser/shared-user.service';
 import { DataService } from './../core/services/data/data.service';
 import { DisplayPopularCourseComponent } from './components/display-popular-course/display-popular-course.component';
+import { AllcurriculumComponent } from './components/allcurriculum/allcurriculum.component';
 
 @NgModule({
   imports: [
@@ -45,12 +46,13 @@ import { DisplayPopularCourseComponent } from './components/display-popular-cour
     RedirectComponent, CustomMultiSelectComponent, InstallAppComponent, LockInfoPopupComponent, DisplayPopularCourseComponent,
     LandingpageCardComponent,
     EnrolledCardComponent,
+    AllcurriculumComponent,
     ],
   exports: [AppLoaderComponent, ContentCreditsComponent, AnnouncementInboxCardComponent, DateFormatPipe, DateFilterXtimeAgoPipe,
     PageSectionComponent, DisplayPopularCourseComponent , NoResultComponent, CollectionTreeComponent, FancyTreeComponent,
     PlayerComponent, CardComponent, CardCreationComponent, FilterPipe, ShareLinkComponent, CollectionPlayerMetadataComponent,
     BrowserCompatibilityComponent, QrCodeModalComponent, CdnprefixPipe, InterpolatePipe, RedirectComponent, CustomMultiSelectComponent,
-    InstallAppComponent, LockInfoPopupComponent ,
+    InstallAppComponent, LockInfoPopupComponent , AllcurriculumComponent,
 
   ]
 })

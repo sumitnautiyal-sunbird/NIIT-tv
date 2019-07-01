@@ -12,7 +12,14 @@ import { CollectionHierarchyAPI, ContentService } from '@sunbird/core';
 import * as _ from 'lodash';
 import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { DomSanitizer } from '@angular/platform-browser';
-
+export enum IactivityType {
+  'Self Paced' = 'film',
+  'live Session' = 'headset',
+  'Classroom Session' = 'chalkboard',
+  'Assessments' = 'edit',
+  'Survey'= 'line-chart',
+  'Feedback'= 'comment'
+}
 @Component({
   selector: 'app-public-preview-page',
   templateUrl: './public-preview-page.component.html',
@@ -27,7 +34,7 @@ export class PublicPreviewPageComponent implements OnInit, OnDestroy {
   public collectionData: object;
 
   public route: ActivatedRoute;
-
+  public curriculumactivity = [];
   public showPlayer: Boolean = false;
 
   private collectionId: string;
@@ -189,9 +196,17 @@ console.log(this.activatedRoute, this.userEnrolledBatch);
   private parseChildContent(collection: any) {
     const model = new TreeModel();
     const mimeTypeCount = {};
+    const activityTypeCount = {};
     if (collection.data) {
       this.treeModel = model.parse(collection.data);
       this.treeModel.walk((node) => {
+        if (node.model.activityType) {
+          if (activityTypeCount[node.model.activityType]) {
+            activityTypeCount[node.model.activityType] += 1;
+          } else {
+            activityTypeCount[node.model.activityType] = 1;
+          }
+        }
         if (node.model.mimeType !== 'application/vnd.ekstep.content-collection') {
           if (mimeTypeCount[node.model.mimeType]) {
             mimeTypeCount[node.model.mimeType] += 1;
@@ -223,6 +238,13 @@ console.log(this.activatedRoute, this.userEnrolledBatch);
        }
        this.mimeType = this.mimeType + ' ' + mime + ' ' + value;
         console.log(this.mimeType);
+      });
+      _.forEach(activityTypeCount, (value, key) => {
+        this.curriculumactivity.push({
+          activityType: key,
+          count: value,
+          activityTypeIcon: IactivityType[key]
+        });
       });
       //   if (node.model.mimeType !== 'application/vnd.ekstep.content-collection') {
       //     this.contentDetails.push({ id: node.model.identifier, title: node.model.name });

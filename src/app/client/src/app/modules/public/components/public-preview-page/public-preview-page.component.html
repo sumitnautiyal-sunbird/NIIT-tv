@@ -55,11 +55,12 @@
                                                             <i class="fas fa-2x fa-book-reader"></i>
                                                         </div>
                                                         <div class="text-center">
-                                                            <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">{{mimeTypeCount}}</h4>
-                                                            <h6 class="card-subtitle mb-2 text-muted pt-3"> CURRICULUM</h6>
+                                                            <h4 class="card-title" data-toggle="tooltip" data-placement="top" title="{{curriculumactivity}}">{{mimeTypeCount}}</h4>
+                                                            <h6 class="card-subtitle text-muted pt-2"> CURRICULUM</h6>
                                                         </div>
+                                                        <app-allcurriculum *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-allcurriculum>
                                                     </div>
-                                                </div>
+                                                    </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="card course-card">
@@ -83,7 +84,7 @@
                                                         </div>
                                                         <div class="text-center">
                                                             <h6 class="card-title pt-3">{{collectionData.language}}</h6>
-                                                            <h6 class="card-subtitle mb-2 pt-4 text-muted">LANGUAGE</h6>
+                                                            <h6 class="card-subtitle mb-2 pt-3 text-muted">LANGUAGE</h6>
                                                         </div>
                                                     </div>
                                                 </div>
