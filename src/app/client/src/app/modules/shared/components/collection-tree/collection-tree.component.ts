@@ -92,7 +92,7 @@ open: boolean;
 
 
   public onItemSelect(item: any) {
-    if (!item.folder) {
+    if (!item.folder && this.enrolledDate) {
       this.contentSelect.emit({ id: item.data.id, title: item.title });
     }
   }
@@ -212,6 +212,10 @@ open: boolean;
 
 public onNode(node: any) {
   console.log(node, open, this.completedUnits);
+  if (!this.enrolledDate) {
+    node.model.prerequisites = undefined;
+  }
+
   if (node.model.prerequisites && !node.model.open) {
     let preData = node.model.prerequisites.split(',');
     console.log(preData);

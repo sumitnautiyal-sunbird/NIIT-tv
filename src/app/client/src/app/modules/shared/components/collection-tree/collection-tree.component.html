@@ -5,7 +5,7 @@
   <i *ngIf="child.folder" class="fa fa-2x mr-10 vertical-align-middle"
   [class.fa-folder-open-o]="child.model.togglePanelIcon" [class.fa-folder-o]="!child.model.togglePanelIcon"></i>
 <i *ngIf="!child.folder" class="fa fa-2x mr-10 vertical-align-middle" [ngClass]="child.icon"></i>
-<i class="mt-2 fa-1-429 mr-10 red-tooltip"
+<i class="mt-2 fa-1-429 mr-10 red-tooltip" *ngIf="enrolledDate "
 title="Complete the Prerequisites"
  [ngClass]="{'fas':true , 'fa-lock': (child.model.prerequisites && !child.model.togglePanelIcon) === true, 'fa-lock-open': (child.model.prerequisites && child.model.togglePanelIcon) === true}"></i>
 <span [innerHTML]="child.title" class="d-inline-block mt-2" id="title"></span>
