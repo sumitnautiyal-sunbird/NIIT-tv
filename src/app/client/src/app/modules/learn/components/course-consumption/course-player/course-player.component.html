@@ -275,7 +275,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3">
-                                <img [src]="courseHierarchy.appIcon" class="card-img-top image" alt="...">
+                                <img appImagePreload [srcimg]='courseHierarchy?.appIcon' defaultimage="https://camino.stackroute.com/assets/images/default-Course.png" class="card-img-top image" alt="...">
                             </div>
                             <div class="col-md-5">
                                 <div>
@@ -309,36 +309,9 @@
                                 <button type="button" class="btn btn-primary">ENROLL</button>
 
                             </div> -->
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="container">
-          <div class="course-details">
-            <div class="row">
-              <div class="col-md-10">
-                <div class="row tablet computer only">
-                  <div class="col-md-3">
-                    <div class="card course-card">
-                      <div class="card-body">
-                        <div class="circle icon1">
-                          <i class="fas fa-2x fa-book-reader"></i>
+                            </div>
                         </div>
-                        <div class="text-center">
-                          <h4 class="card-title pt-3">
-                            {{mimeTypeCount}}</h4>
-                          <h6 class="card-subtitle mb-2 text-muted pt-1"> {{resourceService.frmelmnts.lbl.curriculum}}
-                          </h6>
-                        </div>
-                        <app-allcurriculum *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-allcurriculum>
-                      </div>
                     </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            </div>
                 </section>
 
                 <section class="container">
@@ -355,8 +328,35 @@
                                                 <div class="text-center">
                                                     <h4 class="card-title pt-3">
                                                         {{mimeTypeCount}}</h4>
-                                                      <h6 class="card-subtitle mb-2 text-muted pt-1"> {{resourceService.frmelmnts.lbl.curriculum}}
-                                                      </h6>
+                                                    <h6 class="card-subtitle mb-2 text-muted pt-1"> {{resourceService.frmelmnts.lbl.curriculum}}
+                                                    </h6>
+                                                </div>
+                                                <app-allcurriculum *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-allcurriculum>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="container">
+                    <div class="course-details">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row tablet computer only">
+                                    <div class="col-md-3">
+                                        <div class="card course-card">
+                                            <div class="card-body">
+                                                <div class="circle icon1">
+                                                    <i class="fas fa-2x fa-book-reader"></i>
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="card-title pt-3">
+                                                        {{mimeTypeCount}}</h4>
+                                                    <h6 class="card-subtitle mb-2 text-muted pt-1"> {{resourceService.frmelmnts.lbl.curriculum}}
+                                                    </h6>
                                                 </div>
                                                 <app-allcurriculum *ngIf="curriculumactivity" [activitytypecount]="curriculumactivity"></app-allcurriculum>
                                             </div>
@@ -408,7 +408,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="card preview-video" (click)="showPreviewVideo()">
-                                    <img src="{{courseHierarchy.appIcon}}" class="card-img-top video" alt="...">
+                                    <img appImagePreload [srcimg]='courseHierarchy?.appIcon' defaultimage="https://camino.stackroute.com/assets/images/default-Course.png" class="card-img-top video" alt="...">
                                     <div class="overlay mt-4">
                                         <div class="play">
 

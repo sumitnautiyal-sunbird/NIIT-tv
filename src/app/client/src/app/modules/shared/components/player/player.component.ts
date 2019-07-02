@@ -2,7 +2,7 @@ import { ConfigService } from './../../services';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
-import {PlayerConfig} from './../../interfaces';
+import { PlayerConfig } from './../../interfaces';
 
 @Component({
   selector: 'app-player',
@@ -31,7 +31,6 @@ export class PlayerComponent implements OnInit, OnChanges {
     console.log('progres eveny', this.contentProgressEvent);
     this.showPlayer();
   }
-
   ngOnChanges() {
     this.showPlayer();
   }
@@ -39,7 +38,7 @@ export class PlayerComponent implements OnInit, OnChanges {
    * Initializes player with given config and emits player telemetry events
    * Emits event when content starts playing and end event when content was played/read completely
    */
-  showPlayer () {
+  showPlayer() {
     const iFrameSrc = this.configService.appConfig.PLAYER_CONFIG.baseURL + '&build_number=' + this.buildNumber;
     console.log('ifram src is -------' + iFrameSrc);
     setTimeout(() => {
@@ -52,13 +51,14 @@ export class PlayerComponent implements OnInit, OnChanges {
       };
     }, 0);
     this.contentIframe.nativeElement.addEventListener('renderer:telemetry:event', (event: any) => {
-        this.generateContentReadEvent(event);
+      this.generateContentReadEvent(event);
+      this.onLoad();
     });
   }
   /**
    * Adjust player height after load
    */
-  adjustPlayerHeight () {
+  adjustPlayerHeight() {
     const playerWidth = $('#contentPlayer').width();
     if (playerWidth) {
       const height = playerWidth * (9 / 16);
@@ -68,7 +68,7 @@ export class PlayerComponent implements OnInit, OnChanges {
   generateContentReadEvent(event: any) {
     console.log('generate content red event ', event);
     if (event.detail.telemetryData.eid && (event.detail.telemetryData.eid === 'START' ||
-    event.detail.telemetryData.eid === 'END')) {
+      event.detail.telemetryData.eid === 'END')) {
       console.log('emiting the read event ', event);
       this.contentProgressEvent.emit(event);
     } else if (event.detail.telemetryData.eid && (event.detail.telemetryData.eid === 'IMPRESSION')) {
@@ -81,6 +81,16 @@ export class PlayerComponent implements OnInit, OnChanges {
       const stageId = this.contentIframe.nativeElement.contentWindow.EkstepRendererAPI.getCurrentStageId();
       const eventData = { stageId };
       this.sceneChangeEvent.emit(eventData);
-    } , timer); // waiting for player to load, then fetching stageId (if we dont wait stageId will be undefined)
+    }, timer); // waiting for player to load, then fetching stageId (if we dont wait stageId will be undefined)
+  }
+  onLoad() {
+    if ($('iframe').contents().find('body').children().find('span').length > 0) {
+      $('iframe').contents().find('body').children().find('span').map(element => {
+        if ((<HTMLElement>$('iframe').contents().find('body').children().find('span')[element]).className === 'vjs-icon-placeholder') {
+          // tslint:disable-next-line:max-line-length
+         (<HTMLElement>$('iframe').contents().find('body').children().find('span')[element]).style.cssText = 'font-family:VideoJS !important';
+        }
+      });
+      }
   }
 }

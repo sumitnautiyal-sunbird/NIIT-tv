@@ -11,9 +11,8 @@ import { Directive,
 })
 export class ImagePreloadDirective {
   @Input() srcimg;
-  @HostBinding('class') className;
   @HostListener('load') onLoad() {
-    if (this.srcimg === null) {
+    if (this.srcimg === null || this.srcimg === undefined) {
       this.renderer.setAttribute(this.el.nativeElement, 'src', this.defaultimage);
     } else {
       this.renderer.setAttribute(this.el.nativeElement, 'src', this.srcimg);
