@@ -73,9 +73,6 @@ open: boolean;
   ngOnInit() {
     console.log('enrolled date', this.contentId, this.enrolledDate, this.enrolled, this.loggedIn,
      this.name, this.batchId, this.courseId, this.contentsStatus);
-//      this.local = localStorage.getItem('');
-//    this.local  = JSON.parse(this.local);
-// console.log('local storage', this.local);
     this.initialize();
   }
 
@@ -92,8 +89,24 @@ open: boolean;
 
 
   public onItemSelect(item: any) {
-    if (!item.folder && this.enrolledDate) {
-      this.contentSelect.emit({ id: item.data.id, title: item.title });
+    const itemID = item.data.id;
+    if (!item.folder) {
+      if (this.enrolledDate) {
+        const isOpenReally = this.isOpen(itemID);
+        if (isOpenReally['response'] === undefined) {
+          // if there is no prerequisite on the clicked content, isOpen will return undefined
+          this.contentSelect.emit({ id: item.data.id, title: item.title });
+        } else if ( isOpenReally['response'] !== undefined && isOpenReally['response'] ) {
+          // if there is a prerequiste and the user has completed that prerequisite
+          this.contentSelect.emit({ id: item.data.id, title: item.title });
+          } else {
+            // there is a prerequisite and the user has not completed that pre requisite
+          this.toasterService.error('You should complete prerequisites:' + '     ' + isOpenReally['message']);
+          }
+      } else {
+        // user clicked on the content without being enrolled to it
+        this.toasterService.warning('You need to enroll this course to view any content');
+      }
     }
   }
 
@@ -115,12 +128,14 @@ open: boolean;
       *
       */
       _.forOwn(this.rootNode.model.children, children => {
-        console.log('child', children);
-        if (children.prerequisites) {
-          children['togglePanelIcon'] = false;
-         } else {
-           children['togglePanelIcon'] = true;
-         }
+        children['togglePanelIcon'] = false;
+        if (this.enrolledDate) {
+          if (children.prequisite) {
+            children['togglePanelIcon'] = false;
+          } else {
+            children['togglePanelIcon'] = true;
+          }
+        }
         console.log('child', children);
         this.getContent(children.identifier, children);
         this.preContent[children.identifier] = this.children;
@@ -216,7 +231,7 @@ public onNode(node: any) {
     node.model.prerequisites = undefined;
   }
 
-  if (node.model.prerequisites && !node.model.open) {
+  if (node.model.prerequisites && !node.model.open && !node.folder) {
     let preData = node.model.prerequisites.split(',');
     console.log(preData);
 
@@ -232,9 +247,9 @@ public onNode(node: any) {
     this.toasterService.error('You should complete prerequisites:' + '     ' + preData);
     preData = [];
   }
-  if (!node.model.prerequisites) {
+  /* if (!node.model.prerequisites) {
     node.model.togglePanelIcon = !node.model.togglePanelIcon;
-  }
+  } */
   }
 
 public getCourseStatus() {
@@ -290,6 +305,42 @@ public getCourseStatus() {
           this.children.push(child.identifier);
         }
       });
+      }
+
+      private addPreReqToTree(isPrequisiteAvailable, node) {
+       if ( !!isPrequisiteAvailable ) {
+        console.log('GOT preReq in ', node);
+        _.forOwn(node.children, (innerNode) => {
+          if (innerNode.children && innerNode.children.length) {
+            this.addPreReqToTree(isPrequisiteAvailable, innerNode);
+          } else {
+            innerNode['prerequisites'] = isPrequisiteAvailable;
+            console.log('ASSIGNED PRE REQUISITE TO THIS NODE ', innerNode);
+            return;
+          }
+        });
+       }
+      }
+
+      isOpen(itemID: string) {
+        const isReallyAllowed = {'response': undefined, 'message': undefined};
+        const mainNodes = Object.keys(this.preContent);
+        const mainKey = [];
+        mainNodes.forEach((key, index) => {
+          if (this.preContent[key].indexOf(itemID) > -1 ) {
+            mainKey.push({'key': key, 'index': index});
+          }
+        });
+        // check if open is true or false
+        if (!!this.rootNode.children[mainKey[0].index].model.hasOwnProperty('prerequisites') ) {
+          if (this.rootNode.children[mainKey[0].index].model.hasOwnProperty('open')) {
+            isReallyAllowed.response = this.rootNode.children[mainKey[0].index].model.open;
+          }
+        } else {
+          isReallyAllowed.response = undefined;
+        }
+        isReallyAllowed.message = this.rootNode.children[mainKey[0].index].model.prerequisites;
+        return isReallyAllowed;
       }
       /* To get CourseUnit Status details ends*/
 }

@@ -1,13 +1,13 @@
 <sui-accordion *ngFor="let child of rootChildrens" class="ui styled accordion mt-10  width-100" id="course-content">
 <sui-accordion-panel [ngClass]="child.extraClasses" (click)="!child.folder && onNodeClick(child)"
-    [(isOpen)]="child.model.togglePanelIcon" [isDisabled]="(!child.children.length) || (!child.folder) || (!child.model.open)">
+    [(isOpen)]="child.model.togglePanelIcon" [isDisabled]="(!child.children.length) || (!child.folder)">
     <div title class="accordian-left-text active" (click)="onNode(child)">
   <i *ngIf="child.folder" class="fa fa-2x mr-10 vertical-align-middle"
   [class.fa-folder-open-o]="child.model.togglePanelIcon" [class.fa-folder-o]="!child.model.togglePanelIcon"></i>
 <i *ngIf="!child.folder" class="fa fa-2x mr-10 vertical-align-middle" [ngClass]="child.icon"></i>
 <i class="mt-2 fa-1-429 mr-10 red-tooltip" *ngIf="enrolledDate "
 title="Complete the Prerequisites"
- [ngClass]="{'fas':true , 'fa-lock': (child.model.prerequisites && !child.model.togglePanelIcon) === true, 'fa-lock-open': (child.model.prerequisites && child.model.togglePanelIcon) === true}"></i>
+ [ngClass]="{'fas':true , 'fa-lock': child.model.prerequisites, 'fa-lock-open': (child.model.prerequisites && child.model.open === true) === true}"></i>
 <span [innerHTML]="child.title" class="d-inline-block mt-2" id="title"></span>
 <span [innerHTML]="child.startDate" class="d-inline-block mt-2"></span>
 <span *ngIf="enrolledDate" [innerHTML]="'-'" class="d-inline-block mt-2"></span>
