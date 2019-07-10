@@ -367,7 +367,12 @@ export class CatalogComponent implements OnInit {
       event.data.metaData.enrolledDate = event.data.enrolledDate;
     }
     this.playerService.playContent(event.data.metaData);
+    if(!this.userloggedIn){
     this.route.navigate(['/play/collection', event.data.metaData.identifier]);
+    }
+    else{
+      this.route.navigate(['/learn/course',event.data.metaData.identifier]);
+    }
 
   }
   inview(event) {

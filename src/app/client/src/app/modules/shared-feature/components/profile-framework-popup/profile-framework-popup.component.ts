@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef, EventEmitter, Output, OnDestroy, ViewChild } from '@angular/core';
 import { FrameworkService, FormService, UserService, ChannelService, OrgDetailsService } from '@sunbird/core';
-import { takeUntil, first, mergeMap, map, tap , filter} from 'rxjs/operators';
+import { takeUntil, first, mergeMap, map, tap, filter } from 'rxjs/operators';
 import { combineLatest, Subscription, Subject, of, throwError } from 'rxjs';
 import {
   ConfigService, ResourceService, Framework, ToasterService, ServerResponse
@@ -43,10 +43,23 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
   public isCustodianOrg = false;
   public initDropDown = false;
   public CustodianOrgBoard: object = {};
+  langselected: any;
   constructor(public router: Router, public userService: UserService, public frameworkService: FrameworkService,
     public formService: FormService, public resourceService: ResourceService, private cdr: ChangeDetectorRef,
     public toasterService: ToasterService, public channelService: ChannelService, public orgDetailsService: OrgDetailsService,
-    private cacheService: CacheService, ) { }
+    private cacheService: CacheService, ) {
+    this.resourceService.languageSelected$.subscribe(item => {
+      if (typeof item === 'object' && item.constructor === Object) {
+        this.langselected = item.value;
+      } else if (item === undefined) {
+        this.langselected = 'en';
+      } else {
+        this.langselected = item;
+      }
+      console.log('language selected in popup', this.langselected);
+
+    });
+  }
 
   ngOnInit() {
     this.orgDetailsService.getCustodianOrg().pipe(
@@ -95,33 +108,33 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
   setFrameWorkDetails() {
     return this.frameworkService.frameworkData$.pipe(
       filter((frameworkDetails) => { // wait to get the framework name if passed as input
-      if (!frameworkDetails.err) {
-        const framework = this.frameWorkId ? this.frameWorkId : 'defaultFramework';
-        const frameworkData = _.get(frameworkDetails.frameworkdata, framework);
-        if (frameworkData) {
-          return true;
-        } else {
-          return false;
+        if (!frameworkDetails.err) {
+          const framework = this.frameWorkId ? this.frameWorkId : 'defaultFramework';
+          const frameworkData = _.get(frameworkDetails.frameworkdata, framework);
+          if (frameworkData) {
+            return true;
+          } else {
+            return false;
+          }
         }
-      }
-      return true;
-    }),
-     mergeMap((frameworkDetails) => {
-      if (!frameworkDetails.err) {
-        const framework = this.frameWorkId ? this.frameWorkId : 'defaultFramework';
-        this.frameWorkId = this.frameWorkId ? this.frameWorkId : frameworkDetails.frameworkdata['defaultFramework'].identifier;
-        const frameworkData = _.get(frameworkDetails.frameworkdata, framework);
-        this.categoryMasterList = _.cloneDeep(frameworkData.categories);
-        return this.getFormDetails();
-      } else if (frameworkDetails.err) {
-        return throwError(frameworkDetails.err);
-      }
-    }), map((formData) => {
+        return true;
+      }),
+      mergeMap((frameworkDetails) => {
+        if (!frameworkDetails.err) {
+          const framework = this.frameWorkId ? this.frameWorkId : 'defaultFramework';
+          this.frameWorkId = this.frameWorkId ? this.frameWorkId : frameworkDetails.frameworkdata['defaultFramework'].identifier;
+          const frameworkData = _.get(frameworkDetails.frameworkdata, framework);
+          this.categoryMasterList = _.cloneDeep(frameworkData.categories);
+          return this.getFormDetails();
+        } else if (frameworkDetails.err) {
+          return throwError(frameworkDetails.err);
+        }
+      }), map((formData) => {
         this.formFieldProperties = formData;
         if (!this.isCustodianOrg) {
           this.getFormConfig();
         }
-    }));
+      }));
   }
   getFormConfig() {
     _.forEach(this.categoryMasterList, (category) => {
@@ -134,9 +147,21 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
     });
     this.formFieldProperties = _.sortBy(_.uniqBy(this.formFieldProperties, 'code'), 'index');
     this.board = _.find(this.formFieldProperties, { code: 'board' });
-    this.label['medium'] =  _.find(this.formFieldProperties, { label: 'Medium' });
-    this.label['class'] =  _.find(this.formFieldProperties, { label: 'Class' });
-    this.label['subject'] =  _.find(this.formFieldProperties, { label: 'Subject' });
+    if (this.board['translations'].constructor === String) {
+      this.board['translations'] = JSON.parse(this.board['translations']);
+    }
+    this.label['medium'] = _.find(this.formFieldProperties, { label: 'Medium' });
+    if (this.label['medium'].translations.constructor === String) {
+      this.label['medium'].translations = JSON.parse(this.label['medium'].translations);
+    }
+    this.label['class'] = _.find(this.formFieldProperties, { label: 'Class' });
+    if (this.label['class'].translations.constructor === String) {
+      this.label['class'].translations = JSON.parse(this.label['class'].translations);
+    }
+    this.label['subject'] = _.find(this.formFieldProperties, { label: 'Subject' });
+    if (this.label['subject'].translations.constructor === String) {
+      this.label['subject'].translations = JSON.parse(this.label['subject'].translations);
+    }
     if (this.isEdit) {
       this.medium = _.find(this.formFieldProperties, { code: 'medium' });
       this.gradeLevel = _.find(this.formFieldProperties, { code: 'gradeLevel' });
@@ -189,17 +214,17 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
         this.frameWorkId = identifier['identifier'];
       }
       this.frameworkService.initialize(this.frameWorkId);
-      this.setFrameWorkDetails().pipe( first(), takeUntil(this.unsubscribe)).subscribe((data) => {
-      this.getFormatedData(event, nextIndex, code);
+      this.setFrameWorkDetails().pipe(first(), takeUntil(this.unsubscribe)).subscribe((data) => {
+        this.getFormatedData(event, nextIndex, code);
       }, err => {
-       this.navigateTolibrary();
+        this.navigateTolibrary();
       });
     } else {
       this.getFormatedData(event, nextIndex, code);
     }
   }
   getFormatedData(event, nextIndex, code) {
-   _.forEach(this.categoryMasterList, (category) => {
+    _.forEach(this.categoryMasterList, (category) => {
       _.forEach(this.formFieldProperties, (formFieldCategory) => {
         if (category.code === formFieldCategory.code && category.terms) {
           formFieldCategory.range = category.terms;
@@ -209,9 +234,9 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
     });
     this.formFieldProperties = _.sortBy(_.uniqBy(this.formFieldProperties, 'code'), 'index');
     if (this.isCustodianOrg) {
-      this.board = {... _.find(this.formFieldProperties, { code: 'board' }), ...this.CustodianOrgBoard};
+      this.board = { ..._.find(this.formFieldProperties, { code: 'board' }), ...this.CustodianOrgBoard };
     } else {
-      this.board =  _.find(this.formFieldProperties, { code: 'board' });
+      this.board = _.find(this.formFieldProperties, { code: 'board' });
     }
     if (code === 'board') {
       this.selectedOption['board'] = event;
@@ -276,6 +301,6 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
       this.modal.deny();
     }
     this.router.navigate(['/resources']);
-    this.cacheService.set('showFrameWorkPopUp', 'installApp' );
+    this.cacheService.set('showFrameWorkPopUp', 'installApp');
   }
 }

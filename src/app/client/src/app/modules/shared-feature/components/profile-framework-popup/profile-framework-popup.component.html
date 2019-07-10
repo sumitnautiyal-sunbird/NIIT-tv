@@ -8,7 +8,7 @@
     </div>
     <form class="ui form">
       <div class="required field" *ngIf="board">
-        <label>{{board.label}}</label>
+        <label>{{board.translations[langselected]}}</label>
         <div class="field">
           <sui-select id={{board.code}} [isSearchable]="false" class="selection" [(ngModel)]="selectedOption[board.code]"
               [options]="options"  (ngModelChange)="onChange($event,label.medium.index,board.code)" [ngModelOptions]="{standalone: true}">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="required field" *ngIf="medium">
-        <label *ngIf="label.medium">{{label.medium.label}}</label>
+        <label *ngIf="label.medium">{{label['medium'].translations[langselected]}}</label>
         <div class="field">
           <sui-multi-select id={{medium.code}} [isSearchable]="false" class="selection" [(ngModel)]="selectedOption[medium.code]"
             [options]="options"  (ngModelChange)="onChange($event,label.class.index,medium.code)" [ngModelOptions]="{standalone: true}" #multiSelect>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="required field" *ngIf="gradeLevel">
-        <label  *ngIf="label.class">{{label.class.label}}</label>
+        <label  *ngIf="label.class">{{label['class'].translations[langselected]}}</label>
         <div class="field">
           <sui-multi-select id={{gradeLevel.code}} [isSearchable]="false" class="selection" [(ngModel)]="selectedOption[gradeLevel.code]"
             [options]="options"    (ngModelChange)="onChange($event,label.subject.index,gradeLevel.code)" [ngModelOptions]="{standalone: true}" #multiSelect>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="field" *ngIf="subject">
-        <label  *ngIf="label.subject">{{label.subject.label}}</label>
+        <label  *ngIf="label.subject">{{label['subject'].translations[langselected]}}</label>
         <div class="field">
           <sui-multi-select id={{subject.code}} [isSearchable]="false" class="selection" [(ngModel)]="selectedOption[subject.code]"
             [options]="options" [ngModelOptions]="{standalone: true}" #multiSelect>
