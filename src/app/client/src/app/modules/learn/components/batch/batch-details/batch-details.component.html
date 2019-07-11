@@ -47,6 +47,7 @@
         [telemetryInteractObject]="courseInteractObject" (click)="createBatch()" *ngIf="courseMentor">
         <a><i class="add icon"></i>{{resourceService.frmelmnts.lbl.createbatch}}</a>
     </div>
+</div>
 <div *ngIf="enrolledCourse && enrolledBatchInfo" class="rightSideSectionCards ui card">
     <div class="content">
         <div class="header">{{resourceService.frmelmnts.lbl.batchdetails}}</div>
@@ -64,10 +65,10 @@
         </div>
     </div>
     <div class="selectedBatchContent extra content" (click)="getUserandMentorDetails()">
-        <span class="right floated">
+        <span class="right floated custompointer">
             {{enrolledBatchInfo.participant.length}} {{resourceService.frmelmnts.lbl.learners}}
         </span>
-        <span>
+        <span class="custompointer">
             {{enrolledBatchInfo.mentors.length}} {{resourceService.frmelmnts.lbl.mentors}}
         </span>
     </div>
