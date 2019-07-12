@@ -25,9 +25,9 @@
 
   <div class="actions">
     <button *ngIf="mode === 'create'" class="ui primary right floated button mb-15 mt-10 ng-binding primary-color" type="submit" (click)="modal.approve('done'); createNote();"
-      [disabled]="!noteData.title || !noteData.note" tabindex="3">SAVE</button>
+      [disabled]="!noteData.title || !noteData.note" tabindex="3">{{resourceService?.frmelmnts.btn.save}}</button>
     <button *ngIf="mode === 'create'" class="ui secondary right floated button mb-15 mt-10 ng-binding secondary-color" type="submit" (click)="clearNote()"
-      tabindex="4">CLEAR</button>
+      tabindex="4">{{resourceService?.frmelmnts.btn.clear}}</button>
 
     <button [disabled]="!updateData.title || !updateData.note" *ngIf="mode === 'update'" class="ui primary right floated button mb-15 mt-10 ng-binding primart-color" type="submit"
       (click)="modal.approve('done'); updateNote()" tabindex="4">UPDATE</button>

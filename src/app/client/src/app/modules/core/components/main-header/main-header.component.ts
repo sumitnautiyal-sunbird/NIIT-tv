@@ -164,7 +164,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
             const child: ActivatedRoute[] = currentRoute.children;
             child.forEach(route => {
               currentRoute = route;
-              console.log('here is  the  current route', currentRoute.data['value']['orgdata']['defaultFramework']);
+             // console.log('here is  the  current route', currentRoute.data['value']['orgdata']['defaultFramework']);
               if (route.snapshot.data.telemetry) {
                 if (route.snapshot.data.telemetry.pageid) {
                   this.pageId = route.snapshot.data.telemetry.pageid;

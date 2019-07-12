@@ -3,14 +3,14 @@
               
              <div class="card-body">
                 <div class="card-title text-center mt-5">
-                    <h2>Create Batch</h2>
+                    <h2>{{resourceService.frmelmnts.btn.createbatch}}</h2>
                 </div>
 <div class="container">
   <form
   class="form-width px-5 py-4"
 >
   <div class="form-group pb-3">
-    <label>Name</label>
+    <label>{{resourceService.frmelmnts.lbl.name}}</label>
     <input
       type="text"
       class="form-control input"
@@ -23,7 +23,7 @@
 
   </div>
   <div class="form-group pb-3">
-    <label>Description</label>
+    <label>{{resourceService.frmelmnts.lbl.description}}</label>
     <input
       type="text"
       class="form-control input"
@@ -36,8 +36,8 @@
  
   </div>
   <div class="row pb-4">
-    <div class="col-md-2" style="margin-right: -3rem">
-        <label>Batch-Type:</label>
+    <div class="col-md-2" style="margin-right: -2rem">
+        <label>{{resourceService.frmelmnts.lbl.natureofbatch}}:</label>
     </div>
     <div class="col">
         <div class="form-check" >
@@ -52,7 +52,7 @@
             checked
           />
           <label class="form-check-label" for="invite">
-            Invite-Only
+              {{resourceService.frmelmnts.lbl.inviteonly}}
           </label>
         </div>
       </div>
@@ -68,7 +68,7 @@
             [formControl] = "open"
           />
           <label class="form-check-label" for="open">
-          Open
+              {{resourceService.frmelmnts.lbl.open}}
           </label>
         </div>
       </div>
@@ -77,7 +77,7 @@
   <div class="row">
       <div class="col">
           <div class="form-group pb-3">
-              <label> Start Date</label>
+              <label>{{resourceService.frmelmnts.lbl.startdate}}</label>
               <i class="far fa-calendar-alt pl-3"></i>
               <input type="date" id="startdate" 
               class="input"
@@ -91,7 +91,7 @@
       </div>
     <div class="col">
           <div class="form-group pb-3">
-            <label>End Date</label>
+            <label>{{resourceService.frmelmnts.lbl.enddate}}</label>
             <i class="far fa-calendar-alt pl-3"></i>
             <input type="date" id="enddate" 
             name="endDate"
@@ -106,14 +106,14 @@
 
 <div *ngIf="enabled">
     <div>
-        <label>Select Mentors</label>
+        <label>{{resourceService.frmelmnts.lbl.SelectMentors}}</label>
     
         <sui-multi-select  #multiSelect [ngModel]="mentors" #mentors="ngModel" class="selection filterFieldSearch" style="width:100%">
             <sui-select-option *ngFor="let mentor of allMentors" [value]="mentor.name" (click)="onSelectMentor(mentor)"></sui-select-option>
           </sui-multi-select>
     </div>
     <div class="pt-3">
-        <label>Select Members</label>
+        <label>{{resourceService.frmelmnts.lbl.selectmembers}}</label>
     
         <sui-multi-select  #multiSelect [ngModel]="mentors" #mentors="ngModel" class="selection filterFieldSearch" style="width:100%">
             <sui-select-option *ngFor="let member of allMembers" [value]="member.name" (click)="onSelectMember(member)"></sui-select-option>
@@ -124,7 +124,7 @@
 </div>
             </div>
                 <div class="card-footer text-right">
-                    <button type="submit" class="btn btn-primary signup-btn " (click)="createBatch(startDate.value, endDate.value)">Create Batch</button>
+                    <button type="submit" class="btn btn-primary signup-btn " (click)="createBatch(startDate.value, endDate.value)">{{resourceService.frmelmnts.btn.createbatch}}</button>
                 </div>
               </div>
 </sui-modal>
