@@ -101,9 +101,9 @@ console.log('content ', this.contentStatus);
             child['startDate'] = this.addDate(child.model.activitystart);
             child['endDate'] = this.addDate(child.model.activityend);
 
-            if (topic.folder) {
-              topic.title = topic.title + '<span class="date">' + topic.startDate + ' - ' + topic.endDate + '</span>';
-            }
+            // if (topic.folder) {
+            //   topic.title = topic.title + '<span class="date">' + topic.startDate + ' - ' + topic.endDate + '</span>';
+            // }
           }
         });
       }
