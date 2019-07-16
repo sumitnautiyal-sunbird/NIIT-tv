@@ -179,6 +179,7 @@ export class CatalogComponent implements OnInit {
     this.framework = !!this.frameworkName ? this.frameworkName : this.activatedRoute.snapshot.data.orgdata.defaultFramework;
     this.pageLimit = this.config.appConfig.SEARCH.PAGE_LIMIT;
     this.filters.channel = this.hashTagId;
+    this.filters.contentType = ['Course', 'TextBook'];
     const requestParams = {
       filters: _.pickBy(this.filters, value => value.length > 0),
       limit: this.pageLimit,
@@ -186,16 +187,17 @@ export class CatalogComponent implements OnInit {
       query: this.queryParams.key,
       sort_by: { [this.queryParams.sort_by]: this.queryParams.sortType }
     };
-    this.searchService.courseSearch(requestParams).subscribe(
+    // this.searchService.courseSearch(requestParams).subscribe(
+      this.searchService.contentSearch(requestParams).subscribe(
       (apiResponse: ServerResponse) => {
-        if (apiResponse.result.count && apiResponse.result.course) {
+        if (apiResponse.result.count && apiResponse.result.content) {
           this.showLoader = false;
           this.noResult = false;
           this.totalCount = apiResponse.result.count;
           this.pager = this.paginationService.getPager(apiResponse.result.count, this.pageNumber, this.pageLimit);
           this.searchList = [];
           let tempSearchList = [];
-          tempSearchList = this.processActionObject(apiResponse.result.course);
+          tempSearchList = this.processActionObject(apiResponse.result.content);
           // to update the list, we need to change object reference so that angular can detect it
           this.searchList = _.cloneDeep(tempSearchList);
         } else {

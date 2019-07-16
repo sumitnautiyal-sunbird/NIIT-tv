@@ -1,14 +1,14 @@
 <!-- HEADER SECTION
     css of this section is in header.css -->
 <div class="container-fluid">
-  <div class="row align-items-center header">
-    <div class="col-xs-12 col-sm-12 col-md-2">
-      <div class="logo" (click)="navigateToHome()">
-        <img src="{{appLogoUrl}}" alt={{tenantName}}>
-      </div>
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-2 category">
-      <!-- <div class="ui dropdown">
+    <div class="row align-items-center header">
+        <div class="col-xs-12 col-sm-12 col-md-2">
+            <div class="logo" (click)="navigateToHome()">
+                <img src="{{appLogoUrl}}" alt={{tenantName}}>
+            </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-2 category">
+            <!-- <div class="ui dropdown">
         <i class="fa fas fa-th"></i>
         &nbsp;<div class="text">Categories</div>
         <div class="menu">
@@ -17,132 +17,123 @@
           </ng-container>
         </div>
       </div> -->
-      <a routerLink="search/explore-course/1" class="categorylink">{{resourceService?.frmelmnts?.lbl?.BrowseCourses}}</a>
-    </div>
-    <div class="search-wrapper">
-      <div class="container-fluid search-container">
-        <form>
-          <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)"
-              placeholder={{resourceService.frmelmnts?.lbl?.SearchforCourses}} name="header-search">
-            <div class="search">
-              <button class="btn btn-default" type="submit" (click)="onEnter(key)">
+            <a routerLink="search/explore-course/1" class="categorylink">{{resourceService?.frmelmnts?.lbl?.BrowseCourses}}</a>
+        </div>
+        <div class="search-wrapper">
+            <div class="container-fluid search-container">
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)" placeholder={{resourceService.frmelmnts?.lbl?.SearchforCourses}} name="header-search">
+                        <div class="search">
+                            <button class="btn btn-default" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
               </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="menu-right">
-      <div *ngIf="!userService.loggedIn" class="row align-items-center justify-content-center button-container">
-        <!-- <div class="col-2 d-none d-md-block d-lg-block p-0 text-center">
+        </div>
+        <div class="menu-right">
+            <div *ngIf="!userService.loggedIn" class="row align-items-center justify-content-center button-container">
+                <!-- <div class="col-2 d-none d-md-block d-lg-block p-0 text-center">
           <a routerLink="/signup" class="signup">Sign Up</a>
         </div> -->
-        <div class="col-2 d-none d-md-block d-lg-block">
-          <button type="button" class="btn btn-outline-default btn-md signin" (click)="signIn()">
+                <div class="col-2 d-none d-md-block d-lg-block">
+                    <button type="button" class="btn btn-outline-default btn-md signin" (click)="signIn()">
             {{resourceService.frmelmnts?.btn?.signin}}
           </button>
-        </div>
-        <div class="col-xs-1 col-sm-1 d-xs-block d-sm-block d-md-none d-lg-none mobile-menu">
-          <div class="hamburger">
-            <a (click)="showSideBar()" id="mobile_item" class="item"><i class="fa fas fa-bars"></i></a>
-          </div>
-        </div>
-      </div>
-      <!--display if the user is logged in -->
-      <div *ngIf="userService.loggedIn"
-        class="row align-items-center button-container loggedInIcons justify-content-end">
-        <app-language-dropdown class="computer only languageDropdown">
-        </app-language-dropdown>
+                </div>
+                <div class="col-xs-1 col-sm-1 d-xs-block d-sm-block d-md-none d-lg-none mobile-menu">
+                    <div class="hamburger">
+                        <a (click)="showSideBar()" id="mobile_item" class="item"><i class="fa fas fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!--display if the user is logged in -->
+            <div *ngIf="userService.loggedIn" class="row align-items-center button-container loggedInIcons justify-content-end">
+                <app-language-dropdown class="computer only languageDropdown">
+                </app-language-dropdown>
 
-        <div class="d-none d-md-block d-lg-block text-white pr-4">
-          <a routerLink="/learn" class="mycourses">{{resourceService.frmelmnts?.lbl?.mycourses}}</a>
-        </div>
-        <div class="d-none d-md-block d-lg-block menu-padding" *ngIf='permissionService.permissionAvailable'
-          appPermission [permission]='workSpaceRole'>
-          <button (click)="navigateToWorkspace()" appTelemetryInteract
-            [telemetryInteractEdata]="workspaceMenuIntractEdata" type="button" class="btn-light btn-md workspace"
-            routerLink="/workspace/content/create">{{resourceService?.frmelmnts?.tab?.workspace}}</button>
-        </div>
-        <div class="text-right menu-padding-2 pr-0 pl-0 m-0" style="width: 60px !important;">
-          <div class="ui floating dropdown icon button text-center" style="background-color: transparent">
-            <span class="fa-stack fa-2x" (click)="clicked = true">
+                <div class="d-none d-md-block d-lg-block text-white pr-4">
+                    <a routerLink="/learn" class="mycourses">{{resourceService.frmelmnts?.lbl?.mycourses}}</a>
+                </div>
+                <div class="d-none d-md-block d-lg-block menu-padding" *ngIf='permissionService.permissionAvailable' appPermission [permission]='workSpaceRole'>
+                    <button (click)="navigateToWorkspace()" appTelemetryInteract [telemetryInteractEdata]="workspaceMenuIntractEdata" type="button" class="btn-light btn-md workspace" routerLink="/workspace/content/create">{{resourceService?.frmelmnts?.tab?.workspace}}</button>
+                </div>
+                <div class="text-right menu-padding-2 pr-0 pl-0 m-0" style="width: 60px !important;">
+                    <div class="ui floating dropdown icon button text-center" style="background-color: transparent">
+                        <span class="fa-stack fa-2x" (click)="clicked = true">
               <i class="fa fa-bell" style="font-size: 24px; color: #fff"></i>
               <span class="ui white circular label align center fs-1 font-weight-bold" (click)="clicked = true"
                 *ngIf="!clicked"
                 style="position : absolute; left : 23px; top : 8px; min-width : 1em; min-height : 1em; width: 1.5em; height: 1.5em; background-color: #07bc81; line-height: 0.5; color : #fff;">
                 1
               </span>
-            </span>
-            <div class="menu custom-menu" suiDropdownMenu>
-              <div class="item">
-                {{resourceService.frmelmnts?.lbl?.WelcomeMessage}}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center mr-5 menu-padding">
-          <div class="ui buttons">
+                        </span>
+                        <div class="menu custom-menu" suiDropdownMenu>
+                            <div class="item">
+                                {{resourceService.frmelmnts?.lbl?.WelcomeMessage}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mr-5 menu-padding">
+                    <div class="ui buttons">
 
-            <div class="ui floating dropdown icon button" style="background-color:transparent">
-              <i class="fa fa-user-circle-o" style="font-size:30px; color: #fff;"></i>
-              <!-- <div class="menu">
+                        <div class="ui floating dropdown icon button" style="background-color:transparent">
+                            <i class="fa fa-user-circle-o" style="font-size:30px; color: #fff;"></i>
+                            <!-- <div class="menu">
                                     <div *ngIf='userProfile' class="item" routerLink="profile"><a>Profile</a></div>
                                     <div *ngIf=' userService.loggedIn && permissionService.permissionAvailable' appPermission [permission]='adminDashboard' routerLink="orgDashboard" class="item">
                                     <a>{{resourceService.frmelmnts?.lnk?.dashboard}}</a>
                                 </div>
                                     <div class="item"><a (click)="logout()">Logout</a></div>
                                 </div> -->
-              <div class="menu" suiDropdownMenu>
-                <ngx-avatar *ngIf='userProfile' [name]="userProfile?.firstName +  userProfile?.lastName" [size]="100"
-                  initialsSize="1">
-                </ngx-avatar>
-                <div *ngIf='userProfile' class="item headerDropdownProfile">
-                  {{userProfile?.firstName}}&nbsp;{{userProfile?.lastName}}
-                </div>
-                <div *ngIf='userProfile' class="ui divider"></div>
-                <a class="item" routerLink="profile">
+                            <div class="menu" suiDropdownMenu>
+                                <ngx-avatar *ngIf='userProfile' [name]="userProfile?.firstName +  userProfile?.lastName" [size]="100" initialsSize="1">
+                                </ngx-avatar>
+                                <div *ngIf='userProfile' class="item headerDropdownProfile">
+                                    {{userProfile?.firstName}}&nbsp;{{userProfile?.lastName}}
+                                </div>
+                                <div *ngIf='userProfile' class="ui divider"></div>
+                                <a class="item" routerLink="profile">
                   {{resourceService.frmelmnts?.lnk?.profile}}
                 </a>
-                <a class="item" target="_blank" href="http://13.234.2.81:8088/superset/dashboard/usage-analysis/"
-                  *ngIf='permissionService.permissionAvailable' appPermission [permission]='adminDashboard'>
+                                <a class="item" target="_blank" href="http://13.234.2.81:8088/superset/dashboard/usage-analysis/" *ngIf='permissionService.permissionAvailable' appPermission [permission]='adminDashboard'>
                   {{resourceService.frmelmnts?.lnk?.dashboard}}
                 </a>
-                <a class="item" *ngIf='permissionService.permissionAvailable' appPermission
-                  [permission]='announcementRole' routerLink="announcement/outbox/1">
+                                <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='announcementRole' routerLink="announcement/outbox/1">
                   {{resourceService.frmelmnts?.lnk?.announcement}}
                 </a>
-                <!-- <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='myActivityRole' routerLink="myActivity">
+                                <!-- <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='myActivityRole' routerLink="myActivity">
                                             {{resourceService.frmelmnts?.lnk?.myactivity}}
                                         </a> -->
-                <!-- <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='orgSetupRole' routerLink="orgType">
+                                <!-- <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='orgSetupRole' routerLink="orgType">
                                             {{resourceService.frmelmnts?.lbl?.orgtypes}}
                                         </a> -->
-                <a class="item" (click)="logout()">
+                                <a class="item" (click)="logout()">
                   {{resourceService.frmelmnts?.lnk?.logout}}
                 </a>
-              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-1 col-sm-1 d-xs-block d-sm-block d-md-none d-lg-none mobile-menu">
+                    <div class="hamburger">
+                        <a (click)="showSideBar()" id="mobile_item" class="item"><i class="fa fas fa-bars"></i></a>
+                    </div>
+                </div>
             </div>
-          </div>
+            <!--logged in section end-->
         </div>
-        <div class="col-xs-1 col-sm-1 d-xs-block d-sm-block d-md-none d-lg-none mobile-menu">
-          <div class="hamburger">
-            <a (click)="showSideBar()" id="mobile_item" class="item"><i class="fa fas fa-bars"></i></a>
-          </div>
-        </div>
-      </div>
-      <!--logged in section end-->
     </div>
-  </div>
 </div>
 <!--sidebar ui-->
 <div class="ui sidebar vertical menu align right">
-  <a *ngIf="!userService.loggedIn" class="item" routerLink="/learn">{{resourceService.frmelmnts?.btn?.signin}}</a>
-  <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">{{resourceService.frmelmnts?.scttl?.signup}}</a>
-  <a *ngIf="userService.loggedIn && userProfile" class="item"
-    routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a>
-  <a *ngIf="userService.loggedIn" class="item" [routerLink]="['/workspace/content/create']">{{resourceService?.frmelmnts?.tab?.workspace}</a>
-  <a *ngIf="userService.loggedIn" class="item" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a>
+    <a *ngIf="!userService.loggedIn" class="item" routerLink="/learn">{{resourceService.frmelmnts?.btn?.signin}}</a>
+    <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">{{resourceService.frmelmnts?.scttl?.signup}}</a>
+    <a *ngIf="userService.loggedIn && userProfile" class="item" routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a>
+    <a *ngIf="userService.loggedIn" class="item" [routerLink]="['/workspace/content/create']">{{resourceService?.frmelmnts?.tab?.workspace}</a>
+    <a *ngIf="userService.loggedIn" class="item" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a>
 </div>
 <div class="pusher"></div>
