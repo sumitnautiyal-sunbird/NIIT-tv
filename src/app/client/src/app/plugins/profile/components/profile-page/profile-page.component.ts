@@ -58,6 +58,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     headerMessage: '',
     loaderMessage: 'you dont have any Contributions...'
   };
+  noResultMessage = {
+    message : '',
+    messageText : 'you dont have any Contributions...'
+  };
   showEdit = false;
   userSubscription: ISubscription;
   /** The button clicked value for interact telemetry event */
@@ -76,6 +80,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     fontWeight: 'bold',
     fontFamily: 'inherit'
   };
+  loader = true;
    /**
   /**
     * Slider setting to display number of cards on the slider.
@@ -269,6 +274,7 @@ getUpdateForm() {
         }
       );
     }
+    this.loader = false;
   }
 
   private formatMyContributionData(contents) {

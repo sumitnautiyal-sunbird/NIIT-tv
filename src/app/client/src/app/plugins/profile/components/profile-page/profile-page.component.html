@@ -1,33 +1,28 @@
 <div id="var2" *ngIf="userProfile" [appTelemetryImpression]="telemetryImpression">
-  <div class="ui container">
-    <div class="ui grid" >
-      <div class="three wide computer twelve wide mobile and tablet column" id="center" style="min-width: 320px;min-height: 50rem;">
-        <div class="container raised segment ui" >
-          <ngx-avatar class="myy-avatar" [size]="100" initialsSize="1" [textSizeRatio]="2" [style]="customStyle"
-            name="{{ userProfile.firstName }} ">
-          </ngx-avatar>
-          <div class="fs-1-7 text-ac  mb-20 pt-20">
-            {{ userProfile.firstName | titlecase }}
-            {{ userProfile.lastName | titlecase }}
-          </div>
-          <div class="mb-10 ml-10 mb-5 text-ac">
-            <span class="fs-1-16 " id="font-color" >User ID</span> <span class="ml-10">:</span>
-            <span class="fs-1-16 ml-5" id="font-color">{{userProfile.userName}}</span>
-          </div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="three wide computer twelve wide mobile and tablet column" id="center" style="min-width: 320px;min-height: 50rem;">
+                <div class="container raised segment ui">
+                    <ngx-avatar class="myy-avatar" [size]="100" initialsSize="1" [textSizeRatio]="2" [style]="customStyle" name="{{ userProfile.firstName }} ">
+                    </ngx-avatar>
+                    <div class="fs-1-7 text-ac  mb-20 pt-20">
+                        {{ userProfile.firstName | titlecase }} {{ userProfile.lastName | titlecase }}
+                    </div>
+                    <div class="mb-10 ml-10 mb-5 text-ac">
+                        <span class="fs-1-16 " id="font-color">User ID</span> <span class="ml-10">:</span>
+                        <span class="fs-1-16 ml-5" id="font-color">{{userProfile.userName}}</span>
+                    </div>
 
-          <section *ngIf="userProfile.email || userProfile.phone" class="text-ac mb-30">
-            <p class="fs-1" *ngIf="userProfile.phone" id="font-color">
-              <i class="phone icon mr-5" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
-                [telemetryInteractEdata]="editMobileInteractEdata"></i>
-              &#x200E;+91
-              {{ userProfile.phone }}
-              <span class="pl-20 fs-1-5" id="span-right">
+                    <section *ngIf="userProfile.email || userProfile.phone" class="text-ac mb-30">
+                        <p class="fs-1" *ngIf="userProfile.phone" id="font-color">
+                            <i class="phone icon mr-5" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editMobileInteractEdata"></i> &#x200E;+91 {{ userProfile.phone }}
+                            <span class="pl-20 fs-1-5" id="span-right">
                 <i class="edit outline small icon cursor-pointer"
                   (click)="getUpdateForm(); contactType = 'phone'"></i>
               </span>
-            </p>
+                        </p>
 
-            <!-- <div
+                        <!-- <div
                 (click)="showContactPopup = true; contactType = 'phone'"
                 class="ui update mb-15 cursor-pointer font-weight-normal"
                 *ngIf="!userProfile.phone"
@@ -38,7 +33,7 @@
                 <i class="phone icon mr-5 pr-30"></i>
                 {{ resourceService?.frmelmnts?.lbl?.addPhoneNo }}
               </div> -->
-            <!-- <div (click)="showContactPopup=true;contactType='email'"
+                        <!-- <div (click)="showContactPopup=true;contactType='email'"
               class="ui semi-circular dodger-blue basic label cursor-pointer" *ngIf="userProfile.email" appTelemetryInteract
               [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
               <i class="mail icon mr-5"></i> {{userProfile.email}}
@@ -49,83 +44,78 @@
               [telemetryInteractEdata]="editEmailInteractEdata">
               <i class="mail icon mr-5 pr-30"></i> {{resourceService?.frmelmnts?.lbl?.addEmailID}}
             </div> -->
-            <p *ngIf="userProfile.email" id="font-color">
-              <!-- <i class="mail icon mr-5"></i>  -->
-          <span>Email Id</span> <span class="ml-1 pr-1">:</span>   {{ userProfile.email }}
-              <span class="pl-10 fs-1-5">
+                        <p *ngIf="userProfile.email" id="font-color">
+                            <!-- <i class="mail icon mr-5"></i>  -->
+                            <span>Email Id</span> <span class="ml-1 pr-1">:</span> {{ userProfile.email }}
+                            <span class="pl-10 fs-1-5">
                 <i class="edit outline small icon cursor-pointer" (click)="getUpdateForm(); contactType = 'email'"
                   appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
                   [telemetryInteractEdata]="editEmailInteractEdata"></i>
               </span>
-            </p>
-            <div (click)="getUpdateForm(); contactType = 'email'"
-              class="ui update mb-15 cursor-pointer font-weight-normal" *ngIf="!userProfile.email" appTelemetryInteract
-              [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
-              <i class="mail icon mr-5"></i>
-              {{ resourceService?.frmelmnts?.lbl?.addEmailID }}
-            </div>
-          </section>
-          <div class="ui divider"></div>
+                        </p>
+                        <div (click)="getUpdateForm(); contactType = 'email'" class="ui update mb-15 cursor-pointer font-weight-normal" *ngIf="!userProfile.email" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="editEmailInteractEdata">
+                            <i class="mail icon mr-5"></i> {{ resourceService?.frmelmnts?.lbl?.addEmailID }}
+                        </div>
+                    </section>
+                    <div class="ui divider"></div>
 
 
-          <div class="mb-20 mt-20">
-            <span class="font-weight-bold fs-1-286">Details</span>
-            <span> <button class="ui basic mini  button right floated" appTelemetryInteract
+                    <div class="mb-20 mt-20">
+                        <span class="font-weight-bold fs-1-286">Details</span>
+                        <span> <button class="ui basic mini  button right floated" appTelemetryInteract
                 [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="myFrameworkEditEdata"
                 (click)="showEdit = !showEdit">
 
                 Edit &nbsp;&nbsp; <i class="edit outline small icon cursor-pointer"></i>
               </button></span>
-          </div>
-     <div class="ml-10 line-height">
-        <div class="mb-15">
-            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.boards }}<span class="ml-lg-5 mr-10">:</span></span>
-            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                    </div>
+                    <div class="ml-10 line-height">
+                        <div class="mb-15">
+                            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.boards }}<span class="ml-lg-5 mr-10">:</span></span>
+                            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
                     convertToString(userProfile.framework.board)
                   }}</span>
 
-          </div>
-          <div class="mb-15">
-            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.medium }} <span class="ml-20 mr-10">:</span></span>
-            <span class="fs-1-16" id="font-color" *ngIf="userProfile.framework">{{
+                        </div>
+                        <div class="mb-15">
+                            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.medium }} <span class="ml-20 mr-10">:</span></span>
+                            <span class="fs-1-16" id="font-color" *ngIf="userProfile.framework">{{
                 convertToString(userProfile.framework.medium)
               }}</span>
-          </div>
-          <div class="mb-15">
-            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.subjects }} <span class="ml-20 mr-10">:</span></span>
-            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                        </div>
+                        <div class="mb-15">
+                            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.subjects }} <span class="ml-20 mr-10">:</span></span>
+                            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
                 convertToString(userProfile.framework.subject)
               }}</span>
-          </div>
-          <div class="">
-            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.classes }} <span class="mr-10" style="margin-left:2rem;">:</span></span>
-            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
+                        </div>
+                        <div class="">
+                            <span class="fs-1-143" id="font-color">{{ resourceService.frmelmnts.lbl.classes }} <span class="mr-10" style="margin-left:2rem;">:</span></span>
+                            <span class="fs-1-143" id="font-color" *ngIf="userProfile.framework">{{
                 convertToString(userProfile.framework.gradeLevel)
               }}</span>
-          </div>
-     </div>
-        </div>
-      </div> 
-        <div class="nine wide computer twelve wide mobile and tablet column" id="center" >
-        <div class="ui container" 
-         id="shadow1">
-          <extension-point *ngIf="
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nine wide computer twelve wide mobile and tablet column" id="center">
+                <div class="ui container" id="shadow1">
+                    <extension-point *ngIf="
             userProfile.badgeAssertions &&
             userProfile.badgeAssertions.length > 0
           " [name]="'profile-widget'"></extension-point>
-        </div>
-        <div class="ui raised  container segment" id="shadow" *ngIf="roles && roles.length >= 0" style="min-width:275px; margin-top: 0;">
-          <h3 class="fs-1-286 pl-10">Your Role &nbsp;<span
-              class="ui violet  align center fs-1 font-weight-bold"> ( {{roles.length || '1' }} )</span></h3>
-          <div class="mb-15 mx-20 " *ngIf="roles && roles.length > 0">
-            <span class="ui dodger-blue basic label mt-5 mr-10 mb-10" *ngFor="let role of roles">{{ role }}</span>
-          </div>
-          <div class="mb-15 mx-20 " *ngIf="!(roles && roles.length > 0)">
-              <span class="ui dodger-blue basic label mt-5 mr-10 mb-10" > Public</span>
-            </div>
-          <div *ngIf="contributions && contributions.length > 0">
-            <!--contributions view starts-->
-            <!-- <div class="fs-1-286  pl-20 mb-15 mobile only" *ngIf="contributions && contributions.length > 0">
+                </div>
+                <div class="ui raised  container segment" id="shadow" *ngIf="roles && roles.length >= 0" style="min-width:275px; margin-top: 0;">
+                    <h3 class="fs-1-286 pl-10">Your Role &nbsp;<span class="ui violet  align center fs-1 font-weight-bold"> ( {{roles.length || '1' }} )</span></h3>
+                    <div class="mb-15 mx-20 " *ngIf="roles && roles.length > 0">
+                        <span class="ui dodger-blue basic label mt-5 mr-10 mb-10" *ngFor="let role of roles">{{ role }}</span>
+                    </div>
+                    <div class="mb-15 mx-20 " *ngIf="!(roles && roles.length > 0)">
+                        <span class="ui dodger-blue basic label mt-5 mr-10 mb-10"> Public</span>
+                    </div>
+                    <div *ngIf="contributions && contributions.length > 0">
+                        <!--contributions view starts-->
+                        <!-- <div class="fs-1-286  pl-20 mb-15 mobile only" *ngIf="contributions && contributions.length > 0">
               Your {{ resourceService.frmelmnts.scttl.contributions }} &nbsp;<span
                 class="ui violet align center fs-1 font-weight-bold"> ( {{contributions.length}} )</span>
                 <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
@@ -133,69 +123,65 @@
             </div>
             <div class="ui divider my-5 mobile only"></div> -->
 
-            <!--contributions computer view starts-->
-            <div class="" *ngIf="contributions && contributions.length > 0">
-              <div class="">
-                <div class="fs-1-286 pl-10  pb-20">
-                  Your {{ resourceService.frmelmnts.scttl.contributions }} <span
-                    class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
-                    <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
-                </div>
-              </div>
+                        <!--contributions computer view starts-->
+                        <div class="" *ngIf="contributions && contributions.length > 0">
+                            <div class="">
+                                <div class="fs-1-286 pl-10  pb-20">
+                                    Your {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
+                                    <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
+                                </div>
+                            </div>
 
-               <div class="ui grid">
-                    <div class="regular row  centered slider pb-30" style="padding-left: 3rem;">
-                        <div *ngFor="let item of contributions; let i = index" class="slide">
-                           
-                                <div class="three wide cloumn">
-                            <app-card (clickEvent)="onClickOfMyContributions($event)" [data]="item" [customClass]="'pr-20'"
-                              class="pr-20 d-block"></app-card>
-                        
+                            <div class="ui grid">
+                                <div class="regular row  centered slider pb-30" style="padding-left: 3rem;">
+                                    <div *ngFor="let item of contributions; let i = index" class="slide">
+
+                                        <div class="three wide cloumn">
+                                            <app-card (clickEvent)="onClickOfMyContributions($event)" [data]="item" [customClass]="'pr-20'" class="pr-20 d-block"></app-card>
+
+                                        </div>
+                                        <!-- </ngx-slick> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- </ngx-slick> -->
-                      </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="" *ngIf="!(contributions && contributions.length > 0)">
-              <div class="">
-                  <div class="fs-1-286 pl-10  pb-20">
-                    Your {{ resourceService.frmelmnts.scttl.contributions }} <span
-                      class="ui violet align center fs-1 font-weight-bold">( 0 )</span>
-                      <!-- <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span> -->
-                  </div>
-                </div>
-              <!-- <div class="info text-ac fs-2">
+                    </div>
+                    <div class="" *ngIf="!(contributions && contributions.length > 0)">
+                        <div class="">
+                            <div class="fs-1-286 pl-10  pb-20">
+                                Your {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( 0 )</span>
+                                <!-- <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span> -->
+                            </div>
+                        </div>
+                        <!-- <div class="info text-ac fs-2">
               <span class="ml-10"><i class="fa fa-exclamation-triangle icon" aria-hidden="true"></i></span>  
               <span id="font-color">You don't have any contributions</span>
             </div> -->
-            <div class="twelve wide column" >
-                <div class="ui raised segment mt-90">
-                  <app-loader [data]="contentMessage"></app-loader>
+                        <div class="twelve wide column">
+                            <div class="ui raised segment mt-85">
+                                <app-loader *ngIf="loader" [data]="contentMessage"></app-loader>
+                                <app-no-result *ngIf="contributions.length == 0" [data]="noResultMessage"></app-no-result>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
 <!--variation 2 ends-->
 
 <div class="twelve wide column">
-  <div class="ui raised segment " *ngIf="!userProfile">
-    <app-loader [data]="loaderMessage"></app-loader>
-  </div>
+    <div class="ui raised segment " *ngIf="!userProfile">
+        <app-loader [data]="loaderMessage"></app-loader>
+    </div>
 </div>
 
-<app-popup *ngIf="showEdit" #profileModal [formInput]="inputData" [showCloseIcon]="true"
-  [buttonLabel]="resourceService.frmelmnts.btn.submit" (submit)="updateProfile($event)" (close)="showEdit = !showEdit">
+<app-popup *ngIf="showEdit" #profileModal [formInput]="inputData" [showCloseIcon]="true" [buttonLabel]="resourceService.frmelmnts.btn.submit" (submit)="updateProfile($event)" (close)="showEdit = !showEdit">
 </app-popup>
 
-<app-update-contact-details *ngIf="showContactPopup" (close)="showContactPopup = !showContactPopup"
-  [contactType]="contactType"></app-update-contact-details>
+<app-update-contact-details *ngIf="showContactPopup" (close)="showContactPopup = !showContactPopup" [contactType]="contactType"></app-update-contact-details>
 
 <!-- <app-update-user-details
 (close)="showEditUserDetailsPopup = !showEditUserDetailsPopup"

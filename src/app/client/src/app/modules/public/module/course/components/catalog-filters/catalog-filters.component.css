@@ -1,87 +1,100 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+#textcolor {
+    color: black;
+}
 
-#textcolor{
-  color: black;
+.color {
+    background-color: navy;
 }
-.color{
-  background-color: navy;
-}
+
 .filter-category {
     background-clip: none;
-    border:none;
+    border: none;
     border-radius: none;
 }
+
 .fieldnotselected {
-  display: none;
+    display: none;
 }
-.justright{padding-left:2em}
+
+.justright {
+    padding-left: 2em
+}
 
 .fieldselected {
-  display: block
+    display: block
 }
+
 .form-group {
-  margin-bottom: 1rem;
-  padding: 0em 0em 0em 0.8em;
-  line-height: 2.2em;
+    margin-bottom: 1rem;
+    padding: 0em 0em 0em 0.8em;
+    line-height: 2.2em;
 }
+
 h6 {
-  text-shadow: 0.9px 0px black;
+    text-shadow: 0.9px 0px black;
 }
-  .filter-reset-text-div{
+
+.filter-reset-text-div {
     background: #F3F3F3;
     overflow: hidden;
-  }
+}
 
-
-  .filter-reset-text-div .filter-text{
+.filter-reset-text-div .filter-text {
     font-size: 1.5em;
     text-shadow: 0.9px 0px black;
-    cursor: context-menu;
-  }
-span.float-right.mr-2.reset-blue-text.mt-2,.minus,h6,.form-check-input{
-  cursor: pointer;
+    cursor: default;
 }
-  .filter-reset-text-div .reset-blue-text{
-    color:#006FF9;
+
+span.float-right.mr-2.reset-blue-text.mt-2,
+.minus,
+h6,
+.form-check-input {
+    cursor: pointer;
+}
+
+.filter-reset-text-div .reset-blue-text {
+    color: #006FF9;
     font-size: 1.3em;
-  }
+}
 
-  .filter-reset-text-div .fa-filter{
-    color:#B6B6B6;
-  }
+.filter-reset-text-div .fa-filter {
+    color: #B6B6B6;
+}
 
-  .unstyled{
+.unstyled {
     list-style-type: none;
-  }
-  
-  .minus{
+}
+
+.minus {
     float: right;
     color: #D3D3D3;
-  }
+}
 
-  .styled-checkbox{
+.styled-checkbox {
     margin: 5px;
     zoom: 1.3;
-  }
+}
 
-  .categories-list,.rating li{
+.categories-list,
+.rating li {
     margin-left: -1.4em;
-  }
- 
-  .yellow-star{
-    color:rgb(239, 217, 21);
-  }
-  .gray-star {
+}
+
+.yellow-star {
+    color: rgb(239, 217, 21);
+}
+
+.gray-star {
     color: #D3D3D3;
-  }
-  .form-check-input {
+}
+
+.form-check-input {
     margin-top: 0.5rem;
     font-size: large;
-  }
-  .form-check-label {
+}
+
+.form-check-label {
     font-size: 15px;
     text-shadow: 0.2px 0px black;
-
-  }
-
-  
+}

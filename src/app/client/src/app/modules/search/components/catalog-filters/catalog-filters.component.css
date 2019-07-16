@@ -1,12 +1,14 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-.filtersBody{
+.filtersBody {
     max-height: 200px;
     overflow-y: scroll;
 }
-#textcolor{
-  color: black;
-  font-size: larger;
+
+#textcolor {
+    color: black;
+    font-size: larger;
 }
-.color{
-  background-color: navy;
+
+.color {
+    background-color: navy;
 }

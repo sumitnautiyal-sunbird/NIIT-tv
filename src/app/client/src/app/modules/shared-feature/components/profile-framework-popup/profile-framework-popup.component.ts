@@ -161,6 +161,13 @@ export class ProfileFrameworkPopupComponent implements OnInit, OnDestroy {
       this.getAssociations(event, nextIndex, code);
       this.resetSelectedOption(nextIndex);
     }
+    if (!event && !code && !nextIndex) {
+      event = this.selectedOption['board'];
+      nextIndex = 2;
+      code = 'board';
+      this.getAssociations(event, nextIndex, code);
+      this.resetSelectedOption(nextIndex);
+    }
     if (this.selectedOption['board'] && this.selectedOption['medium'] && this.selectedOption['gradeLevel']) {
       if (this.selectedOption['board'].length > 0 && this.selectedOption['medium'].length > 0
         && this.selectedOption['gradeLevel'].length > 0) {
