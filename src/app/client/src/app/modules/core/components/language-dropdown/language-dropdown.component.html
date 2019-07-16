@@ -6,8 +6,8 @@
 </div>
  -->
 <div class="d-flex flex-ai-center computer only language-selection-dropdown">
-  <!-- <div class="text"> Language : </div> -->
-<sui-select placeholder="English" class="inline"  [(ngModel)]="selectedLanguage" (ngModelChange)="onLanguageChange($event)" valueField="value" labelField="name">
-  <sui-select-option *ngFor="let option of languages" [value]="option"></sui-select-option> 
-</sui-select>
+    <!-- <div class="text"> Language : </div> -->
+    <sui-select placeholder="English" class="inline" [(ngModel)]="selectedLanguage" (ngModelChange)="onLanguageChange($event)" valueField="value" labelField="name">
+        <sui-select-option *ngFor="let option of languages" [value]="option"></sui-select-option>
+    </sui-select>
 </div>

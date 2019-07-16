@@ -247,7 +247,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   getUrl() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((urlAfterRedirects: NavigationEnd) => {
       // reset the dropdrown of categories on route change
-      jQuery('.ui.dropdown').dropdown('restore defaults');
+      // jQuery('.ui.dropdown').dropdown('restore defaults');
       if (_.includes(urlAfterRedirects.url, '/explore')) {
         this.showExploreHeader = true;
         const url = urlAfterRedirects.url.split('?')[0].split('/');
