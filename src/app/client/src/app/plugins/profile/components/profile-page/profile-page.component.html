@@ -61,7 +61,7 @@
 
 
                     <div class="mb-20 mt-20">
-                        <span class="font-weight-bold fs-1-286">Details</span>
+                        <span class="font-weight-bold fs-1-286">{{resourceService.frmelmnts.lbl.details}}</span>
                         <span> <button class="ui basic mini  button right floated" appTelemetryInteract
                 [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="myFrameworkEditEdata"
                 (click)="showEdit = !showEdit">
@@ -106,7 +106,7 @@
           " [name]="'profile-widget'"></extension-point>
                 </div>
                 <div class="ui raised  container segment" id="shadow" *ngIf="roles && roles.length >= 0" style="min-width:275px; margin-top: 0;">
-                    <h3 class="fs-1-286 pl-10">Your Role &nbsp;<span class="ui violet  align center fs-1 font-weight-bold"> ( {{roles.length || '1' }} )</span></h3>
+                    <h3 class="fs-1-286 pl-10">{{resourceService.frmelmnts.scttl.your}} {{resourceService.frmelmnts.lbl.roles}} &nbsp;<span class="ui violet  align center fs-1 font-weight-bold"> ( {{roles.length || '1' }} )</span></h3>
                     <div class="mb-15 mx-20 " *ngIf="roles && roles.length > 0">
                         <span class="ui dodger-blue basic label mt-5 mr-10 mb-10" *ngFor="let role of roles">{{ role }}</span>
                     </div>
@@ -127,8 +127,8 @@
                         <div class="" *ngIf="contributions && contributions.length > 0">
                             <div class="">
                                 <div class="fs-1-286 pl-10  pb-20">
-                                    Your {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
-                                    <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span>
+                                    {{resourceService.frmelmnts.scttl.your}} {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
+                                    <span class="float-ContentRight fs-1" id="font-color">{{resourceService.frmelmnts.scttl.lastcreated}} {{ lastCreatedDate | date:'fullDate'}}</span>
                                 </div>
                             </div>
 
@@ -149,7 +149,7 @@
                     <div class="" *ngIf="!(contributions && contributions.length > 0)">
                         <div class="">
                             <div class="fs-1-286 pl-10  pb-20">
-                                Your {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( 0 )</span>
+                                {{resourceService.frmelmnts.scttl.your}} {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( 0 )</span>
                                 <!-- <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span> -->
                             </div>
                         </div>

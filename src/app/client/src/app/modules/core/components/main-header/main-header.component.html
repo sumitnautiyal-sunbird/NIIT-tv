@@ -17,14 +17,14 @@
           </ng-container>
         </div>
       </div> -->
-      <a routerLink="search/explore-course/1" class="categorylink">{{resourceService?.frmelmnts.lbl.BrowseCourses}}</a>
+      <a routerLink="search/explore-course/1" class="categorylink">{{resourceService?.frmelmnts?.lbl?.BrowseCourses}}</a>
     </div>
     <div class="search-wrapper">
       <div class="container-fluid search-container">
         <form>
           <div class="input-group">
             <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)"
-              placeholder={{resourceService.frmelmnts.lbl.SearchforCourses}} name="header-search">
+              placeholder={{resourceService.frmelmnts?.lbl?.SearchforCourses}} name="header-search">
             <div class="search">
               <button class="btn btn-default" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
@@ -57,7 +57,7 @@
         </app-language-dropdown>
 
         <div class="d-none d-md-block d-lg-block text-white pr-4">
-          <a routerLink="/learn" class="mycourses">{{resourceService?.frmelmnts.lbl.mycourses}}</a>
+          <a routerLink="/learn" class="mycourses">{{resourceService.frmelmnts?.lbl?.mycourses}}</a>
         </div>
         <div class="d-none d-md-block d-lg-block menu-padding" *ngIf='permissionService.permissionAvailable'
           appPermission [permission]='workSpaceRole'>
@@ -77,7 +77,7 @@
             </span>
             <div class="menu custom-menu" suiDropdownMenu>
               <div class="item">
-                {{resourceService.frmelmnts.lbl.WelcomeMessage}}
+                {{resourceService.frmelmnts?.lbl?.WelcomeMessage}}
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@
 <!--sidebar ui-->
 <div class="ui sidebar vertical menu align right">
   <a *ngIf="!userService.loggedIn" class="item" routerLink="/learn">{{resourceService.frmelmnts?.btn?.signin}}</a>
-  <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">{{resourceService.frmelmnts.scttl.signup}}</a>
+  <a *ngIf="!userService.loggedIn" class="item" [routerLink]="['/signup']">{{resourceService.frmelmnts?.scttl?.signup}}</a>
   <a *ngIf="userService.loggedIn && userProfile" class="item"
     routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a>
   <a *ngIf="userService.loggedIn" class="item" [routerLink]="['/workspace/content/create']">{{resourceService?.frmelmnts?.tab?.workspace}</a>
