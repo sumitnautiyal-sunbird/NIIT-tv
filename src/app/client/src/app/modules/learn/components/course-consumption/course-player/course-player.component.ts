@@ -183,7 +183,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   userSubscription: ISubscription;
   @ViewChild('target') targetEl: ElementRef;
   @ViewChild('top') topEl: ElementRef;
-  c= 0;
+  c = 0;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -332,8 +332,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.treeModel = model.parse(this.courseHierarchy);
     this.treeModel.walk(node => {
       if (node.model.activityType) {
-        if(node.model.activityType=='live Session')
-        {
+        if (node.model.activityType === 'live Session') {
           this.c++;
         }
         if (activityTypeCount[node.model.activityType]) {
@@ -392,17 +391,14 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         activityTypeIcon: IactivityType[key]
       });
     });
-    
-    if(this.c>0)
-    {
+
+    if (this.c > 0) {
       this.newFlag(1);
-    }
-    else{
+    } else {
       this.newFlag(0);
     }
   }
-  newFlag(f)
-  {
+  newFlag(f) {
     this.resourceService.changeflag(f);
   }
   private getContentState() {
