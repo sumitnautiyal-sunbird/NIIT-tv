@@ -126,7 +126,7 @@
                         <!--contributions computer view starts-->
                         <div class="" *ngIf="contributions && contributions.length > 0">
                             <div class="">
-                                <div class="fs-1-286 pl-10  pb-20">
+                                <div class="fs-1-286 pl-10  pb-20 profile-heading">
                                     {{resourceService.frmelmnts.scttl.your}} {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( {{contributions.length}} )</span>
                                     <span class="float-ContentRight fs-1" id="font-color">{{resourceService.frmelmnts.scttl.lastcreated}} {{ lastCreatedDate | date:'fullDate'}}</span>
                                 </div>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="" *ngIf="!(contributions && contributions.length > 0)">
                         <div class="">
-                            <div class="fs-1-286 pl-10  pb-20">
+                            <div class="fs-1-286 pl-10  pb-20 profile-heading">
                                 {{resourceService.frmelmnts.scttl.your}} {{ resourceService.frmelmnts.scttl.contributions }} <span class="ui violet align center fs-1 font-weight-bold">( 0 )</span>
                                 <!-- <span class="float-ContentRight fs-1" id="font-color">Last Created {{ lastCreatedDate | date:'fullDate'}}</span> -->
                             </div>
@@ -160,7 +160,7 @@
                         <div class="twelve wide column">
                             <div class="ui raised segment mt-85">
                                 <app-loader *ngIf="loader" [data]="contentMessage"></app-loader>
-                                <app-no-result *ngIf="contributions.length == 0" [data]="noResultMessage"></app-no-result>
+                                <app-no-result *ngIf="contributions.length == 0 && loader == false" [data]="noResultMessage"></app-no-result>
                             </div>
                         </div>
                     </div>

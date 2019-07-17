@@ -269,12 +269,12 @@ getUpdateForm() {
       this.searchService.searchContentByUserId(searchParams, inputParams).subscribe(
         (data: ServerResponse) => {
           this.formatMyContributionData(data.result.content);
+          this.loader = false;
         },
         (err: ServerResponse) => {
         }
       );
     }
-    this.loader = false;
   }
 
   private formatMyContributionData(contents) {
