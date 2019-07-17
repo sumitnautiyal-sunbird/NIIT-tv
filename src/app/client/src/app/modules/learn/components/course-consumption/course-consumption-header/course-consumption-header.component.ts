@@ -11,6 +11,7 @@ import {
   ExternalUrlPreviewService
 } from '@sunbird/shared';
 import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-course-consumption-header',
@@ -48,8 +49,10 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
   completedCount;
   totalCount;
   progress = 0;
+  progress2=0;
   courseStatus: string;
   public unsubscribe = new Subject<void>();
+  totalprogress: number;
   constructor(private activatedRoute: ActivatedRoute, private courseConsumptionService: CourseConsumptionService,
     public resourceService: ResourceService, private router: Router, public permissionService: PermissionService,
     public toasterService: ToasterService, public copyContentService: CopyContentService, private changeDetectorRef: ChangeDetectorRef,
@@ -90,8 +93,13 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
       takeUntil(this.unsubscribe))
       .subscribe((courseProgressData) => {
         console.log(courseProgressData);
+        this.courseProgressService.progressbar2.subscribe(progress2 => {
+          this.progress2=progress2;
+        });
+        console.log("Progress bar 2 is",this.progress2);
         this.enrolledCourse = true;
-        this.progress = courseProgressData.progress ? Math.round(courseProgressData.progress) : 0;
+        this.progress = courseProgressData.progress;
+        this.totalprogress=Math.round(this.progress+this.progress2);
         this.completedCount = courseProgressData.completedCount;
         this.totalCount = courseProgressData.totalCount;
         this.lastPlayedContentId = courseProgressData.lastPlayedContentId;

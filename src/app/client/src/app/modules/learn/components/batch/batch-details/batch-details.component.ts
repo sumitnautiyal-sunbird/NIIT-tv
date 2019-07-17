@@ -17,6 +17,8 @@ import * as moment from 'moment';
 })
 export class BatchDetailsComponent implements OnInit, OnDestroy {
   public unsubscribe = new Subject<void>();
+  flag2:number;
+
   batchStatus: Number;
   @Input() courseId: string;
   @Input() enrolledCourse: boolean;
@@ -69,6 +71,9 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    this.resourceService.flagForSession.subscribe( data => {
+this.flag2=data;
+    });
     this.courseInteractObject = {
       id: this.courseHierarchy.identifier,
       type: 'Course',

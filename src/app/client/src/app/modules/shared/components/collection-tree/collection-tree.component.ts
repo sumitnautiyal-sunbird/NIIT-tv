@@ -101,7 +101,7 @@ open: boolean;
           this.contentSelect.emit({ id: item.data.id, title: item.title });
           } else {
             // there is a prerequisite and the user has not completed that pre requisite
-          this.toasterService.error('You should complete prerequisites:' + '     ' + isOpenReally['message']);
+          this.toasterService.error(this.resourceService.frmelmnts.lbl.completeprequisite + '     ' + isOpenReally['message']);
           }
       } else {
         // user clicked on the content without being enrolled to it

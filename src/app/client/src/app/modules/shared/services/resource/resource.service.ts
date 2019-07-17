@@ -19,6 +19,11 @@ export class ResourceService {
   // Workaround for issue https://github.com/angular/angular/issues/12889
   // Dependency injection creates new instance each time if used in router sub-modules
   static singletonInstance: ResourceService;
+  public flagForSession=new BehaviorSubject<number>(0);
+  currentflag=this.flagForSession.asObservable();
+  changeflag(flag : number){
+    this.flagForSession.next(flag);
+  }
   /**
   * messages bundle
   */

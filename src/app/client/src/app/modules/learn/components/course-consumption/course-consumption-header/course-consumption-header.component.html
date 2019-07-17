@@ -53,15 +53,21 @@
 
     <div>
   
-        <div>
-                <sui-progress class="ui tiny progress blue" [value]="progress" [maximum]="100"></sui-progress>
+        <div class="ui tiny progressbar mainbar">
+                
+                        <div class="ui tiny progress blue leftbar" [ngStyle]="{'width':progress + '%'}"></div>
+                        
+                        <div class="ui yellow tiny progress rightbar" [ngStyle]="{'width':progress2 + '%'}"></div>
+              <!--  <sui-progress class="ui tiny progress blue" [value]="progress+progress2" [maximum]="100"></sui-progress>
+                <sui-progress class="ui tiny progress red" [value]="progress2" [maximum]="100"></sui-progress>
+              -->
         </div>
-        <div class="row">
+        <div>
             <div class="col-md-6">
-                    <div class="progress-data"> {{completedCount}} / {{totalCount}} {{resourceService?.frmelmnts.lbl.completed}}</div>
+                    <div class="progress-data" style="float:left"> {{completedCount}} / {{totalCount}} {{resourceService?.frmelmnts.lbl.completed}}</div>
             </div>
-<div class="col-md-6">
-        <div class="d-flex justify-content-end">{{progress}} %</div>
+<div class="col-md-6" style="float:right">
+        <div class="d-flex justify-content-end">{{totalprogress}} %</div>
 </div>
     </div>
     </div>

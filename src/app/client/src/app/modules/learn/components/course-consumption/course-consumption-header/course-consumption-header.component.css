@@ -1,4 +1,25 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+.mainbar
+{
+    width: 100%;
+    background-color: #d7dfe6;
+    border-radius: 10px;
+}
+.leftbar
+{
+    float: left;
+    background-color: #07BC81 !important;
+    border-radius: 0px;
+    padding: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.rightbar
+{
+    background-color: #8FBC8F !important;
+    border-radius: 0px;
+    padding: 0px;
+}
 ::ng-deep .ui.tiny.progress .bar{
     min-width: 0
 }
