@@ -62,20 +62,24 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.resourceDataSubscription = this.resourceService.languageSelected$
       .subscribe(item => {
-        this.selectedLanguage = item.value;
-        if (this.formFieldProperties && this.formFieldProperties.length > 0) {
-             _.forEach(this.formFieldProperties, (data, index) => {
-              this.formFieldProperties[index] = this.utilService.translateLabel(data, this.selectedLanguage );
-              this.formFieldProperties[index].range  = this.utilService.translateValues(data.range, this.selectedLanguage);
-             });
-             this.filtersDetails = _.cloneDeep(this.formFieldProperties);
-             this.formInputData = this.utilService.convertSelectedOption(this.formInputData,
-              this.formFieldProperties, 'en', this.selectedLanguage);
+        if (item) {
+          this.selectedLanguage = item.value;
+          if (this.formFieldProperties && this.formFieldProperties.length > 0) {
+               _.forEach(this.formFieldProperties, (data, index) => {
+                this.formFieldProperties[index] = this.utilService.translateLabel(data, this.selectedLanguage );
+                this.formFieldProperties[index].range  = this.utilService.translateValues(data.range, this.selectedLanguage);
+               });
+               this.filtersDetails = _.cloneDeep(this.formFieldProperties);
+               this.formInputData = this.utilService.convertSelectedOption(this.formInputData,
+                this.formFieldProperties, 'en', this.selectedLanguage);
+          }
         }
+
       }
         );
     this.frameworkService.initialize(this.frameworkName, this.hashTagId);
     this.getFormatedFilterDetails().subscribe((formFieldProperties) => {
+      console.log('formFieldProperties', formFieldProperties);
       this.formFieldProperties = formFieldProperties;
       this.filtersDetails = _.cloneDeep(formFieldProperties);
       this.dataDrivenFilter.emit(formFieldProperties);
@@ -126,7 +130,7 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges, OnDestroy {
                 formFieldCategory.range.push({ name: 'TextBook' });
           }
           }
-            if (this.selectedLanguage !== 'en') {
+            if (this.selectedLanguage && this.selectedLanguage !== 'en') {
               formFieldCategory = this.utilService.translateLabel(formFieldCategory, this.selectedLanguage );
             formFieldCategory.range =  this.utilService.translateValues(formFieldCategory.range, this.selectedLanguage);
 
