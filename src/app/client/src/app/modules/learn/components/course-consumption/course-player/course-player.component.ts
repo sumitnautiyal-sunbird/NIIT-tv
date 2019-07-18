@@ -183,7 +183,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   userSubscription: ISubscription;
   @ViewChild('target') targetEl: ElementRef;
   @ViewChild('top') topEl: ElementRef;
-  c= 0;
+  c = 0;
+  enddate: number;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -332,8 +333,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.treeModel = model.parse(this.courseHierarchy);
     this.treeModel.walk(node => {
       if (node.model.activityType) {
-        if(node.model.activityType=='live Session')
-        {
+        if (node.model.activityType === 'live Session') {
           this.c++;
         }
         if (activityTypeCount[node.model.activityType]) {
@@ -341,7 +341,20 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           activityTypeCount[node.model.activityType] = 1;
         }
+      } else if (
+        node.model.mimeType === 'video/mp4' ||
+        node.model.mimeType === 'video/x-youtube' ||
+        node.model.mimeType === 'video/mp4' ||
+        node.model.mimeType === 'video/webm' ||
+        node.model.mimeType === 'application/pdf'
+      ) {
+        if (activityTypeCount['Self Paced']) {
+          activityTypeCount['Self Paced'] += 1;
+        } else {
+          activityTypeCount['Self Paced'] = 1;
+        }
       }
+
 
       if (node.model.mimeType !== 'application/vnd.ekstep.content-collection') {
         // debugger;
@@ -392,17 +405,14 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         activityTypeIcon: IactivityType[key]
       });
     });
-    
-    if(this.c>0)
-    {
+
+    if (this.c > 0) {
       this.newFlag(1);
-    }
-    else{
+    } else {
       this.newFlag(0);
     }
   }
-  newFlag(f)
-  {
+  newFlag(f) {
     this.resourceService.changeflag(f);
   }
   private getContentState() {
@@ -412,13 +422,21 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       contentIds: this.contentIds,
       batchId: this.batchId
     };
+    combineLatest(this.courseBatchService.getAllBatchDetails({ 'filters': { 'id': req.batchId, 'courseId': req.courseId } }),
     this.courseConsumptionService
       .getContentState(req)
-      .pipe(first())
-      .subscribe(
-        res => (this.contentStatus = res.content),
-        err => console.log(err, 'content read api failed')
-      );
+      .pipe(first())).subscribe((data) => {
+console.log('Combine latest data', data);
+      const batchenddate = data[0]['result'].response.content[0].endDate;
+      if (batchenddate) {
+      this.enddate = Date.parse(batchenddate);
+      const course_batchid = this.courseId + '_' + this.batchId;
+      this.contentStatus = data[1].content;
+       this.courseProgressService.updatedetails(data[1], course_batchid, this.enddate);
+      }
+
+    });
+
   }
   private subscribeToQueryParam() {
     this.activatedRoute.queryParams

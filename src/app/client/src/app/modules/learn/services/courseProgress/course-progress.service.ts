@@ -5,7 +5,7 @@ import { ConfigService, ServerResponse } from '@sunbird/shared';
 import { ContentService, UserService, CoursesService } from '@sunbird/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { CourseBatchService } from '../course-batch/course-batch.service'
+import { CourseBatchService } from '../course-batch/course-batch.service';
 
 @Injectable()
 export class CourseProgressService {
@@ -24,6 +24,7 @@ export class CourseProgressService {
   public userService: UserService;
 
   public progressbar2 = new BehaviorSubject(0);
+  public firstprogress = new BehaviorSubject(0);
   /**
   * An event emitter to emit course progress data from a service.
   */
@@ -35,28 +36,26 @@ export class CourseProgressService {
 
 
   constructor(contentService: ContentService, configService: ConfigService,
-    userService: UserService, public coursesService: CoursesService, public coursebatchservice : CourseBatchService) {
+    userService: UserService, public coursesService: CoursesService, public coursebatchservice: CourseBatchService) {
     this.contentService = contentService;
     this.configService = configService;
     this.userService = userService;
-    this.coursebatchservice=coursebatchservice;
+    this.coursebatchservice = coursebatchservice;
     }
 
   /**
   * method to get content status
   */
-  public getContentState(req) {
-    this.courseId=req.courseId;
-    this.batchId=req.batchId;
-    this.coursebatchservice.getAllBatchDetails({ "filters": { "id": this.batchId, "courseId": this.courseId } })
-    .subscribe(data => {this.enddate= Date.parse(data['result'].response.content[0].endDate)
-  });
+  public getContentState(req, enddate?) {
+    this.courseId = req.courseId;
+    this.batchId = req.batchId;
+    this.enddate = enddate;
     const courseId_batchId = req.courseId + '_' + req.batchId;
     const courseProgress = this.courseProgress[courseId_batchId];
       if (courseProgress) {
-        if(courseProgress.totalCount){
-          this.updatedetails(courseProgress,courseId_batchId);
-          }
+      //  if (courseProgress.totalCount) {
+       //   this.updatedetails(courseProgress, courseId_batchId);
+        //  }
         this.courseProgressData.emit(courseProgress);
         return observableOf(courseProgress);
       } else {
@@ -79,10 +78,10 @@ export class CourseProgressService {
           this.courseProgressData.emit({ lastPlayedContentId: req.contentIds[0] });
           return err;
         }), );
-  
+
       }
-    
-    
+
+
   }
 
   private processContent(req, res, courseId_batchId) {
@@ -131,10 +130,10 @@ export class CourseProgressService {
         lastAccessTimeOfContentId.push(content.lastAccessTime);
       }
     });
-    this.updatedetails(this.courseProgress[courseId_batchId],courseId_batchId);
-    //this.courseProgress[courseId_batchId].completedCount = completedCount;
-    //const progress = ((this.courseProgress[courseId_batchId].completedCount / this.courseProgress[courseId_batchId].totalCount) * 100);
-    //this.courseProgress[courseId_batchId].progress = progress > 100 ? 100 : progress;
+   // this.updatedetails(this.courseProgress[courseId_batchId], courseId_batchId);
+    // this.courseProgress[courseId_batchId].completedCount = completedCount;
+    // const progress = ((this.courseProgress[courseId_batchId].completedCount / this.courseProgress[courseId_batchId].totalCount) * 100);
+    // this.courseProgress[courseId_batchId].progress = progress > 100 ? 100 : progress;
     const index = _.findIndex(contentList, { lastAccessTime: lastAccessTimeOfContentId.sort().reverse()[0] });
     const lastPlayedContent = contentList[index] ? contentList[index] : contentList[0];
     this.courseProgress[courseId_batchId].lastPlayedContentId = lastPlayedContent && lastPlayedContent.contentId;
@@ -189,41 +188,37 @@ export class CourseProgressService {
       .pipe(map((updateCourseStatesData: ServerResponse) => ({ updateCourseStatesData })));
   }
 
-  //Update completedcount and progress
-  public updatedetails(courseProgress:any,courseId_batchId)
-  {
-    let c=0; //counter for courses completed before expiry of batch
-    let d=0; //counter for courses completed after expiry of batch
-              
-              for(let i=0;i<courseProgress.totalCount;i++)
-              {
-                if (courseProgress.content[i].status == '2') {
-                      if ( (Date.parse(courseProgress.content[i].lastCompletedTime) < this.enddate)) {
+  // Update completedcount and progress
+  public updatedetails(courseProgress: any, courseId_batchId, enddate) {
+    let c = 0; // counter for courses completed before expiry of batch
+    let d = 0; // counter for courses completed after expiry of batch
+              for (let i = 0; i < courseProgress.totalCount; i++) {
+                if (courseProgress.content[i].status === 2) {
+                      if ( (Date.parse(courseProgress.content[i].lastCompletedTime) < enddate)) {
                         courseProgress.content[i].completedCount = 1;
                         c += 1;
+                      } else if (courseProgress.content[i].completedCount !== 1) {
+                        d += 1;
                       }
-                      else if(courseProgress.content[i].completedCount != 1){
-                        d+=1;
-                      }
-                    
+
                 }
               }
-              let tempdata=localStorage.getItem(`progress2[${courseId_batchId}]`);
+              const tempdata = localStorage.getItem(`progress2[${courseId_batchId}]`);
     if (!tempdata) {
       this.progress2 = 0;
-    }
-    else {
+    } else {
       d = d > 0 ? d : +tempdata.split(',')[1];
       this.progress2 = +(tempdata.split(',')[0]);
     }
-              courseProgress.completedCount = c+d;
+              courseProgress.completedCount = c + d;
                   courseProgress.progress = ((c / courseProgress.totalCount) * 100);
-                  this.progress2= (d/courseProgress.totalCount) * 100;
-                  //this.progress2=this.progress2+progress2dummy;
-                  let res = this.progress2.toString();
-                  localStorage.setItem(`progress2[${courseId_batchId}]`,res +"," +  d);
+                  this.progress2 = (d / courseProgress.totalCount) * 100;
+                  // this.progress2=this.progress2+progress2dummy;
+                  const res = this.progress2.toString();
+                  localStorage.setItem(`progress2[${courseId_batchId}]`, res + ',' +  d);
             this.progressbar2.next(this.progress2);
-      
-      
+          this.courseProgressData.emit(courseProgress);
+
+
   }
 }

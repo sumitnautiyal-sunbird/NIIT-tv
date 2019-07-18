@@ -55,9 +55,9 @@
   
         <div class="ui tiny progressbar mainbar">
                 
-                        <div class="ui tiny progress blue leftbar" [ngStyle]="{'width':progress + '%'}"></div>
+                        <div class="ui tiny progress blue leftbar" [ngStyle]="{'width':progress + '%'}" data-toggle="tooltip" data-placement="top" title="{{progress}}%"></div>
                         
-                        <div class="ui yellow tiny progress rightbar" [ngStyle]="{'width':progress2 + '%'}"></div>
+                        <div class="ui yellow tiny progress rightbar" [ngStyle]="{'width':progress2 + '%'}" data-toggle="tooltip" data-placement="top" title="Batch Expired :{{progress2}}%"></div>
               <!--  <sui-progress class="ui tiny progress blue" [value]="progress+progress2" [maximum]="100"></sui-progress>
                 <sui-progress class="ui tiny progress red" [value]="progress2" [maximum]="100"></sui-progress>
               -->
