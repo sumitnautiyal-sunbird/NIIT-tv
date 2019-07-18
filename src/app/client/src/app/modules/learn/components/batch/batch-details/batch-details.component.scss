@@ -1,23 +1,33 @@
 .enrollBtn {
-    background-color : #451771 !important;
-    color : white !important;
+    background-color: #451771 !important;
+    color: white !important;
 }
 
 .unenrollBtn {
-    background-color : #451771 !important;
-    color : white !important;
+    background-color: #451771 !important;
+    color: white !important;
 }
+
 .profile-image {
-    width: 2em;
+    width: 4em;
 }
-.sessionbutton
-{
+
+.sessionbutton {
     background-color: #451771;
     color: white;
     border-radius: 73px;
     padding: 7px;
     margin-top: 9px;
 }
-.custompointer{
+
+.custompointer {
     cursor: pointer;
+}
+
+.batch-details-table th {
+    line-height: 4.5;
+}
+
+.batch-details-table td {
+    line-height: 3.5;
 }
