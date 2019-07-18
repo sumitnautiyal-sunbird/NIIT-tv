@@ -1,65 +1,66 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-
 .content-player-container {
-  z-index: 999;
-  position: fixed;
-  margin: 0;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 1);
-  overflow-y: scroll;
+    z-index: 999;
+    position: fixed;
+    margin: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 1);
+    overflow-y: scroll;
 }
 
 // .content {
 //     margin-top: 0;
 // }
 .tiny-text {
-  font-size : 15px;
+    font-size: 15px;
 }
+
 #logoHeader {
-  background: #451771;
-  height: 78px;
+    background: #451771;
+    height: 78px;
 }
 
 .no-content {
-  color : darkgray !important;
-  font-weight : 400 !important;
+    color: darkgray !important;
+    font-weight: 400 !important;
 }
+
 #dashboardBtn {
-  margin: 13px 20px 0 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  float: right;
-  /* border-color: rgba(255,255,255,0.5); */
-  z-index: 99999;
-  border-radius: 50%;
-  background: #CE1F99;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  padding: 2px 2px;
-  float: left;
-  margin-bottom: 1rem;
+    margin: 13px 20px 0 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    /* border-color: rgba(255,255,255,0.5); */
+    z-index: 99999;
+    border-radius: 50%;
+    background: #CE1F99;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 2px 2px;
+    float: left;
+    margin-bottom: 1rem;
 }
 
 #sidebar {
-  background: #242446 !important;
-  color: white;
+    background: #242446 !important;
+    color: white;
 }
 
 .playlist-area {
-  max-height: 100vh;
-  overflow-y: auto;
-  padding-right: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding-right: 0;
 }
 
 .video-player-wrapper {
-  width: 100%;
-  margin: 0;
-  padding: 0 0 0 5px;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 0 5px;
 }
 
 .tab-view {
@@ -72,24 +73,27 @@
     text-align: center;
     overflow-y: hidden;
 }
+
 .custom-margin {
     margin-left: 145px;
 }
-.tab-view ul li, .tab-view ul li:hover {
+
+.tab-view ul li,
+.tab-view ul li:hover {
     background-color: #fff;
     height: 100%;
     margin-bottom: 3px;
     min-width: 10%;
-    width : auto;
+    width: auto;
     border-radius: none;
     text-decoration: none;
     color: #000;
 }
 
 .tab-view ul {
-  color: #000;
-  background-color: #fff;
-  width: 100%;
+    color: #000;
+    background-color: #fff;
+    width: 100%;
 }
 
 .tab-view ul li a {
@@ -100,39 +104,38 @@
 
 .nav-pills .nav-link.active,
 .tab-view .nav-item .nav-link.active.show {
-  background-color: #fff;
-  color: #000;
-  border-bottom: 4px solid #451771;
-  border-radius : 0;
+    background-color: #fff;
+    color: #000;
+    border-bottom: 4px solid #451771;
+    border-radius: 0;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-  background-color: #fff;
-  color: #000;
-  border-bottom: 4px solid #451771;
+    background-color: #fff;
+    color: #000;
+    border-bottom: 4px solid #451771;
 }
 
 .card-wrapper .ui.card {
-  width: 80%;
-  margin: auto;
+    width: 80%;
+    margin: auto;
 }
 
 #course-content {
-  width: 75%;
-  margin: auto;
+    width: 75%;
+    margin: auto;
 }
 
 .course-name {
-    margin-bottom : 20px;
+    margin-bottom: 20px;
 }
 
 .notesBtn {
-  background: #451771 !important;
-  color : white !important;
-  border-color: #451771 !important;
+    background: #451771 !important;
+    color: white !important;
+    border-color: #451771 !important;
 }
-
 
 // product details css//
 // ::ng-deep .ui.active.modal {
@@ -149,353 +152,362 @@
 }
 
 #app-player-collection-renderer {
-  color: white;
-  font-size: 18px;
-  // height: 3em;
-  // min-height: 3em;
+    color: white;
+    font-size: 18px;
+    // height: 3em;
+    // min-height: 3em;
 }
 
 .click-notify-xurl {
-  position: absolute;
-  z-index: 999;
-  top: 25%;
-  left: 34%;
+    position: absolute;
+    z-index: 999;
+    top: 25%;
+    left: 34%;
 }
 
 .ui.button.right.floated {
-  text-align: right;
+    text-align: right;
 }
 
 .ui.button.left.floated {
-  text-align: left;
+    text-align: left;
 }
 
 .jumbotron {
-  height: 30em;
-  background: #451771;
-  color: white;
-  position: relative;
+    height: 30em;
+    background: #451771;
+    color: white;
+    position: relative;
 }
 
 .btn-primary {
-  color: black;
-  background-color: #FFFDCB;
-  padding: 0.5em 2.3em;
-  border-radius: 21px;
-  box-shadow: 0px 3px 5px black;
-  border-color: #FFFDCB;
+    color: black;
+    background-color: #FFFDCB;
+    padding: 0.5em 2.3em;
+    border-radius: 21px;
+    box-shadow: 0px 3px 5px black;
+    border-color: #FFFDCB;
 }
 
 .btn-primary:hover {
-  color: black;
-  background-color: #FFFDCB;
-  box-shadow: 0px 3px 5px black;
-  padding: 0.5em 2.3em;
-  border-color: #FFFDCB;
+    color: black;
+    background-color: #FFFDCB;
+    box-shadow: 0px 3px 5px black;
+    padding: 0.5em 2.3em;
+    border-color: #FFFDCB;
 }
 
 .button,
 .button:hover {
-  margin: 7em 0em 0em -5em;
-  border-color: #FFFDCB;
-
+    margin: 7em 0em 0em -5em;
+    border-color: #FFFDCB;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
-  color: black;
-  background-color: #FFFDCB;
-  box-shadow: 0px 3px 5px black !important;
-  padding: 0.5em 2.3em;
-  border-color: #FFFDCB;
+    color: black;
+    background-color: #FFFDCB;
+    box-shadow: 0px 3px 5px black !important;
+    padding: 0.5em 2.3em;
+    border-color: #FFFDCB;
 }
 
 .image {
-  border-radius: 0px;
-  width: 16em;
-  height: 14em;
+    border-radius: 0px;
+    width: 16em;
+    height: 14em;
 }
 
 .basicpreview {
-  background: black;
-  color: white;
+    background: black;
+    color: white;
 }
 
 .profile {
-  height: 4em;
-  border-radius: 100%;
-  width: 4em;
+    height: 4em;
+    border-radius: 100%;
+    width: 4em;
 }
 
 .icon1 {
-  background: #D2FCBF;
-  color: white;
+    background: #D2FCBF;
+    color: white;
 }
 
 .icon2 {
-  background: #FFFDCB;
-  color: red;
+    background: #FFFDCB;
+    color: red;
 }
 
 .icon3 {
-  background: #FFCE9E;
-  color: blue;
+    background: #FFCE9E;
+    color: blue;
 }
 
 .icon4 {
-  background: #E9E9E9;
+    background: #E9E9E9;
 }
 
 .circle {
-  position: absolute;
-  height: 4.3em;
-  width: 4.3em;
-  border-radius: 50%;
-  left: 46%;
-  margin-left: -21px;
-  top: -29px;
-  padding: 1.05em;
+    position: absolute;
+    height: 4.3em;
+    width: 4.3em;
+    border-radius: 50%;
+    left: 46%;
+    margin-left: -21px;
+    top: -29px;
+    padding: 1.05em;
 }
 
 .play {
-
-  position: absolute;
-  transform: translate(-30%, -50%);
-  color: white;
-  align-self: center;
-  cursor: pointer;
+    position: absolute;
+    transform: translate(-30%, -50%);
+    color: white;
+    align-self: center;
+    cursor: pointer;
 }
 
 .preview-video {
-
-  height: 28em;
-  width: 19.9em;
-  top: -14em;
-  cursor: pointer;
-  box-shadow: 0px 3px 5px #eee;
+    height: 28em;
+    width: 19.9em;
+    top: -14em;
+    cursor: pointer;
+    box-shadow: 0px 3px 5px #eee;
 }
 
 .preview-video .overlay {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 3.22em;
-  border-radius: 50%;
-  align-self: center;
-
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 3.22em;
+    border-radius: 50%;
+    align-self: center;
 }
 
 .course-card {
-  width: 12em;
-  height: 11em;
-  box-shadow: 0px 3px 12px -5px #a09b9b;
-  background: white;
-  border-radius: 5px;
+    width: 12em;
+    height: 11em;
+    box-shadow: 0px 3px 12px -5px #a09b9b;
+    background: white;
+    border-radius: 5px;
 }
 
 .video {
-  height: 49%;
+    height: 49%;
 }
 
 .preview {
-  position: absolute;
-  top: 1.5em;
-  color: white;
-  font-size: 18px;
-  box-shadow: inset 1em -8em 4em -4em black;
-  left: 0em;
-  right: 0em;
-  padding-top: 6em;
+    position: absolute;
+    top: 1.5em;
+    color: white;
+    font-size: 18px;
+    box-shadow: inset 1em -8em 4em -4em black;
+    left: 0em;
+    right: 0em;
+    padding-top: 6em;
 }
 
 .course-details {
-  position: absolute;
-  top: 31em;
+    position: absolute;
+    top: 31em;
 }
 
 .circle1 {
-  background: #D0F8BD;
-  width: 19%;
-  height: 4em;
-  border-radius: 50%;
-  opacity: 0.7;
-  position: absolute;
-  top: 18.5em;
-  left: 13em;
+    background: #D0F8BD;
+    width: 19%;
+    height: 4em;
+    border-radius: 50%;
+    opacity: 0.7;
+    position: absolute;
+    top: 18.5em;
+    left: 13em;
 }
 
 .circle2 {
-  background: #A8AAE5;
-  width: 16%;
-  height: 3.6em;
-  border-radius: 50%;
-  opacity: 0.6;
-  position: absolute;
-  top: 21em;
-  left: 12em;
+    background: #A8AAE5;
+    width: 16%;
+    height: 3.6em;
+    border-radius: 50%;
+    opacity: 0.6;
+    position: absolute;
+    top: 21em;
+    left: 12em;
 }
 
 .circle3 {
-  background: #93C8E8;
-  width: 7%;
-  height: 1.5em;
-  border-radius: 50%;
-  opacity: 0.7;
-  position: absolute;
-  top: 19em;
-  left: 16em;
+    background: #93C8E8;
+    width: 7%;
+    height: 1.5em;
+    border-radius: 50%;
+    opacity: 0.7;
+    position: absolute;
+    top: 19em;
+    left: 16em;
 }
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  color: black;
-  font-size: 18px;
-  border-bottom: 5px solid #451771;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
+    color: black;
+    font-size: 18px;
+    border-bottom: 5px solid #451771;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
 }
 
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
-  border-bottom: 5px solid #451771;
+    border-bottom: 5px solid #451771;
 }
 
 .nav-tabs .nav-link {
-  color: black;
-  font-size: 18px;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
+    color: black;
+    font-size: 18px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
 }
 
 .nav-tabs {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .courseStructureDesc {
-  font-size: 15px
+    font-size: 15px
 }
+
 ::ng-deep .ui.modal>.close {
-  text-shadow: 1px 2px black;
-  position: initial;
-  cursor: unset;
+    text-shadow: 1px 2px black;
+    position: initial;
+    cursor: unset;
 }
+
 ::ng-deep .ui.modal {
-  height: auto !important;
+    height: auto !important;
 }
+
 .basicpreview {
-  position: sticky;
+    position: sticky;
 }
+
 ::ng-deep #preview-modal .ui.active.modal {
-  margin-top: -19em !important;
+    margin-top: -19em !important;
 }
+
 .readmore {
-  position: absolute;
-  background: rgba(255, 252, 252, 0.5);
-  color: #805FE5;
-  padding: 1em;
-  text-align: center;
-  left: 0em;
-  top: auto;
-  right: 0em;
-  font-size: 1em;
+    position: absolute;
+    background: rgba(255, 252, 252, 0.5);
+    color: #805FE5;
+    padding: 1em;
+    text-align: center;
+    left: 0em;
+    top: auto;
+    right: 0em;
+    font-size: 1em;
 }
 
 .readless {
-  position: absolute;
-  background: rgba(255, 252, 252, 0.5);
-  padding: 1em;
-  text-align: center;
-  left: 0em;
-  top: auto;
-  right: 0em;
-  font-size: 1em;
-  color: #805FE5;
-
+    position: absolute;
+    background: rgba(255, 252, 252, 0.5);
+    padding: 1em;
+    text-align: center;
+    left: 0em;
+    top: auto;
+    right: 0em;
+    font-size: 1em;
+    color: #805FE5;
 }
+
 #content .title {
-  background: #F0F0F0;
-  color: black;
-}
-.course-content {
-  top: auto;
-  padding: 2em;
-  border-radius: 4px;
-  margin-bottom: 2em;
+    background: #F0F0F0;
+    color: black;
 }
 
- .content {
+.course-content {
+    top: auto;
+    padding: 2em;
+    border-radius: 4px;
+    margin-bottom: 2em;
+}
+
+.content {
     margin-top: 9em;
-} 
+}
 
 .mobile-view {
-  display: flex;
-  width: auto;
-  overflow-x: scroll;
-
+    display: flex;
+    width: auto;
+    overflow-x: scroll;
 }
 
 .mobile-view::-webkit-scrollbar-thumb {
-  background: #451771;
-  width: 3rem !important;
+    background: #451771;
+    width: 3rem !important;
 }
 
 .mobile-view::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
+    width: 5px;
+    height: 8px;
 }
 
 .card-title {
-  text-shadow: 1px 0px black;
-  font-size: 18px;
+    text-shadow: 1px 0px black;
+    font-size: 18px;
 }
+
 #course-content .ui.styled.accordion .active.title {
-  background: #F0F0F0;
+    background: #F0F0F0;
 }
+
 ::ng-deep .ui.styled.accordion .active.title {
-  background: inherit;
-  color: inherit;
+    background: inherit;
+    color: inherit;
 }
-::ng-deep .ui.styled.accordion .accordion .title, .ui.styled.accordion .title {
-  background: inherit;
-  color: inherit;
+
+::ng-deep .ui.styled.accordion .accordion .title,
+.ui.styled.accordion .title {
+    background: inherit;
+    color: inherit;
 }
+
 .smooth-scroll {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 @media (min-width:320px) and(max-width:980px) {
+    .preview-video {
+        height: 9.9em;
+        top: 5em;
+        width: auto;
+        left: 10em;
+    }
+    .remove {
+        display: none !important;
+    }
+    .preview {
+        font-size: 16px;
+        padding-top: 6em;
+    }
+    .image {
+        width: 13em;
+        height: 10em;
+    }
+    .jumbotron {
+        height: 35em;
+    }
+    .modal-height {
+        margin-top: -7em;
+    }
+    .video {
+        height: unset;
+    }
+}
 
-  .preview-video {
-    height: 9.9em;
-    top: 5em;
-    width: auto;
-    left: 10em;
-  }
+.card-title,
+.card-subtitle {
+    cursor: default;
+}
 
-  .remove {
-    display: none !important;
-  }
-
-  .preview {
-    font-size: 16px;
-    padding-top: 6em;
-  }
-
-  .image {
-    width: 13em;
-    height: 10em;
-  }
-
-  .jumbotron {
-    height: 35em;
-  }
-
-  .modal-height {
-    margin-top: -7em;
-  }
-
-  .video {
-    height: unset;
-  }
+.cursor-pointer {
+    cursor: pointer;
 }

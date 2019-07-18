@@ -2,8 +2,7 @@
     <div class="header batchCardAlign">
         <span class="header headerBatchCard">{{resourceService?.frmelmnts?.lbl?.batches}}</span>
         <a class="opacity-1">
-            <sui-select (selectedOptionChange)="getAllBatchDetails()" class="batchCardDropDown" [(ngModel)]="batchStatus" [options]="statusOptions"
-                valueField="value" labelField="name" #batchStatusSelect>
+            <sui-select (selectedOptionChange)="getAllBatchDetails()" class="batchCardDropDown" [(ngModel)]="batchStatus" [options]="statusOptions" valueField="value" labelField="name" #batchStatusSelect>
                 <sui-select-option *ngFor="let option of batchStatusSelect.filteredOptions" [value]="option">
                 </sui-select-option>
             </sui-select>
@@ -13,23 +12,20 @@
         <div class="description annannouncement-description">
             <div *ngIf="showBatchList" class="ui divided list">
                 <div class="item pt-10" *ngFor="let batch of batchList">
-                    <i [ngClass]="userService.userid === batch.createdBy ? 'write' : 'eye'" class="icon float-ContentRight cursor-pointer write" appTelemetryInteract [telemetryInteractEdata]="updateBatchIntractEdata"
-                        [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="batchUpdate(batch)"
-                        *ngIf="courseMentor"></i>
+                    <i [ngClass]="userService.userid === batch.createdBy ? 'write' : 'eye'" class="icon float-ContentRight cursor-pointer write" appTelemetryInteract [telemetryInteractEdata]="updateBatchIntractEdata" [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}"
+                        (click)="batchUpdate(batch)" *ngIf="courseMentor"></i>
                     <i class="calendar outline icon"></i>
                     <div class="content pb-15 width-100">
-                        <button class="ui right floated tiny blue basic button enrollBtn" appTelemetryInteract [telemetryInteractEdata]="enrollBatchIntractEdata"
-                            [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="enrollBatch(batch)"
+                        <button class="ui right floated tiny blue basic button enrollBtn" appTelemetryInteract [telemetryInteractEdata]="enrollBatchIntractEdata" [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="enrollBatch(batch)"
                             *ngIf="!courseMentor">{{resourceService.frmelmnts.btn.enroll}}</button>
                         <span class="header pb-5"> {{batch.startDate | dateFormat}} - </span>
                         <span *ngIf="batch.endDate" class="header pb-5"> {{batch.endDate | dateFormat}} </span>
                         <div class="description" *ngIf="userNames[batch.createdBy]">Created by {{userNames[batch.createdBy].firstName}} {{userNames[batch.createdBy].lastName}}</div>
-                        <button  class="icon cursor-pointer write sessionbutton" appTelemetryInteract [telemetryInteractEdata]="updateBatchIntractEdata"
-                        [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="createSession(batch)"
-                        *ngIf="courseMentor && flag2==1">{{resourceService.frmelmnts.btn.configuresession}}</button>
+                        <button class="icon cursor-pointer write sessionbutton" appTelemetryInteract [telemetryInteractEdata]="updateBatchIntractEdata" [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="createSession(batch)"
+                            *ngIf="courseMentor && flag2==1">{{resourceService.frmelmnts.btn.configuresession}}</button>
                     </div>
                 </div>
-           
+
                 <div *ngIf="batchList.length <= 0">
                     <div class="ui success message">
                         <div class="header">{{resourceService.messages.stmsg.m0081}}</div>
@@ -43,8 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="ui bottom attached batchCard button" appTelemetryInteract [telemetryInteractEdata]="createBatchIntractEdata"
-        [telemetryInteractObject]="courseInteractObject" (click)="createBatch()" *ngIf="courseMentor">
+    <div class="ui bottom attached batchCard button" appTelemetryInteract [telemetryInteractEdata]="createBatchIntractEdata" [telemetryInteractObject]="courseInteractObject" (click)="createBatch()" *ngIf="courseMentor">
         <a><i class="add icon"></i>{{resourceService.frmelmnts.lbl.createbatch}}</a>
     </div>
 </div>
@@ -78,16 +73,16 @@
                 <div class="card-body">
                     <div *ngIf="participantsList?.length > 0">
                  
-                    <table class="table">
+                    <table class="table batch-details-table">
                             <thead>
                               <tr>
                                   <th>S.No</th>
                                 <th scope="col">Photo</th>
                                 <th scope="col">Learner Name</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr  *ngFor="let user of participantsList;let i=index">
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of participantsList;let i=index">
                                 <th scope="row">{{i+1}}</th>
                                 <td><img class="profile-image" [src]="!!user.avatar ? user.avatar : '../../../../../../assets/images/user-profile.png'"></td>
                                 <td>{{user.firstName}} {{user.lastName}} </td>
@@ -98,26 +93,26 @@
                 </div> 
                 <div *ngIf="mentorsList?.length > 0">
                                          
-                    <table class="table">
-                            <thead>
-                              <tr>
-                                    <th>S.No</th>
-                                    <th scope="col">Photo</th>
-                                    <th scope="col">Mentor Name</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr  *ngFor="let mentor of mentorsList; let i=index">
+                    <table class="table batch-details-table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Mentor Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mentor of mentorsList; let i=index">
                                 <th scope="row">{{i+1}}</th>
                                 <td><img class="profile-image" [src]="!!mentor.avatar ? mentor.avatar : '../../../../../../assets/images/user-profile.png'"></td>
                                 <td> {{mentor.firstName}} {{mentor.lastName}}
-                                    </td>
-                              </tr>
-              
-                            </tbody>
-                          </table>
-                </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-          </div> 
+        </div>
+    </div>
 </div>

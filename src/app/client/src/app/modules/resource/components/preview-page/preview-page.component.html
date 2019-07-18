@@ -1,198 +1,189 @@
 <div>
-        <div [appTelemetryImpression]="telemetryImpression" class="twelve wide column" *ngIf="!loader">
-                <section class="jumbotron jumbotron-fluid">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <img [src]="collectionData.appIcon || defaultImageSrc" class="card-img-top image" alt="course image">
-                                </div>
-                                <div class="col-md-5">
-                                    <div>
-                                        <h2 class="mobile only text-capitalize"> {{collectionData.name | slice:0:25}}
-                                            <span *ngIf="collectionData.name.length>25">...</span>
-                                        </h2>
-                                        <h2 class="tablet computer only text-capitalize"> {{collectionData.name | slice:0:50}}
-                                            <span *ngIf="collectionData.name.length>50">...</span>
-                                        </h2>
-                                        <div >
-                                            <span>
+    <div [appTelemetryImpression]="telemetryImpression" class="twelve wide column" *ngIf="!loader">
+        <section class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img [src]="collectionData.appIcon || defaultImageSrc" class="card-img-top image" alt="course image">
+                    </div>
+                    <div class="col-md-5">
+                        <div>
+                            <h2 class="mobile only text-capitalize"> {{collectionData.name | slice:0:25}}
+                                <span *ngIf="collectionData.name.length>25">...</span>
+                            </h2>
+                            <h2 class="tablet computer only text-capitalize"> {{collectionData.name | slice:0:50}}
+                                <span *ngIf="collectionData.name.length>50">...</span>
+                            </h2>
+                            <div>
+                                <span>
                                                 <img class="profile"
                                                     src="https://akm-img-a-in.tosshub.com/indiatoday/anirudh---exlarge_121917022608.jpg?6S3c11U_KaSLS3L7kcFsVrVx1d5BO_Wi">
                                             </span>
-                                            <span class="mb-0 ml-0"> Anirudh Ravichander</span>
-                                            <p class="pl-5 ml-4 pb-4">
-                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                    class="fas fa-star"></i>
-                                                <i class="far fa-star"></i><i class="far fa-star"></i>
-                                            </p>
-                                            <p>
-                                                Last Updated : {{collectionData.lastUpdatedOn | dateFormat}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <!-- <div class="tablet computer only button">
+                                <span class="mb-0 ml-0"> Anirudh Ravichander</span>
+                                <p class="pl-5 ml-4 pb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i><i class="far fa-star"></i>
+                                </p>
+                                <p>
+                                    Last Updated : {{collectionData.lastUpdatedOn | dateFormat}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="tablet computer only button">
                                         <button type="button" class="btn btn-primary">ENROLL</button>
                                     </div>
                                     <div class="mobile only">
                                         <button type="button" class="btn btn-primary">ENROLL</button>
         
                                     </div> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="course-details">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row tablet computer only">
+                            <div class="col-md-3">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon1">
+                                            <i class="fas fa-2x fa-book-reader"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">{{mimeTypeCount}}</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted pt-3"> CURRICULUM</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon2">
+                                            <i class="far fa-2x fa-clock "></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3">NA</h4>
+                                            <h6 class="card-subtitle mb-2 pt-3 text-muted">DURATION</h6>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle icon3">
+                                            <i class="fas fa-2x fa-language "></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h6 class="card-title pt-3">{{collectionData.language}}</h6>
+                                            <h6 class="card-subtitle mb-2 pt-4 text-muted">LANGUAGE</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card course-card">
+                                    <div class="card-body">
+                                        <div class="circle  icon4">
+                                            <i class="fas fa-2x fa-users"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="card-title pt-3">NA</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted pt-3">LEARNERS</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card preview-video" (click)="showPreviewVideo()">
+                            <img src="{{collectionData.appIcon}}" class="card-img-top video" alt="...">
+                            <div class="overlay mt-4">
+                                <div class="play">
+
+                                    <i class="fas fa-3x fa-play"></i>
+
+
+                                </div>
+                            </div>
+                            <div class="text-center preview">
+                                <p>Preview this course</p>
+                            </div>
+                            <div class=" d-flex justify-content-end remove">
+                                <div class="circle1 "></div>
+                                <div class="circle2 "></div>
+                                <div class="circle3 "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <sui-modal *ngIf="preview">
+            <div class="basicpreview">
+                <div class="ui right-float py-2 basic icon circular  mouse-pointer" (click)="showPreviewVideo()">
+                    <i class="ui remove icon"></i>
+                </div>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe [src]='safeUrl' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </div>
+            </div>
+        </sui-modal>
+        <section class="container">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card course-content">
+                            <ul class="nav nav-tabs py-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true" #top>{{resourceService.frmelmnts.lbl.Tableofcontent}}</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="scroll(target)">{{resourceService.frmelmnts.lbl.description}}</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                                    <app-collection-tree *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" [userEnrolledBatch]="userEnrolledBatch" (contentSelect)="OnPlayContent($event)" [nodes]="collectionTreeNodes"
+                                        [options]="collectionTreeOptions">
+                                    </app-collection-tree>
+                                    <ng-template #dataCommingSoon>
+                                        <div class="placeholder mt-40">
+                                            <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
+                                            <h5 class="header placeholder-heading mb-5">{{resourceService?.messages?.stmsg?.m0121}}</h5>
+                                            <p class="placeholder-content">{{resourceService?.messages?.stmsg?.m0122}}</p>
+                                        </div>
+                                    </ng-template>
+
+                                    <div #target class="mt-40" id="course-description">
+                                        <h3>{{resourceService.frmelmnts.lbl.description}}</h3>
+                                        <p *ngIf="!readMore" class="courseStructureDesc">
+                                            {{ collectionData.description | slice:0:200 }}&nbsp;
+                                            <span class="ui cardsKnowMore mouse-pointer readmore" *ngIf="collectionData.description && collectionData.description.length > 200 && readMore === false" (click)="readMore = !readMore;">
+                                                                <span>
+                                                                    {{resourceService.frmelmnts.lbl.readmore}}</span>
+                                            </span>
+                                        </p>
+                                        <p *ngIf="readMore" class="courseStructureDesc ">
+                                            {{ collectionData.description}}&nbsp;
+                                            <span class="ui cardsKnowMore mouse-pointer readless" (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="smooth-scroll d-flex justify-content-end">
+                                        <a (click)="scrollTop(top)" data-toggle="tooltip" data-placement="bottom" title="Go to Contents"><i class="fas fa-3x fa-chevron-up"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    <section class="container">
-                            <div class="course-details">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="row tablet computer only">
-                                            <div class="col-md-3">
-                                                <div class="card course-card">
-                                                    <div class="card-body">
-                                                        <div class="circle icon1">
-                                                            <i class="fas fa-2x fa-book-reader"></i>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h4 class="card-title pt-3" data-toggle="tooltip" data-placement="top" title="{{mimeType}}">{{mimeTypeCount}}</h4>
-                                                            <h6 class="card-subtitle mb-2 text-muted pt-3"> CURRICULUM</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card course-card">
-                                                    <div class="card-body">
-                                                        <div class="circle icon2">
-                                                            <i class="far fa-2x fa-clock "></i>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h4 class="card-title pt-3">NA</h4>
-                                                            <h6 class="card-subtitle mb-2 pt-3 text-muted">DURATION</h6>
-                                                        </div>
-            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card course-card">
-                                                    <div class="card-body">
-                                                        <div class="circle icon3">
-                                                            <i class="fas fa-2x fa-language "></i>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h6 class="card-title pt-3">{{collectionData.language}}</h6>
-                                                            <h6 class="card-subtitle mb-2 pt-4 text-muted">LANGUAGE</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card course-card">
-                                                    <div class="card-body">
-                                                        <div class="circle  icon4">
-                                                            <i class="fas fa-2x fa-users"></i>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h4 class="card-title pt-3">NA</h4>
-                                                            <h6 class="card-subtitle mb-2 text-muted pt-3">LEARNERS</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="card preview-video"  (click)="showPreviewVideo()">
-                                            <img src="{{collectionData.appIcon}}"
-                                                class="card-img-top video" alt="..." >
-                                            <div class="overlay mt-4" >
-                                                <div class="play" >
-                                                     
-                                          <i class="fas fa-3x fa-play" ></i>
-            
-                                                      
-                                                </div>
-                                            </div>
-                                            <div class="text-center preview">
-                                                <p>Preview this course</p>
-                                            </div>
-                                            <div class=" d-flex justify-content-end remove">
-                                                <div class="circle1 "></div>
-                                                <div class="circle2 "></div>
-                                                <div class="circle3 "></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <sui-modal *ngIf="preview" >
-                                <div class="basicpreview">
-                                        <div class="ui right-float py-2 basic icon circular  mouse-pointer" (click)="showPreviewVideo()">
-                                                <i class="ui remove icon"></i>
-                                              </div>
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                    <iframe [src]='safeUrl' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>    </div>
-                                </div>
-                                </sui-modal>
-                    <section class="container" >
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div class="card course-content">
-                                            <ul class="nav nav-tabs py-3" id="myTab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content"
-                                                        role="tab" aria-controls="content" aria-selected="true"  #top >{{resourceService.frmelmnts.lbl.Tableofcontent}}</a>
-                                                </li>
-            
-                                                <li class="nav-item">
-                                                    <a class="nav-link" (click)="scroll(target)">{{resourceService.frmelmnts.lbl.description}}</a>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="content" role="tabpanel"
-                                                    aria-labelledby="content-tab">
-                                                    <app-collection-tree *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" 
-                                                            [userEnrolledBatch] = "userEnrolledBatch"(contentSelect)="OnPlayContent($event)" [nodes]="collectionTreeNodes" [options]="collectionTreeOptions">
-                                                        </app-collection-tree>
-                                                        <ng-template #dataCommingSoon>
-                                                          <div class="placeholder mt-40">
-                                                              <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}"/>
-                                                              <h5 class="header placeholder-heading mb-5">{{resourceService?.messages?.stmsg?.m0121}}</h5>
-                                                              <p class="placeholder-content">{{resourceService?.messages?.stmsg?.m0122}}</p>
-                                                          </div> 
-                                                      </ng-template>
-            
-                                                    <div #target class="mt-10"
-                                                        id="course-description">
-                                                        <h3>{{resourceService.frmelmnts.lbl.description}}</h3>
-                                                        <p *ngIf="!readMore" class="courseStructureDesc">
-                                                            {{ collectionData.description | slice:0:200 }}&nbsp;
-                                                            <span class="ui cardsKnowMore mouse-pointer readmore"
-                                                                *ngIf="collectionData.description && collectionData.description.length > 200 && readMore === false"
-                                                                (click)="readMore = !readMore;">
-                                                                <span>
-                                                                    {{resourceService.frmelmnts.lbl.readmore}}</span>
-                                                            </span>
-                                                        </p>
-                                                        <p *ngIf="readMore" class="courseStructureDesc ">
-                                                            {{ collectionData.description}}&nbsp;
-                                                            <span class="ui cardsKnowMore mouse-pointer readless"
-                                                                (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="smooth-scroll d-flex justify-content-end">
-                                                            <a  (click)="scrollTop(top)" data-toggle="tooltip" data-placement="bottom" title="Go to Contents"><i class="fas fa-3x fa-chevron-up"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-md-3 computer only ">
+                    </div>
+                    <!-- <div class="col-md-3 computer only ">
                                         <div class="py-5 pl-4">
                                             <app-batch-details *ngIf="courseStatus !== 'Unlisted'" [courseId]="courseId"
                                                 [batchId]="batchId" [enrolledCourse]="enrolledCourse"
@@ -200,52 +191,52 @@
                                             </app-batch-details>
                                         </div>
                                     </div> -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <div>
+
+            <div id="app-player-collection-renderer" class="row">
+                <sui-modal *ngIf="showPlayer" id="preview-modal">
+                    <div class="modal-height">
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="pt-2 pb-3" id="">
+                                    <div>
+                                        <span class="ui HomeAccordianHeading left floated text-capitalize">{{contentTitle}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </section>
+                            <div class="col-md-2">
 
-
-
-                <div >
-                    
-                  <div id="app-player-collection-renderer"  class="row">
-                      <sui-modal *ngIf="showPlayer" id="preview-modal">
-                            <div class="modal-height">
-
-                                    <div class="row">
-                                            <div class="col-md-10">
-                                                    <div class="pt-2 pb-3" id="">
-                                                        <div>
-                                                            <span class="ui HomeAccordianHeading left floated text-capitalize">{{contentTitle}}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        <div class="col-md-2">
-                        
-                                            <div class="right-float">
-                                                    <h5 class="ui right-float basic icon circular  mouse-pointer" (click)="closeContentPlayer()">
-                                                      <i class="ui remove icon"></i>
-                                                    </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                        
-                        
-                        
-                        
-                                    <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
-                                        <div class="column twelve wide">
-                                            <p>{{resourceService.messages.imsg.m0036}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <div class="">
-                                                <app-player class="content-player" [playerConfig]="playerConfig | async"></app-player>
-
-                                        </div>
-                                    </div>
+                                <div class="right-float">
+                                    <h5 class="ui right-float basic icon circular  mouse-pointer" (click)="closeContentPlayer()">
+                                        <i class="ui remove icon"></i>
+                                    </h5>
                                 </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
+                            <div class="column twelve wide">
+                                <p>{{resourceService.messages.imsg.m0036}}</p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <app-player class="content-player" [playerConfig]="playerConfig | async"></app-player>
+
+                            </div>
+                        </div>
+                    </div>
                     <!-- <div class="">
                       <div class="">
                         <div class="">
@@ -263,19 +254,19 @@
                 
                     </div> -->
                 </sui-modal>
-                  </div>
-                </div>
-      
-          <div *ngIf="loader" class="row">
-            <div class="ten wide centered column">
-              <app-loader [data]="loaderMessage"></app-loader>
             </div>
-          </div>
-
-      
-                    
-     
-
         </div>
-   
+
+        <div *ngIf="loader" class="row">
+            <div class="ten wide centered column">
+                <app-loader [data]="loaderMessage"></app-loader>
+            </div>
         </div>
+
+
+
+
+
+    </div>
+
+</div>

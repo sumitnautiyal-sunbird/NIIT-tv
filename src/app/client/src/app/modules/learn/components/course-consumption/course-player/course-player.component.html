@@ -450,7 +450,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" (click)="scroll(target)">{{resourceService?.frmelmnts.lbl.description}}</a>
+                                            <a class="nav-link cursor-pointer" (click)="scroll(target)">{{resourceService?.frmelmnts.lbl.description}}</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
@@ -459,7 +459,7 @@
                                                 [options]="collectionTreeOptions" [contentStatus]="contentStatus">
                                             </app-collection-tree>
 
-                                            <div #target *ngIf="courseHierarchy.description" class="mt-10" id="course-description">
+                                            <div #target *ngIf="courseHierarchy.description" class="mt-40" id="course-description">
                                                 <h3>{{resourceService?.frmelmnts.lbl.description}}</h3>
                                                 <p *ngIf="!readMore" class="courseStructureDesc">
                                                     {{ courseHierarchy.description | slice:0:200 }}&nbsp;
