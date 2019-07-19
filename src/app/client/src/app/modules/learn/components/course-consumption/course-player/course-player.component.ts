@@ -185,6 +185,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('top') topEl: ElementRef;
   c = 0;
   enddate: number;
+  totallearners: number =0;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -321,6 +322,18 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(
         courseProgressData => (this.courseProgressData = courseProgressData)
       );
+    this.courseBatchService.getAllBatchDetails({ 'filters': { 'courseId': this.courseId } }).subscribe((data) => {
+      let coursebatches = data.result.response.content;
+      for (let i = 0; i < coursebatches.length; i++) {
+        if (!!coursebatches[i].participant && !!Object.keys(coursebatches[i].participant).length) {
+          Object.keys(coursebatches[i].participant).forEach((key) => {
+            if (coursebatches[i].participant[key] === true) {
+              this.totallearners += 1;               // Calculate total learners
+            }
+          });
+        }
+      }
+    });
   }
   ngAfterViewInit() {
     console.log(this.showJumbotron);
