@@ -184,6 +184,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('target') targetEl: ElementRef;
   @ViewChild('top') topEl: ElementRef;
   c = 0;
+  enddate: number;
+  totallearners: number =0;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -320,6 +322,18 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(
         courseProgressData => (this.courseProgressData = courseProgressData)
       );
+    this.courseBatchService.getAllBatchDetails({ 'filters': { 'courseId': this.courseId } }).subscribe((data) => {
+      let coursebatches = data.result.response.content;
+      for (let i = 0; i < coursebatches.length; i++) {
+        if (!!coursebatches[i].participant && !!Object.keys(coursebatches[i].participant).length) {
+          Object.keys(coursebatches[i].participant).forEach((key) => {
+            if (coursebatches[i].participant[key] === true) {
+              this.totallearners += 1;               // Calculate total learners
+            }
+          });
+        }
+      }
+    });
   }
   ngAfterViewInit() {
     console.log(this.showJumbotron);
@@ -340,7 +354,20 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           activityTypeCount[node.model.activityType] = 1;
         }
+      } else if (
+        node.model.mimeType === 'video/mp4' ||
+        node.model.mimeType === 'video/x-youtube' ||
+        node.model.mimeType === 'video/mp4' ||
+        node.model.mimeType === 'video/webm' ||
+        node.model.mimeType === 'application/pdf'
+      ) {
+        if (activityTypeCount['Self Paced']) {
+          activityTypeCount['Self Paced'] += 1;
+        } else {
+          activityTypeCount['Self Paced'] = 1;
+        }
       }
+
 
       if (node.model.mimeType !== 'application/vnd.ekstep.content-collection') {
         // debugger;
@@ -408,13 +435,21 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       contentIds: this.contentIds,
       batchId: this.batchId
     };
+    combineLatest(this.courseBatchService.getAllBatchDetails({ 'filters': { 'id': req.batchId, 'courseId': req.courseId } }),
     this.courseConsumptionService
       .getContentState(req)
-      .pipe(first())
-      .subscribe(
-        res => (this.contentStatus = res.content),
-        err => console.log(err, 'content read api failed')
-      );
+      .pipe(first())).subscribe((data) => {
+console.log('Combine latest data', data);
+      const batchenddate = data[0]['result'].response.content[0].endDate;
+      if (batchenddate) {
+      this.enddate = Date.parse(batchenddate);
+      const course_batchid = this.courseId + '_' + this.batchId;
+      this.contentStatus = data[1].content;
+       this.courseProgressService.updatedetails(data[1], course_batchid, this.enddate);
+      }
+
+    });
+
   }
   private subscribeToQueryParam() {
     this.activatedRoute.queryParams

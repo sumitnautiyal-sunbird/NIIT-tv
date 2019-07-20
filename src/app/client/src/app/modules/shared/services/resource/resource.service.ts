@@ -64,10 +64,6 @@ export class ResourceService {
     }
     return ResourceService.singletonInstance;
   }
-
-  changeflag(flag: number) {
-    this.flagForSession.next(flag);
-  }
   public initialize() {
     this.getResource();
     if (this.cacheService.get('resourcebundlesearch')) {
@@ -77,6 +73,9 @@ export class ResourceService {
     } else {
       this.getLanguageChange({ 'value': 'en', 'name': 'English', 'dir': 'ltr' });
     }
+  }
+  changeflag(flag: number) {
+    this.flagForSession.next(flag);
   }
   /**
    * method to fetch resource bundle

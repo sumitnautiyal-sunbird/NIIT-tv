@@ -34,9 +34,20 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
   courseMentor = false;
   batchList = [];
   userList = [];
+  public viewMoreLearner = false;
+  public viewMoreMentor = false;
+  public viewText = '';
+  public showLearner = false;
+  public showMentor = false;
+  public showLearnerText = 'View More';
+  public showMentorText = 'View More';
+  public splicedParticipantList = [];
+  public splicedMentorList = [];
+  public mentorList = [];
+  public participantList = [];
   showError = false;
   userNames = {};
-  showBatchList = false;
+  showBatchList = true;
   enrolledBatchInfo: any;
   participantsList = [];
   mentorsList = [];
@@ -268,15 +279,37 @@ const mentor = mentors [0];
         this.participantsList.push(value);
       }
     });
+    if (this.participantsList.length > 5) {
+      console.log('participants list is greater than 5');
+      this.splicedParticipantList = _.cloneDeep(this.participantsList.slice(0, 5));
+    } else {
+      this.showLearnerText = '';
+      this.splicedParticipantList = _.cloneDeep(this.participantsList);
+    }
+    this.participantList = _.cloneDeep(this.splicedParticipantList);
     _.forOwn(data.result.response.content, (value) => {
       if (_.includes(mentor, value.identifier)) {
         this.mentorsList.push(value);
       }
     });
+    if (this.mentorsList.length > 5) {
+      console.log('mentors list is greater than 5');
+      this.splicedMentorList = _.cloneDeep(this.mentorsList.slice(0, 5));
+    } else {
+      this.showMentorText = '';
+      this.splicedMentorList = _.cloneDeep(this.mentorsList);
+    }
+    this.mentorList = _.cloneDeep(this.splicedMentorList);
+
+    // open the list by defaultif any one is present
+    if (this.mentorsList.length > 0 || this.participantsList.length > 0) {
+      this.showListOfUsers = true;
+    }
   });
 }
 getUserandMentorDetails() {
-this.showListOfUsers = !this.showListOfUsers;
+  console.log('total mentors and learners', this.mentorsList, this.participantsList);
+this.showListOfUsers = this.showListOfUsers.constructor === Boolean ? !this.showListOfUsers : false;
 }
 getSessionDetailsOfBatch(batchDetails) {
 console.log(this.enrolledBatchInfo, this.batchList);
@@ -284,5 +317,30 @@ console.log(this.enrolledBatchInfo, this.batchList);
 this.liveSessionService.getSessionDetails().subscribe(data => {
 console.log(data);
 });
+}
+
+enableViewLearner() {
+  this.viewMoreLearner = !this.viewMoreLearner;
+  this.showLearner = !this.showLearner;
+  this.showLearnerText = this.viewMoreLearner ? 'View Less' : 'View More';
+  if (this.viewMoreLearner) {
+    console.log('true');
+    this.participantList = _.cloneDeep(this.participantsList);
+  } else {
+    console.log('false');
+    this.participantList = _.cloneDeep(this.splicedParticipantList);
+  }
+}
+
+enableViewMentor() {
+  this.viewMoreMentor = !this.viewMoreMentor;
+  this.showMentorText = this.viewMoreMentor ? 'View Less' : 'View More';
+  if (this.viewMoreMentor) {
+    console.log('true');
+    this.mentorList = _.cloneDeep(this.mentorsList);
+  } else {
+    console.log('false');
+    this.mentorList = _.cloneDeep(this.splicedMentorList);
+  }
 }
 }

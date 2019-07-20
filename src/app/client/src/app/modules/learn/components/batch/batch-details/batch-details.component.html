@@ -67,52 +67,57 @@
             {{enrolledBatchInfo.mentors.length}} {{resourceService.frmelmnts.lbl.mentors}}
         </span>
     </div>
-
-    <div *ngIf="showListOfUsers">
-        <div class="card ">
-            <div class="card-body">
-                <div>
-
+          <div *ngIf="showListOfUsers">
+            <div class="card ">
+                <div class="card-body">
+                <div *ngIf="participantList?.length > 0">
+                 
                     <table class="table batch-details-table">
-                        <thead>
-                            <tr>
-                                <th>S.No</th>
+                            <thead>
+                              <tr>
+                                  <th>S.No</th>
                                 <th scope="col">Photo</th>
                                 <th scope="col">Learner Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let user of participantsList;let i=index">
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr  *ngFor="let user of participantList;let i=index">
                                 <th scope="row">{{i+1}}</th>
                                 <td><img class="profile-image" [src]="!!user.avatar ? user.avatar : '../../../../../../assets/images/user-profile.png'"></td>
                                 <td>{{user.firstName}} {{user.lastName}} </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-
+                              </tr>
+                            </tbody>
+                            
+                          </table>
+                          <div class="text-center moreClass" *ngIf="!!showLearnerText">
+                                <button class="sessionbutton" (click)="enableViewLearner()">{{showLearnerText}}</button>
+                            </div>
+                </div> 
+                <div *ngIf="mentorList?.length > 0">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>S.No</th>
-                                <th scope="col">Photo</th>
-                                <th scope="col">Mentor Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let mentor of mentorsList; let i=index">
+                            <thead>
+                              <tr>
+                                    <th>S.No</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Mentor Name</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr  *ngFor="let mentor of mentorList; let i=index">  
                                 <th scope="row">{{i+1}}</th>
                                 <td><img class="profile-image" [src]="!!mentor.avatar ? mentor.avatar : '../../../../../../assets/images/user-profile.png'"></td>
                                 <td> {{mentor.firstName}} {{mentor.lastName}}
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                                    </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="text-center moreClass" *ngIf="!!showMentorText">
+                                    <button class="sessionbutton"(click)="enableViewMentor()">
+                                        {{showMentorText}}
+                                    </button>
+                          </div>
+                </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

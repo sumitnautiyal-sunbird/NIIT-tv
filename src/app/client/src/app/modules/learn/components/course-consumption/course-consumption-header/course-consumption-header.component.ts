@@ -91,18 +91,18 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     }
   }
   ngAfterViewInit() {
-    this.courseProgressService.courseProgressData.pipe(
-      takeUntil(this.unsubscribe))
+    this.courseProgressService.courseProgressData
       .subscribe((courseProgressData) => {
         console.log(courseProgressData);
         this.courseProgressService.progressbar2.subscribe(progress2 => {
-          this.progress2 = progress2;
+          this.progress2 = parseFloat(progress2.toFixed(2));
+          this.progress = parseFloat(courseProgressData.progress.toFixed(2));
+          this.totalprogress = Math.round(this.progress + this.progress2);
+          this.completedCount = courseProgressData.completedCount;
         });
         console.log('Progress bar 2 is', this.progress2);
         this.enrolledCourse = true;
-        this.progress = courseProgressData.progress;
-        this.totalprogress = Math.round(this.progress + this.progress2);
-        this.completedCount = courseProgressData.completedCount;
+
         this.totalCount = courseProgressData.totalCount;
         this.lastPlayedContentId = courseProgressData.lastPlayedContentId;
         if (!this.flaggedCourse && this.onPageLoadResume &&
