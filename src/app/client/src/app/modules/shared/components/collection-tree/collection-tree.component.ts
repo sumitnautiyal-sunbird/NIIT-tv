@@ -91,7 +91,7 @@ open: boolean;
   public onItemSelect(item: any) {
     const itemID = item.data.id;
     if (!item.folder) {
-      if (this.enrolledDate) {
+      if (this.enrolledDate || this.nodes.data['contentType'] === 'TextBook') {
         const isOpenReally = this.isOpen(itemID);
         if (isOpenReally['response'] === undefined) {
           // if there is no prerequisite on the clicked content, isOpen will return undefined

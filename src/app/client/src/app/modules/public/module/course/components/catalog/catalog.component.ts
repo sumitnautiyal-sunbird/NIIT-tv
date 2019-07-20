@@ -5,7 +5,7 @@ import {
   ILoaderMessage, UtilService, ICard
 } from '@sunbird/shared';
 import { SearchService, CoursesService, ICourses, SearchParam, ISort, PlayerService, UserService } from '@sunbird/core';
-import { Component, OnInit, NgZone, ChangeDetectorRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef, EventEmitter, Output, ViewChild, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPagination } from '@sunbird/announcement';
 import * as _ from 'lodash';
@@ -19,7 +19,7 @@ import { CookieManagerService } from '../../../../../shared/services/cookie-mana
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss']
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, DoCheck {
   inviewLogs: any = [];
   /**
 	 * telemetryImpression
@@ -413,5 +413,12 @@ expandFilters() {
 }
 showSidebar() {
 this.show = !this.show;
+}
+ngDoCheck() {
+  const msg = {
+    message : '',
+    messageText : this.resourceService.messages.stmsg.m0130
+  };
+  this.noResultMessage = msg;
 }
 }

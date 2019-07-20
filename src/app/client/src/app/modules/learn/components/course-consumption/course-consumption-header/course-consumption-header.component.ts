@@ -62,31 +62,33 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
   }
 
   ngOnInit() {
-    observableCombineLatest(this.activatedRoute.firstChild.params, this.activatedRoute.firstChild.queryParams,
-      (params, queryParams) => {
-        return { ...params, ...queryParams };
-      }).subscribe((params) => {
-        this.courseId = params.courseId;
-        this.batchId = params.batchId;
-        this.courseStatus = params.courseStatus;
-        this.contentId = params.contentId;
-        this.resumeIntractEdata = {
-          id: 'course-resume',
-          type: 'click',
-          pageid: 'course-consumption'
-        };
-        this.courseInteractObject = {
-          id: this.courseHierarchy.identifier,
-          type: 'Course',
-          ver: this.courseHierarchy.pkgVersion ? this.courseHierarchy.pkgVersion.toString() : '1.0',
-        };
-        if (this.courseHierarchy.status === 'Flagged') {
-          this.flaggedCourse = true;
-        }
-        if (this.batchId) {
-          this.enrolledCourse = true;
-        }
-      });
+    if (this.activatedRoute && this.activatedRoute.firstChild) {
+      observableCombineLatest(this.activatedRoute.firstChild.params, this.activatedRoute.firstChild.queryParams,
+        (params, queryParams) => {
+          return { ...params, ...queryParams };
+        }).subscribe((params) => {
+          this.courseId = params.courseId;
+          this.batchId = params.batchId;
+          this.courseStatus = params.courseStatus;
+          this.contentId = params.contentId;
+          this.resumeIntractEdata = {
+            id: 'course-resume',
+            type: 'click',
+            pageid: 'course-consumption'
+          };
+          this.courseInteractObject = {
+            id: this.courseHierarchy.identifier,
+            type: 'Course',
+            ver: this.courseHierarchy.pkgVersion ? this.courseHierarchy.pkgVersion.toString() : '1.0',
+          };
+          if (this.courseHierarchy.status === 'Flagged') {
+            this.flaggedCourse = true;
+          }
+          if (this.batchId) {
+            this.enrolledCourse = true;
+          }
+        });
+    }
   }
   ngAfterViewInit() {
     this.courseProgressService.courseProgressData.pipe(
@@ -104,7 +106,7 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
         this.totalCount = courseProgressData.totalCount;
         this.lastPlayedContentId = courseProgressData.lastPlayedContentId;
         if (!this.flaggedCourse && this.onPageLoadResume &&
-          !this.contentId && this.enrolledBatchInfo.status > 0 && this.lastPlayedContentId) {
+          !this.contentId && this.enrolledBatchInfo && this.enrolledBatchInfo.status > 0 && this.lastPlayedContentId) {
           this.onPageLoadResume = false;
           this.showResumeCourse = false;
           this.resumeCourse();
@@ -126,7 +128,9 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
       queryParams: { 'contentId': this.lastPlayedContentId },
       relativeTo: this.activatedRoute
     };
-    this.router.navigate([this.courseId, 'batch', this.batchId], navigationExtras);
+    if (this.courseId && this.batchId) {
+      this.router.navigate([this.courseId, 'batch', this.batchId], navigationExtras);
+    }
     this.coursesService.setExtContentMsg(showExtUrlMsg);
   }
 

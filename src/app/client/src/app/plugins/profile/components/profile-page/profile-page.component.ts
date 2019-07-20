@@ -1,5 +1,5 @@
 import { ProfileService } from '../../services';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectionStrategy, DoCheck } from '@angular/core';
 import { UserService, PermissionService, SearchService, PlayerService, CoursesService } from '@sunbird/core';
 import {
   ResourceService, ConfigService, ServerResponse, IUserProfile, IUserData, ToasterService,
@@ -18,7 +18,7 @@ import { CacheService } from 'ng2-cache-service';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit, OnDestroy {
+export class ProfilePageComponent implements OnInit, OnDestroy, DoCheck {
   /**
   * Reference of User Profile interface
   */
@@ -60,7 +60,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   };
   noResultMessage = {
     message : '',
-    messageText : 'you dont have any Contributions...'
+    messageText : this.resourceService.messages.stmsg.m0130
   };
   showEdit = false;
   userSubscription: ISubscription;
@@ -407,5 +407,11 @@ getUpdateForm() {
       this.userSubscription.unsubscribe();
     }
   }
-
+  ngDoCheck() {
+    const msg = {
+      message : '',
+      messageText : this.resourceService.messages.stmsg.m0130
+    };
+    this.noResultMessage = msg;
+  }
 }
