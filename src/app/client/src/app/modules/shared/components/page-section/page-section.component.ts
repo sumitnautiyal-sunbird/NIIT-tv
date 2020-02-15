@@ -121,7 +121,6 @@ export class PageSectionComponent implements OnInit {
   constructor(public activatedRoute: ActivatedRoute, public resourceService: ResourceService) {
     this.resourceService = resourceService;
     this.resourceService.languageSelected$.subscribe(item => {
-      console.log('in constructor', this.section);
       if (this.section === undefined) {
       } else {
         this.setHeaderWithLanguage(item);
