@@ -37,6 +37,7 @@ import { BatchCardComponent } from './components/batch/batch-card/batch-card.com
 import { TopCategoriesComponent } from './components/top-categories/top-categories.component';
 import { CourseDeliveryPageComponent } from './components/course-consumption/course-delivery-page/course-delivery-page.component';
 import { LiveSessionUrlComponent } from './components/live-session-url/live-session-url.component';
+import { CourseFeedbackComponent } from './components/course-consumption/course-feedback/course-feedback.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -78,6 +79,7 @@ import { LiveSessionUrlComponent } from './components/live-session-url/live-sess
     LivesessionComponent,
     ImagePreloadDirective,
     UpdateLivesessionComponent,
+    CourseFeedbackComponent,
   ]
 })
 export class LearnModule {}

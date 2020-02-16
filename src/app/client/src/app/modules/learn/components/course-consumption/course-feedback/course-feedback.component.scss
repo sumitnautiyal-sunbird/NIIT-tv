@@ -1,0 +1,28 @@
+.ui.card {
+    min-width: 100%;
+}
+
+.feedbackBody.buttonContainer {
+        display: flex;
+        max-width: 50%;
+        button: {
+            flex: 1;
+        }
+    }
+
+.startRec, .stopRec {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 150px;
+    height: 40.5px;
+    border-radius: 0.5px;
+    border-color: transparent;
+}
+.startRec {
+    color: white;
+    background-color: green;
+}
+.stopRec {
+    color: white;
+    background-color: red;
+}

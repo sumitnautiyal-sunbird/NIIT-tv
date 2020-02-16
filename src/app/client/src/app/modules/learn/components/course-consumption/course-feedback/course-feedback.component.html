@@ -1,0 +1,22 @@
+<div class="ui card">
+    <ng-container *ngIf="isFeedbackPresent" else nofeedbackTemplate></ng-container>
+    <div class="feedbackTitle">
+        <h4 *ngIf="feedbackDetails?.feedbackTitle">
+            {{feedbackDetails.feedbackTitle}}
+        </h4>
+    </div>
+    <div class="feedbackBody">
+        <div class="buttonContainer">
+            <button class="startRec" (click)="startRecording()">{{resourceService?.frmelmnts?.lbl?.startRecording || 'Start Recording'}}</button>
+            <button class="stopRec" (click)="stopRecording()">{{resourceService?.frmelmnts?.lbl?.stopRecording || 'Stop'}}</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #nofeedbackTemplate>
+    <div class="content">
+        <div class="header text-align-center no-content">
+            {{resourceService?.frmelmnts?.lbl?.discussionsSoon || 'No Feedbacks present for this course'}} 
+        </div>
+    </div>
+</ng-template>
