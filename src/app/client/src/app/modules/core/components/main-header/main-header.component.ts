@@ -1,7 +1,7 @@
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UserService, PermissionService, TenantService } from './../../services';
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService, ResourceService, IUserProfile, IUserData } from '@sunbird/shared';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
@@ -9,7 +9,7 @@ import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
 import { CacheService } from 'ng2-cache-service';
 import { FrameworkService } from './../../../core/services/framework/framework.service';
 import { forEach } from '@angular/router/src/utils/collection';
-import { CookieManagerService} from '../../../shared/services/cookie-manager/cookie-manager.service';
+import { CookieManagerService } from '../../../shared/services/cookie-manager/cookie-manager.service';
 import { GetaccesstokenService } from '../../../shared/services/accesstoken/getaccesstoken.service';
 import { GetkeywordsService } from '../../../shared/services/keywords/getkeywords.service';
 declare var jQuery: any;
@@ -134,7 +134,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     permissionService: PermissionService, userService: UserService, tenantService: TenantService,
     public activatedRoute: ActivatedRoute, private cacheService: CacheService,
     private frameworkService: FrameworkService, private cookieSrvc: CookieManagerService, private getaccessToken: GetaccesstokenService,
-    public keywords: GetkeywordsService ) {
+    public keywords: GetkeywordsService) {
     this.config = config;
     this.resourceService = resourceService;
     this.permissionService = permissionService;
@@ -153,7 +153,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       console.log('new category name according to the tenant data is  ', this.categoryName);
     }
     const cookie = this.cookieSrvc.getCookieKey('theming', 'orgName');
-    this.appLogoName = cookie ? cookie :  'niit_default';
+    this.appLogoName = cookie ? cookie : 'niit_default';
     this.appLogoUrl = '../../../../../assets/logo/' + this.appLogoName + '.png';
     this.terms = [];
     this.getFrameworkCategoryandterms(this.frameworkName);
@@ -172,7 +172,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
             const child: ActivatedRoute[] = currentRoute.children;
             child.forEach(route => {
               currentRoute = route;
-             // console.log('here is  the  current route', currentRoute.data['value']['orgdata']['defaultFramework']);
+              // console.log('here is  the  current route', currentRoute.data['value']['orgdata']['defaultFramework']);
               if (route.snapshot.data.telemetry) {
                 if (route.snapshot.data.telemetry.pageid) {
                   this.pageId = route.snapshot.data.telemetry.pageid;
@@ -238,29 +238,30 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     }
   }
   searchContentUsingVoice() {
-console.log('microphone on', SpeechSDK);
-jQuery('.ui.modal')
-.modal('show')
-;
-this.getaccessToken.accesstoken(this.serviceRegion, this.subscriptionKey).subscribe((res) => {
-  console.log('Response', res);
-},
-(err) => {
-  console.log('Error', err.error.text);
-  this.token = err.error.text;
-  this.fullSpeech = '';
-    const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
-    this.startRecording(speechConfig);
-});
+    console.log('microphone on', SpeechSDK);
+    this.getaccessToken.accesstoken(this.serviceRegion, this.subscriptionKey).subscribe((res) => {
+      console.log('Response', res);
+    },
+      (err) => {
+        console.log('Error', err.error.text);
+        this.token = err.error.text;
+        this.fullSpeech = '';
+        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
+        this.startRecording(speechConfig);
+      });
   }
   startRecording(speechConfig) {
     speechConfig.speechRecognitionLanguage = 'en-US';
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    jQuery('.ui.modal')
+      .modal('show');
     let recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
     recognizer.recognizeOnceAsync((result) => {
       console.log('Result', result);
       this.fullSpeech = this.fullSpeech + result['text'];
       this.onEnter(this.keywords.getkeywords(this.fullSpeech));
+      jQuery('.ui.modal')
+        .modal('hide');
       recognizer.close();
       recognizer = undefined;
     }, (err) => {
@@ -361,8 +362,8 @@ this.getaccessToken.accesstoken(this.serviceRegion, this.subscriptionKey).subscr
       // pull out terms from all the categories
       this.termNames.forEach((category) => {
         if ((category['code'] === 'gradeLevel')
-        && category.hasOwnProperty('terms')
-        && category.terms.length > 0) {
+          && category.hasOwnProperty('terms')
+          && category.terms.length > 0) {
           const capturedTermArray = category.terms;
           capturedTermArray.forEach(term => {
             temp.push(term.name);

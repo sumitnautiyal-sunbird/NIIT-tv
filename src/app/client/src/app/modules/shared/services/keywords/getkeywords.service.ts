@@ -11,6 +11,7 @@ export class GetkeywordsService {
     'search content for maths.': 'maths',
     'help me with some videos of machine learning.': 'machine learning',
     'i want to search for spring boot.': 'spring boot',
+    'show me some content of html and java.': 'html,java'
   }
     constructor() { }
     getkeywords(key) {
