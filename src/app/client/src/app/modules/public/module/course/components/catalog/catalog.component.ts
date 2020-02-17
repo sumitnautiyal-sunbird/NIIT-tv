@@ -76,7 +76,7 @@ export class CatalogComponent implements OnInit, DoCheck {
   /**
     * totalCount of the list
   */
-  totalCount: Number;
+  totalCount: number;
   /**
    * Current page number of inbox list
    */
@@ -256,7 +256,6 @@ export class CatalogComponent implements OnInit, DoCheck {
     });
     forkJoin(subscribersAray).subscribe(
       (apiResponse) => {
-        debugger;
         if (apiResponse.length > 0) {
           apiResponse.forEach((item) => {
             if (item.result) {
@@ -268,7 +267,7 @@ export class CatalogComponent implements OnInit, DoCheck {
           });
           this.showLoader = false;
           this.noResult = false;
-         // this.pager = this.paginationService.getPager(this.totalCount, this.pageNumber, this.pageLimit);
+          this.pager = this.paginationService.getPager(this.totalCount, this.pageNumber, this.pageLimit);
         } else {
           this.noResult = true;
           this.showLoader = false;

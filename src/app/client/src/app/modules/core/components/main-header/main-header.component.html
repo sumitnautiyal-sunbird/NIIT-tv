@@ -25,10 +25,10 @@
                     <div class="input-group">
                         <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)" placeholder={{resourceService.frmelmnts?.lbl?.SearchforCourses}} name="header-search">
                         <div class="search">
-                            <button class="btn btn-default" type="submit" (click)="onEnter(key)">
+                            <button class="btn btn-default cstmbtn" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
               </button>
-              <button class="btn btn-default" (click)="searchContentUsingVoice()"><i class="fas fa-microphone"></i></button>
+              <button class="btn btn-default cstmbtn" (click)="searchContentUsingVoice()"><i class="fas fa-microphone"></i></button>
                         </div>
                     </div>
                 </form>

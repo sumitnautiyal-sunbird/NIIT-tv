@@ -251,7 +251,9 @@ a.categorylink {
   color: white;
   text-decoration: none;
 }
-
+.cstmbtn{
+  cursor: pointer;
+}
 ::ng-deep .languageDropdown {
   position : absolute;
   left: 0;
