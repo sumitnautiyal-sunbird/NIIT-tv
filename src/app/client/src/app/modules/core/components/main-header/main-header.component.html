@@ -28,6 +28,7 @@
                             <button class="btn btn-default" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
               </button>
+              <button class="btn btn-default" (click)="searchContentUsingVoice()"><i class="fas fa-microphone"></i></button>
                         </div>
                     </div>
                 </form>
@@ -137,3 +138,8 @@
     <a *ngIf="userService.loggedIn" class="item" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a>
 </div>
 <div class="pusher"></div>
+<div class="ui modal">
+    <div class="content">
+      <p>Speak Now</p>
+    </div>
+  </div>

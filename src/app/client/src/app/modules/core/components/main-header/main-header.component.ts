@@ -10,7 +10,10 @@ import { CacheService } from 'ng2-cache-service';
 import { FrameworkService } from './../../../core/services/framework/framework.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import { CookieManagerService} from '../../../shared/services/cookie-manager/cookie-manager.service';
+import { GetaccesstokenService } from '../../../shared/services/accesstoken/getaccesstoken.service';
+import { GetkeywordsService } from '../../../shared/services/keywords/getkeywords.service';
 declare var jQuery: any;
+declare var SpeechSDK: any;
 /**
  * Main header component
  */
@@ -120,13 +123,18 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   tenantData: any;
   frameworkName: string;
   categoryName: string;
+  subscriptionKey = '9cc89795996a4ece9c06aeab0da166fe';
+  serviceRegion = 'westus';
+  token = '';
+  fullSpeech: string;
   /*
   * constructor
   */
   constructor(config: ConfigService, resourceService: ResourceService, public router: Router,
     permissionService: PermissionService, userService: UserService, tenantService: TenantService,
     public activatedRoute: ActivatedRoute, private cacheService: CacheService,
-    private frameworkService: FrameworkService, private cookieSrvc: CookieManagerService) {
+    private frameworkService: FrameworkService, private cookieSrvc: CookieManagerService, private getaccessToken: GetaccesstokenService,
+    public keywords: GetkeywordsService ) {
     this.config = config;
     this.resourceService = resourceService;
     this.permissionService = permissionService;
@@ -228,6 +236,38 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       console.log('authroles determination is done via ', authroles);
       this.router.navigate([authroles.url]);
     }
+  }
+  searchContentUsingVoice() {
+console.log('microphone on', SpeechSDK);
+jQuery('.ui.modal')
+.modal('show')
+;
+this.getaccessToken.accesstoken(this.serviceRegion, this.subscriptionKey).subscribe((res) => {
+  console.log('Response', res);
+},
+(err) => {
+  console.log('Error', err.error.text);
+  this.token = err.error.text;
+  this.fullSpeech = '';
+    const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
+    this.startRecording(speechConfig);
+});
+  }
+  startRecording(speechConfig) {
+    speechConfig.speechRecognitionLanguage = 'en-US';
+    const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    let recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+    recognizer.recognizeOnceAsync((result) => {
+      console.log('Result', result);
+      this.fullSpeech = this.fullSpeech + result['text'];
+      this.onEnter(this.keywords.getkeywords(this.fullSpeech));
+      recognizer.close();
+      recognizer = undefined;
+    }, (err) => {
+      console.log('Error', err);
+      recognizer.close();
+      recognizer = undefined;
+    });
   }
   onEnter(key) {
     console.log('key', key);
