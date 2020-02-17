@@ -1,10 +1,11 @@
 :root {
-  --primary-color : #451771;
-  --secondary-color : black;
-  --accent-color : black;
+  --primary-color: #78df9a;
+  --secondary-color: black;
+  --accent-color: black;
 }
-html{
-  height:100%;
+
+html {
+  height: 100%;
 }
 
 body {
@@ -15,8 +16,16 @@ body {
   min-height: auto;
 }
 
-button,input,textarea,optgroup,select,
-h1, h2, h3, h4, h5,
+button,
+input,
+textarea,
+optgroup,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
 .ui.header,
 .ui.text.container,
 .ui.input input,
@@ -55,7 +64,7 @@ h1, h2, h3, h4, h5,
 .ui.form input[type=url],
 .ui.menu,
 .ui.dropdown,
-.ui.category.search> .results .category> .name {
+.ui.category.search>.results .category>.name {
   font-family: inherit;
 }
 
