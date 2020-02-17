@@ -55,15 +55,20 @@ export class CourseFeedbackComponent implements OnInit {
       if (isAvailable && isAvailable['ok']) {
         console.log('recieved data for upload ', isAvailable);
         // save data to localstorage, corresponding to course id
-        this.utilitySrvc.saveData(isAvailable['recording'], 'local')
+        // send this audio file for upload
+        const recordingData = {
+          data: isAvailable['recording'],
+          Filename: 'username_courseID_feedbackID',
+          Fileextension: 'ogg'
+        };
+        this.utilitySrvc.saveData(recordingData, 'local')
         .then(() => {
           console.log('recording saved to local storage');
         })
         .catch(err => {
           console.log('An error occured while saving your recording locally');
         });
-        // send this audio file for upload
-        this.utilitySrvc.sendDataToCloud(isAvailable['recording'])
+        this.utilitySrvc.sendDataToCloud(recordingData)
         .then(() => {
           console.log('saved recording to the clooud');
           this.audioRecorderSubscription.unsubscribe();
