@@ -1,5 +1,5 @@
 
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, forkJoin } from 'rxjs';
 import {
   ServerResponse, PaginationService, ResourceService, ConfigService, ToasterService, INoResultMessage,
   ILoaderMessage, UtilService, ICard
@@ -51,7 +51,7 @@ export class CatalogComponent implements OnInit, DoCheck {
   /**
    * Contains list of published course(s) of logged-in user
    */
-  public searchList: Array<ICard> = [];
+  public searchList = [];
   /**
    * To navigate to other pages
    */
@@ -76,7 +76,7 @@ export class CatalogComponent implements OnInit, DoCheck {
   /**
     * totalCount of the list
   */
-  totalCount: Number;
+  totalCount: number;
   /**
    * Current page number of inbox list
    */
@@ -161,7 +161,7 @@ export class CatalogComponent implements OnInit, DoCheck {
     * This method calls the enrolled courses API.
     */
 
-   populateEnrolledCourse() {
+  populateEnrolledCourse() {
     this.showLoader = true;
     this.coursesService.enrolledCourseData$.subscribe(
       data => {
@@ -171,7 +171,7 @@ export class CatalogComponent implements OnInit, DoCheck {
           }
         }
       });
-      this.populateCourseSearch();
+    this.populateCourseSearch2();
   }
 
   populateCourseSearch() {
@@ -188,7 +188,7 @@ export class CatalogComponent implements OnInit, DoCheck {
       sort_by: { [this.queryParams.sort_by]: this.queryParams.sortType }
     };
     // this.searchService.courseSearch(requestParams).subscribe(
-      this.searchService.contentSearch(requestParams).subscribe(
+    this.searchService.contentSearch(requestParams).subscribe(
       (apiResponse: ServerResponse) => {
         if (apiResponse.result.count && apiResponse.result.content) {
           this.showLoader = false;
@@ -201,6 +201,74 @@ export class CatalogComponent implements OnInit, DoCheck {
           // to update the list, we need to change object reference so that angular can detect it
           this.searchList = _.cloneDeep(tempSearchList);
           console.log('search results ', JSON.stringify(this.searchList));
+        } else {
+          this.noResult = true;
+          this.showLoader = false;
+          this.noResultMessage = {
+            'message': this.resourceService.messages.stmsg.m0007,
+            'messageText': this.resourceService.messages.stmsg.m0006
+          };
+        }
+      },
+      err => {
+        this.showLoader = false;
+        this.noResult = true;
+        this.noResultMessage = {
+          'messageText': this.resourceService.messages.fmsg.m0077
+        };
+        this.toasterService.error(this.resourceService.messages.fmsg.m0002);
+      }
+    );
+  }
+  updateSearchList(content) {
+    const tempList = _.cloneDeep(content);
+    tempList.forEach(element => {
+      this.searchList.push({'name': element.name, 'image': element.appIcon, 'description': element.description, 'rating': 0,
+      'subject': element.subject, 'medium': element.medium, 'orgDetails': {},
+      'gradeLevel': element.gradeLevel, 'contentType': element.contentType, 'topic': '',
+      'subTopic': '', 'action': {'onImage': {'eventName': 'onImage'}},
+      'metaData': element});
+    });
+  }
+  populateCourseSearch2() {
+    this.hashTagId = !!this.orgId ? this.orgId : this.activatedRoute.snapshot.data.orgdata.rootOrgId;
+    this.framework = !!this.frameworkName ? this.frameworkName : this.activatedRoute.snapshot.data.orgdata.defaultFramework;
+    this.pageLimit = this.config.appConfig.SEARCH.PAGE_LIMIT;
+    this.filters.channel = this.hashTagId;
+    this.filters.contentType = ['Course', 'TextBook'];
+    let keywordarray = [''];
+    if (this.queryParams.key !== undefined && this.queryParams.key !== '') {
+      keywordarray = this.queryParams.key.split(',');
+
+    }
+    this.searchList = [];
+    this.totalCount = 0;
+    const subscribersAray = [];
+    keywordarray.forEach(ele => {
+      const requestParams = {
+        filters: _.pickBy(this.filters, value => value.length > 0),
+        limit: this.pageLimit,
+        pageNumber: this.pageNumber,
+        query: ele,
+        sort_by: { [this.queryParams.sort_by]: this.queryParams.sortType }
+      };
+      // this.searchService.courseSearch(requestParams).subscribe(
+      subscribersAray.push(this.searchService.contentSearch(requestParams));
+    });
+    forkJoin(subscribersAray).subscribe(
+      (apiResponse) => {
+        if (apiResponse.length > 0) {
+          apiResponse.forEach((item) => {
+            if (item.result) {
+              this.totalCount = this.totalCount + item.result.count;
+              if (item.result.content) {
+                this.updateSearchList(item.result.content);
+              }
+            }
+          });
+          this.showLoader = false;
+          this.noResult = false;
+          this.pager = this.paginationService.getPager(this.totalCount, this.pageNumber, this.pageLimit);
         } else {
           this.noResult = true;
           this.showLoader = false;
@@ -271,7 +339,7 @@ export class CatalogComponent implements OnInit, DoCheck {
     this.route.navigate(['/search/explore-course', this.pageNumber], {
       queryParams: this.queryParams
     });
-//  window.location.reload();
+    //  window.location.reload();
   }
 
   ngOnInit() {
@@ -290,19 +358,19 @@ export class CatalogComponent implements OnInit, DoCheck {
       objectType: ['Content']
     };
     const __self = this;
-    observableCombineLatest (
+    observableCombineLatest(
       this.activatedRoute.params,
       this.activatedRoute.queryParams,
       (params: any, queryParams: any) => {
-      const keys = Object.keys(queryParams);
-      _.find(keys, value => {
+        const keys = Object.keys(queryParams);
+        _.find(keys, value => {
           if (value === 'rating' || value === 'medium' || value === 'board' ||
-          value === 'topic' || value === 'subject' || value === 'gradeLevel') {
+            value === 'topic' || value === 'subject' || value === 'gradeLevel') {
             this.tempKey = value;
           } else {
             this.tempKey = 'undefined';
           }
-      });
+        });
         return {
           params: params,
           queryParams: queryParams
@@ -370,8 +438,8 @@ export class CatalogComponent implements OnInit, DoCheck {
       event.data.metaData.enrolledDate = event.data.enrolledDate;
     }
     this.playerService.playContent(event.data.metaData);
-    if (!this.userloggedIn ) {
-    this.route.navigate(['/play/collection', event.data.metaData.identifier]);
+    if (!this.userloggedIn) {
+      this.route.navigate(['/play/collection', event.data.metaData.identifier]);
     } else {
       this.route.navigate(['/learn/course', event.data.metaData.identifier]);
     }
@@ -409,17 +477,17 @@ export class CatalogComponent implements OnInit, DoCheck {
     this.filters = {};
     this.catalogFiltersComponent.resetFilters();
   }
-expandFilters() {
-  this.expand = !this.expand;
-}
-showSidebar() {
-this.show = !this.show;
-}
-ngDoCheck() {
-  const msg = {
-    message : '',
-    messageText : this.resourceService.messages.stmsg.m0130
-  };
-  this.noResultMessage = msg;
-}
+  expandFilters() {
+    this.expand = !this.expand;
+  }
+  showSidebar() {
+    this.show = !this.show;
+  }
+  ngDoCheck() {
+    const msg = {
+      message: '',
+      messageText: this.resourceService.messages.stmsg.m0130
+    };
+    this.noResultMessage = msg;
+  }
 }

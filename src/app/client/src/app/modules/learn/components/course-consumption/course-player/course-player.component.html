@@ -614,8 +614,10 @@
 
     </div>
 </ng-template>
-<sui-modal *ngIf="openFeedbackModal" [isClosable]="true" (dismissed)="openFeedbackModal = false" #feedbackmodal>
-    <div class="header">Feedback</div>
-        <app-course-feedback></app-course-feedback>
-</sui-modal>
+<ng-container *ngIf="openFeedbackModal">
+    <sui-modal [isClosable]="true" (dismissed)="openFeedbackModal = false" #feedbackmodal>
+        <div class="header">Feedback</div>
+            <app-course-feedback></app-course-feedback>
+    </sui-modal>
+</ng-container>
 <router-outlet></router-outlet>

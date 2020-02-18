@@ -25,9 +25,10 @@
                     <div class="input-group">
                         <input type="text" class="form-control" [(ngModel)]="key" (keyup.enter)="onEnter(key)" placeholder={{resourceService.frmelmnts?.lbl?.SearchforCourses}} name="header-search">
                         <div class="search">
-                            <button class="btn btn-default" type="submit" (click)="onEnter(key)">
+                            <button class="btn btn-default cstmbtn" type="submit" (click)="onEnter(key)">
                 <i class="fa fas fa-search"></i>
               </button>
+              <button class="btn btn-default cstmbtn" (click)="searchContentUsingVoice()"><i class="fas fa-microphone"></i></button>
                         </div>
                     </div>
                 </form>
@@ -137,3 +138,21 @@
     <a *ngIf="userService.loggedIn" class="item" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a>
 </div>
 <div class="pusher"></div>
+<!-- <div class="ui mini modal speaknowmodal">
+    <div class="content">
+        <div class="speaknowtitle"><p>Speak Now</p></div>
+        <div class="speaknowpulse"> <button class="pulse-button"></button></div>
+      
+     
+    </div>
+</div>
+ -->
+ <div class="sirioverlay" *ngIf="openSpeakModal">
+    
+ </div>
+ <div class="siri" *ngIf="openSpeakModal">
+    <div class="content">
+        <div class="speaknowtitle"><p>Speak Now</p></div>
+        <div class="speaknowpulse"> <button class="pulse-button"></button></div>    
+    </div>
+</div>    
