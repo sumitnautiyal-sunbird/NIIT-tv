@@ -149,8 +149,20 @@ console.log('content ', this.contentStatus);
         console.log('data', data);
         this.contentTitle = node.title;
         if (node.data.activityType !== 'headset') {
-          this.itemSelect.emit(node);
-          return true;
+          if(node.data.model.activityType === 'Discussion') {
+            node.data.model.previewUrl = 'http://13.234.2.81:3200/index.html?id=6';
+            node.data.model.artifactUrl = 'http://13.234.2.81:3200/index.html?id=6';
+            this.itemSelect.emit(node);
+            return true;
+          } else if (node.data.model.activityType === 'Feedback') {
+            // open the modal to record feedback and send the data
+            jQuery('.ui.modal').modal('show');
+            this.itemSelect.emit(node);
+            return true;
+          } else {
+            this.itemSelect.emit(node);
+            return true;
+          }
         } else {
           console.log('in else block', node.data.id);
           this.getContentDetails(node.data.id);

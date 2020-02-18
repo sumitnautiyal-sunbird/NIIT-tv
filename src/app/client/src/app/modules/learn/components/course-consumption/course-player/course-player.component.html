@@ -140,7 +140,7 @@
                                                 <!-- <img src="src/app/dist/assets/images/sunbird_logo.png"> -->
                                                 <!-- <img src="../../../../../../../../dist/assets/images/sunbird_logo.png"> -->
                                             </div>
-                                            <app-collection-tree *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes" [options]="collectionTreeOptions"
+                                            <app-collection-tree *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon" (contentSelect)="navigateToContent($event)" (showFeedback)="updateFeedback($event)" [nodes]="collectionTreeNodes" [options]="collectionTreeOptions"
                                                 [courseId]="courseId" [batchId]="batchId" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" [loggedIn]="isLoggedIn" [enrolled]="isEnrolled" [name]="userName" [userEnrolledBatch]="userEnrolledBatch">
                                             </app-collection-tree>
                                             <ng-template #dataCommingSoon>
@@ -212,7 +212,6 @@
                                         <div class="tab-pane fade container" id="coursefeedback">
                                             <div class="container card-wrapper">
                                                 <div class="ui card">
-                                                    <app-course-feedback></app-course-feedback>
                                                 </div>
                                             </div>
                                         </div>
@@ -618,4 +617,8 @@
 
     </div>
 </ng-template>
+<sui-modal *ngIf="openFeedbackModal" [isClosable]="true" (dismissed)="openFeedbackModal = false" #feedbackmodal>
+    <div class="header">Feedback</div>
+        <app-course-feedback></app-course-feedback>
+</sui-modal>
 <router-outlet></router-outlet>

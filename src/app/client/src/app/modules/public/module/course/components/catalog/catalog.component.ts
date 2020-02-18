@@ -200,6 +200,7 @@ export class CatalogComponent implements OnInit, DoCheck {
           tempSearchList = this.processActionObject(apiResponse.result.content);
           // to update the list, we need to change object reference so that angular can detect it
           this.searchList = _.cloneDeep(tempSearchList);
+          console.log('search results ', JSON.stringify(this.searchList));
         } else {
           this.noResult = true;
           this.showLoader = false;

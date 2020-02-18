@@ -134,6 +134,7 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
   public defaultImageSrc = './../../../../../../assets/images/book.png';
 
   public showExtContentMsg = false;
+  openFeedbackModal = false;
   courseDetails = [];
   resources = [];
   creator;
@@ -314,6 +315,14 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewInit() {
     console.log(this.showJumbotron);
   }
+
+  public updateFeedback(toShow) {
+    if (toShow !== undefined) {
+      this.openFeedbackModal = toShow;
+    }
+  }
+
+  
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};

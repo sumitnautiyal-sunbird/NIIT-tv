@@ -1,14 +1,6 @@
-.ui.card {
-    min-width: 100%;
+.ui.modal {
+    height: 22%;
 }
-
-.feedbackBody.buttonContainer {
-        display: flex;
-        max-width: 50%;
-        button: {
-            flex: 1;
-        }
-    }
 
 .startRec, .stopRec {
     cursor: pointer;
@@ -25,4 +17,14 @@
 .stopRec {
     color: white;
     background-color: red;
+}
+
+.question {
+    margin-top: 30px;
+    padding-left: 1.5rem;
+}
+
+.buttonContainer {
+    margin: 30px 20px 20px 0;
+    float: right;
 }

@@ -11,14 +11,14 @@ export class CourseFeedbackUtilityService {
 
   get getDefaultFeedback(): object {
     return {
-      feedbackTitle: 'Tell us your feedback about the course?',
+      feedbackTitle: 'Tell us what do you think about this unit ?',
     };
   }
 
   saveData(recordingData: object, dataStore = 'local') {
     return new Promise((resolve, reject) => {
       if (recordingData) {
-        window.localStorage.setItem('feedback_courseID', JSON.stringify({recording: 'Here recording data will be stored'}));
+        // window.localStorage.setItem('feedback_courseID', JSON.stringify({recording: 'Here recording data will be stored'}));
         resolve();
       } else {
         reject();
@@ -33,9 +33,9 @@ export class CourseFeedbackUtilityService {
    * @returns
    */
   sendDataToCloud(recordingData) {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       const recordingFormData = this.getAudioFormData(recordingData);
-      this.http.post('https://6cd1e475.ngrok.io/camino/upload/feedback', recordingFormData).pipe(map((response) => {
+      this.http.post('https://b5226873.ngrok.io/camino/upload/feedback', recordingFormData).pipe(map((response) => {
         console.log('recieved response from feedback api');
         console.log(response);
         return response;
@@ -43,6 +43,9 @@ export class CourseFeedbackUtilityService {
         window.setTimeout(() => {
           resolve();
         }, 3000);
+      }, err => {
+        console.log('Error while hitting the api', err);
+        reject();
       });
     });
   }

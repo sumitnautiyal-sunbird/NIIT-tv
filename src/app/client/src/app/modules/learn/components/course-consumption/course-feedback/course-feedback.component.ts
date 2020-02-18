@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {CourseFeedbackUtilityService} from '../../../services/course-feedback/course-feedback-utility.service';
 import {AudioRecorderService} from '../../../services/audio-recorder/audio-recorder.service';
-import { take } from 'rxjs/operators';
+import {ToasterService} from '@sunbird/shared';
 @Component({
   selector: 'app-course-feedback',
   templateUrl: './course-feedback.component.html',
@@ -10,11 +10,13 @@ import { take } from 'rxjs/operators';
 export class CourseFeedbackComponent implements OnInit {
 
   @Input() feedbackDetails = undefined;
+  isStarted = false;
   isFeedbackPresent = false;
   audioRecorderSubscription: any;
   constructor(
     private readonly utilitySrvc: CourseFeedbackUtilityService,
-    private readonly audioRecorder: AudioRecorderService) { }
+    private readonly audioRecorder: AudioRecorderService,
+    private readonly toasterService: ToasterService) { }
 
   ngOnInit() {
     if (this.feedbackDetails === undefined) {
@@ -34,6 +36,7 @@ export class CourseFeedbackComponent implements OnInit {
     this.audioRecorder.start()
     .then(() => {
       console.log('ok');
+      this.isStarted = true;
       this.waitForAudioCompletion();
     })
     .catch(err => {
@@ -44,10 +47,12 @@ export class CourseFeedbackComponent implements OnInit {
   stopRecording() {
     console.log('stop recording');
     this.audioRecorder.stop();
+    this.isStarted = false;
   }
 
   resetRecording() {
     this.audioRecorder.reset();
+    this.isStarted = false;
   }
 
   waitForAudioCompletion() {
@@ -58,8 +63,8 @@ export class CourseFeedbackComponent implements OnInit {
         // send this audio file for upload
         const recordingData = {
           data: isAvailable['recording'],
-          Filename: 'username_courseID_feedbackID',
-          Fileextension: 'ogg'
+          Filename: 'portal_feedback',
+          Fileextension: 'webm'
         };
         this.utilitySrvc.saveData(recordingData, 'local')
         .then(() => {
@@ -70,12 +75,14 @@ export class CourseFeedbackComponent implements OnInit {
         });
         this.utilitySrvc.sendDataToCloud(recordingData)
         .then(() => {
-          console.log('saved recording to the clooud');
+          console.log('saved recording to the cloud');
+          this.toasterService.success('Feedback upload process has started successfully');
           this.audioRecorderSubscription.unsubscribe();
           console.log('unsubscribed');
         })
         .catch(err => {
           console.log('An error occured while saving recording to the cloud');
+          this.toasterService.error('An error occured while saving recording to the cloud');
           this.audioRecorderSubscription.unsubscribe();
         });
       } else {

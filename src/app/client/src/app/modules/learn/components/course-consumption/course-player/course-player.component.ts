@@ -138,6 +138,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   public defaultImageSrc = './../../../../../../assets/images/book.png';
 
   public showExtContentMsg = false;
+  openFeedbackModal = false;
   courseDetails = [];
   resources = [];
   creator;
@@ -554,6 +555,12 @@ console.log('Combine latest data', data);
           this.toasterService.error(this.resourceService.messages.stmsg.m0009);
         }
       );
+  }
+
+  public updateFeedback(toShow) {
+    if (toShow !== undefined) {
+      this.openFeedbackModal = toShow;
+    }
   }
   public navigateToContent(content: { title: string; id: string }): void {
     this.disable_jumbotron = true;

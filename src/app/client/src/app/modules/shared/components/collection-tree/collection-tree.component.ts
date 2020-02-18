@@ -27,6 +27,7 @@ import { b, d } from '@angular/core/src/render3';
 import { constructor } from 'lodash';
 import * as moment from 'moment';
 import { _localeFactory } from '@angular/core/src/application_module';
+import { SuiModule } from 'ng2-semantic-ui';
 
 @Component({
   selector: 'app-collection-tree',
@@ -46,6 +47,7 @@ export class CollectionTreeComponent implements OnInit, OnChanges {
     id: string;
     title: string;
   }> = new EventEmitter();
+  @Output() public showFeedback: EventEmitter<boolean> = new EventEmitter();
   @Input() contentStatus: any;
   @Input() enrolled: boolean;
   @Input() loggedIn: boolean;
@@ -91,21 +93,29 @@ open: boolean;
   public onItemSelect(item: any) {
     const itemID = item.data.id;
     if (!item.folder) {
-      if (this.enrolledDate || this.nodes.data['contentType'] === 'TextBook') {
-        const isOpenReally = this.isOpen(itemID);
-        if (isOpenReally['response'] === undefined) {
-          // if there is no prerequisite on the clicked content, isOpen will return undefined
-          this.contentSelect.emit({ id: item.data.id, title: item.title });
-        } else if ( isOpenReally['response'] !== undefined && isOpenReally['response'] ) {
-          // if there is a prerequiste and the user has completed that prerequisite
-          this.contentSelect.emit({ id: item.data.id, title: item.title });
-          } else {
-            // there is a prerequisite and the user has not completed that pre requisite
-          this.toasterService.error(this.resourceService.frmelmnts.lbl.completeprequisite + '     ' + isOpenReally['message']);
-          }
+      // check for the activity type of item, if it is Feedback, open a recording modal
+      if (item.data.model.activityType === 'Feedback') {
+        console.log('clicked on feedback type');
+        /* const modalCaller = jQuery('.ui.mini.modal.feedbackmodal')['modal'];
+        modalCaller('show'); */
+        this.showFeedback.emit(true);
       } else {
-        // user clicked on the content without being enrolled to it
-        this.toasterService.warning('You need to enroll this course to view any content');
+        if (this.enrolledDate || this.nodes.data['contentType'] === 'TextBook') {
+          const isOpenReally = this.isOpen(itemID);
+          if (isOpenReally['response'] === undefined) {
+            // if there is no prerequisite on the clicked content, isOpen will return undefined
+            this.contentSelect.emit({ id: item.data.id, title: item.title });
+          } else if ( isOpenReally['response'] !== undefined && isOpenReally['response'] ) {
+            // if there is a prerequiste and the user has completed that prerequisite
+            this.contentSelect.emit({ id: item.data.id, title: item.title });
+            } else {
+              // there is a prerequisite and the user has not completed that pre requisite
+            this.toasterService.error(this.resourceService.frmelmnts.lbl.completeprequisite + '     ' + isOpenReally['message']);
+            }
+        } else {
+          // user clicked on the content without being enrolled to it
+          this.toasterService.warning('You need to enroll this course to view any content');
+        }
       }
     }
   }

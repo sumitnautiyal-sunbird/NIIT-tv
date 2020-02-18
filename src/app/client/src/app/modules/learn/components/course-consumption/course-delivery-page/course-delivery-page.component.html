@@ -13,7 +13,7 @@
       <app-collection-tree
         *ngIf="collectionTreeNodes.data && collectionTreeNodes.data.children && collectionTreeNodes.data.children.length >0 ; else dataCommingSoon"
         (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes" [userEnrolledBatch]="true"  [contentId]="contentId"
-        [options]="collectionTreeOptions" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" ></app-collection-tree>
+        [options]="collectionTreeOptions" [contentStatus]="contentStatus" [enrolledDate]="enrolledDate" (showFeedback)="updateFeedback($event)"></app-collection-tree>
         <ng-template #dataCommingSoon>
           <div class="placeholder mt-40">
               <img src="{{'assets/images/datacomingsoon.png' | cdnprefixurl }}" />
@@ -38,4 +38,9 @@
       </div>
     </div>
   </div>
+
+  <sui-modal *ngIf="openFeedbackModal" [isClosable]="true" (dismissed)="openFeedbackModal = false" #feedbackmodal>
+    <div class="header">Feedback</div>
+        <app-course-feedback></app-course-feedback>
+</sui-modal>
 
