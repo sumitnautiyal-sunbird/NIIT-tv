@@ -1,6 +1,6 @@
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { UserService, PermissionService, TenantService } from './../../services';
+import { UserService, PermissionService, TenantService, CoursesService, PlayerService } from './../../services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService, ResourceService, IUserProfile, IUserData } from '@sunbird/shared';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
@@ -12,6 +12,10 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { CookieManagerService } from '../../../shared/services/cookie-manager/cookie-manager.service';
 import { GetaccesstokenService } from '../../../shared/services/accesstoken/getaccesstoken.service';
 import { GetkeywordsService } from '../../../shared/services/keywords/getkeywords.service';
+import { map } from 'rxjs-compat/operator/map';
+import { EnrolledcontentService } from '../../../shared/services/enrolledcontent/enrolledcontent.service';
+import { ChildcontentdetailsService } from '../../../shared/services/childcontentdetails/childcontentdetails.service';
+import { PlayresourceService } from '../../../shared/services/playresource/playresource.service';
 declare var jQuery: any;
 declare var SpeechSDK: any;
 /**
@@ -126,8 +130,10 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   subscriptionKey = '9cc89795996a4ece9c06aeab0da166fe';
   serviceRegion = 'westus';
   token = '';
+  assistantRoutes = ['show all my courses.'];
   fullSpeech: string;
   openSpeakModal = false;
+  enrolledcourses: any;
   /*
   * constructor
   */
@@ -135,7 +141,9 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     permissionService: PermissionService, userService: UserService, tenantService: TenantService,
     public activatedRoute: ActivatedRoute, private cacheService: CacheService,
     private frameworkService: FrameworkService, private cookieSrvc: CookieManagerService, private getaccessToken: GetaccesstokenService,
-    public keywords: GetkeywordsService) {
+    public keywords: GetkeywordsService, public courseService: CoursesService, public enrolledContentList: EnrolledcontentService,
+    public playerService: PlayerService , public childContentDetails: ChildcontentdetailsService ,
+    public playResource: PlayresourceService) {
     this.config = config;
     this.resourceService = resourceService;
     this.permissionService = permissionService;
@@ -218,6 +226,11 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
         }
       });
     this.setInteractEventData();
+    this.playResource.allowSpeak.subscribe( (obj) => {
+      if (obj.flag) {
+        this.searchContentUsingVoice(obj.option);
+      }
+    });
   }
 
   getCacheLanguage() {
@@ -238,7 +251,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       this.router.navigate([authroles.url]);
     }
   }
-  searchContentUsingVoice() {
+  searchContentUsingVoice(opt) {
     console.log('microphone on', SpeechSDK);
     this.getaccessToken.accesstoken(this.serviceRegion, this.subscriptionKey).subscribe((res) => {
       console.log('Response', res);
@@ -248,10 +261,10 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
         this.token = err.error.text;
         this.fullSpeech = '';
         const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
-        this.startRecording(speechConfig);
+        this.startRecording(speechConfig, opt);
       });
   }
-  startRecording(speechConfig) {
+  startRecording(speechConfig, opt) {
     speechConfig.speechRecognitionLanguage = 'en-US';
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     // jQuery('.ui.modal')
@@ -261,7 +274,12 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     recognizer.recognizeOnceAsync((result) => {
       console.log('Result', result);
       this.fullSpeech = this.fullSpeech + result['text'];
-      this.onEnter(this.keywords.getkeywords(this.fullSpeech));
+      if (opt === 1 && (result['text'] !== undefined)) {
+        this.onEnter(this.keywords.getkeywords(this.fullSpeech));
+
+      } else if (opt === 2) {
+        this.routeToSearchedPage();
+      }
       // jQuery('.ui.modal')
       //   .modal('hide');
       this.openSpeakModal = false;
@@ -272,6 +290,43 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       recognizer.close();
       recognizer = undefined;
     });
+  }
+  routeToSearchedPage() {
+    if (this.router.url === '/learn') {
+        this.enrolledcourses = this.enrolledContentList.listofenrolledcourses.value;
+        if (this.enrolledcourses.length > 0) {
+          this.fullSpeech = this.fullSpeech.substring(0 , this.fullSpeech.length - 1).toLowerCase();
+          this.enrolledcourses.every(course => {
+           if (('open ' + course['name'].toLowerCase()) === this.fullSpeech) {
+             console.log(course);
+             course.metaData.mimeType = 'application/vnd.ekstep.content-collection';
+      course.metaData.contentType = 'Course';
+             this.playerService.playContent(course.metaData);
+             return false ;
+           }
+           return true;
+          });
+        }
+    } else {
+       this.assistantRoutes.forEach((ele) => {
+      if (ele === this.fullSpeech.toLowerCase()) {
+        console.log('Redirect');
+        this.router.navigate(['/learn']);
+      }
+    });
+    this.childContentDetails.childrenContentDetails.subscribe( (childDetails) => {
+      this.fullSpeech = this.fullSpeech.toLowerCase();
+     this.fullSpeech = this.fullSpeech.substring(0, this.fullSpeech.length - 1);
+      childDetails.every((item) => {
+        if (this.fullSpeech === ('play ' + item.title).toLowerCase()) {
+          console.log('trying to play', item);
+          this.playResource.playresource.next({content : item , flag : true});
+          return false ;
+        }
+        return true;
+      });
+    });
+  }
   }
   onEnter(key) {
     console.log('key', key);

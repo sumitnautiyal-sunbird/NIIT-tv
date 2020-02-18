@@ -43,6 +43,7 @@ import {
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { PublicDataService, LearnerService } from '@sunbird/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PlayresourceService } from '../../../../shared/services/playresource/playresource.service';
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
@@ -205,7 +206,8 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
     public learnerService: LearnerService,
     public sanitizer: DomSanitizer,
     public route: Router,
-    public playerService: PlayerService
+    public playerService: PlayerService,
+    public playResource: PlayresourceService
   ) {
     this.router.onSameUrlNavigation = 'ignore';
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
@@ -315,7 +317,9 @@ export class CourseDeliveryPageComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewInit() {
     console.log(this.showJumbotron);
   }
-
+playContentUsingVoice(opt) {
+this.playResource.allowSpeak.next({option : opt , flag : true});
+}
   public updateFeedback(toShow) {
     if (toShow !== undefined) {
       this.openFeedbackModal = toShow;

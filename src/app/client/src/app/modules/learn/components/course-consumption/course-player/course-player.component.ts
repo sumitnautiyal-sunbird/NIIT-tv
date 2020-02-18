@@ -47,6 +47,8 @@ import { IUserData } from '../../../../shared';
 import { Subscription } from 'rxjs';
 import { SubscriptionLike as ISubscription } from 'rxjs';
 import { debug } from 'util';
+import { ChildcontentdetailsService } from '../../../../shared/services/childcontentdetails/childcontentdetails.service';
+import { PlayresourceService } from '../../../../shared/services/playresource/playresource.service';
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
@@ -214,7 +216,9 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     public publicDataService: PublicDataService,
     public learnerService: LearnerService,
     public sanitizer: DomSanitizer,
-    public route: Router
+    public route: Router,
+    public childContentDetails: ChildcontentdetailsService,
+    public playResource: PlayresourceService
   ) {
     this.router.onSameUrlNavigation = 'ignore';
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
@@ -288,6 +292,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.flaggedCourse = true;
           }
           this.parseChildContent();
+          console.log('child details' , this.contentDetails);
+          this.childContentDetails.childrenContentDetails.next(this.contentDetails);
           if (this.batchId) {
             this.enrolledBatchInfo = enrolledBatchDetails;
             console.log(this.enrolledBatchInfo);
@@ -335,6 +341,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
+this.playResource.playresource.subscribe( (obj) => {
+  if (obj.flag) {
+    this.navigateToContent(obj.content);
+  }
+});
   }
   ngAfterViewInit() {
     console.log(this.showJumbotron);

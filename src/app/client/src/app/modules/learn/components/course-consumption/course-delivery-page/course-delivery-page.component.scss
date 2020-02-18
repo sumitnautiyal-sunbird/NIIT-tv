@@ -28,7 +28,18 @@
   color: darkgray !important;
   font-weight: 400 !important;
 }
-
+.assist {
+  height: 40px;
+  border: none;
+  background-color: white;
+  font-size: 0.6em;
+  float: right;
+  margin-right: 70px;
+  font-weight: bold;
+  width: 90px;
+  border-radius: 37px;
+  color: var(--primary-color);
+}
 #dashboardBtn {
   margin: 13px 20px 0 0;
   position: absolute;

@@ -35,7 +35,7 @@ export class CourseFeedbackUtilityService {
   sendDataToCloud(recordingData) {
     return new Promise((resolve, reject) => {
       const recordingFormData = this.getAudioFormData(recordingData);
-      this.http.post('https://b5226873.ngrok.io/camino/upload/feedback', recordingFormData).pipe(map((response) => {
+      this.http.post('http://52.221.207.221:3200/camino/upload/feedback', recordingFormData).pipe(map((response) => {
         console.log('recieved response from feedback api');
         console.log(response);
         return response;
