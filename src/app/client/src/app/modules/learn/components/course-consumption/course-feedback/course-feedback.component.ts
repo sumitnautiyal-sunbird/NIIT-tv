@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {CourseFeedbackUtilityService} from '../../../services/course-feedback/course-feedback-utility.service';
 import {AudioRecorderService} from '../../../services/audio-recorder/audio-recorder.service';
 import { take } from 'rxjs/operators';
+import { ResourceService } from '@sunbird/shared';
 @Component({
   selector: 'app-course-feedback',
   templateUrl: './course-feedback.component.html',
@@ -14,7 +15,8 @@ export class CourseFeedbackComponent implements OnInit {
   audioRecorderSubscription: any;
   constructor(
     private readonly utilitySrvc: CourseFeedbackUtilityService,
-    private readonly audioRecorder: AudioRecorderService) { }
+    private readonly audioRecorder: AudioRecorderService,
+    public readonly resourceService: ResourceService) { }
 
   ngOnInit() {
     if (this.feedbackDetails === undefined) {
