@@ -326,7 +326,7 @@ this.playResource.allowSpeak.next({option : opt , flag : true});
     }
   }
 
-  
+
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};

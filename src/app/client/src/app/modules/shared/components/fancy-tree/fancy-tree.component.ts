@@ -149,7 +149,7 @@ console.log('content ', this.contentStatus);
         console.log('data', data);
         this.contentTitle = node.title;
         if (node.data.activityType !== 'headset') {
-          if(node.data.model.activityType === 'Discussion') {
+          if (node.data.model.activityType === 'Discussion') {
             node.data.model.previewUrl = 'http://13.234.2.81:3200/index.html?id=6';
             node.data.model.artifactUrl = 'http://13.234.2.81:3200/index.html?id=6';
             this.itemSelect.emit(node);
