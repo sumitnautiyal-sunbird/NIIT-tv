@@ -130,10 +130,12 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   subscriptionKey = '9cc89795996a4ece9c06aeab0da166fe';
   serviceRegion = 'westus';
   token = '';
-  assistantRoutes = ['show all my courses.'];
+  assistantRoutes = ['show all my courses.', 'show my registered courses.', 'show my enrolled courses.', 'my registered courses.',
+    'my enrolled courses.', 'my courses.', 'enrolled courses.'];
   fullSpeech: string;
   openSpeakModal = false;
   enrolledcourses: any;
+  newKeywordToSearch = '';
   /*
   * constructor
   */
@@ -142,7 +144,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     public activatedRoute: ActivatedRoute, private cacheService: CacheService,
     private frameworkService: FrameworkService, private cookieSrvc: CookieManagerService, private getaccessToken: GetaccesstokenService,
     public keywords: GetkeywordsService, public courseService: CoursesService, public enrolledContentList: EnrolledcontentService,
-    public playerService: PlayerService , public childContentDetails: ChildcontentdetailsService ,
+    public playerService: PlayerService, public childContentDetails: ChildcontentdetailsService,
     public playResource: PlayresourceService) {
     this.config = config;
     this.resourceService = resourceService;
@@ -226,7 +228,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
         }
       });
     this.setInteractEventData();
-    this.playResource.allowSpeak.subscribe( (obj) => {
+    this.playResource.allowSpeak.subscribe((obj) => {
       if (obj.flag) {
         this.searchContentUsingVoice(obj.option);
       }
@@ -259,7 +261,9 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       (err) => {
         console.log('Error', err.error.text);
         this.token = err.error.text;
+       // this.token = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpb24iOiJ3ZXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJkMjRjMGUxODM4ODk0M2ZlOWUwZWY2YjFkZjQ2N2I0OCIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5GcmVlIiwiY29nbml0aXZlLXNlcnZpY2VzLWVuZHBvaW50IjoiaHR0cHM6Ly9hcGkuY29nbml0aXZlLm1pY3Jvc29mdC5jb20vaW50ZXJuYWwvdjEuMC8iLCJhenVyZS1yZXNvdXJjZS1pZCI6IiIsInNjb3BlIjoic3BlZWNoc2VydmljZXMiLCJhdWQiOiJ1cm46bXMuc3BlZWNoc2VydmljZXMud2VzdHVzIiwiZXhwIjoxNTgyMDQ0ODczLCJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMifQ.GpK9F_zt-AbZmjfmry3V4TQiZnL_r8dBDNValwHOI2E';
         this.fullSpeech = '';
+        this.newKeywordToSearch = '';
         const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
         this.startRecording(speechConfig, opt);
       });
@@ -275,7 +279,17 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       console.log('Result', result);
       this.fullSpeech = this.fullSpeech + result['text'];
       if (opt === 1 && (result['text'] !== undefined)) {
-        this.onEnter(this.keywords.getkeywords(this.fullSpeech));
+        // get keywords
+        this.fullSpeech = (this.fullSpeech.substring(0, this.fullSpeech.length - 1)).toLowerCase();
+        const tempArray = this.fullSpeech.split(' ');
+        tempArray.forEach((word) => {
+          if (word !== 'search' && word !== 'and' && word !== 'for' && word !== 'content' && word !== 'courses' && word !== 'show'
+            && word !== 'course' && word !== 'so' && word !== 'it' && word !== 'not') {
+            this.newKeywordToSearch = this.newKeywordToSearch + word + ',';
+          }
+        });
+        this.newKeywordToSearch = this.newKeywordToSearch.slice(0, this.newKeywordToSearch.length - 1);
+        this.onEnter(this.newKeywordToSearch);
 
       } else if (opt === 2) {
         this.routeToSearchedPage();
@@ -293,40 +307,60 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   }
   routeToSearchedPage() {
     if (this.router.url === '/learn') {
-        this.enrolledcourses = this.enrolledContentList.listofenrolledcourses.value;
-        if (this.enrolledcourses.length > 0) {
-          this.fullSpeech = this.fullSpeech.substring(0 , this.fullSpeech.length - 1).toLowerCase();
-          this.enrolledcourses.every(course => {
-           if (('open ' + course['name'].toLowerCase()) === this.fullSpeech) {
-             console.log(course);
-             course.metaData.mimeType = 'application/vnd.ekstep.content-collection';
-      course.metaData.contentType = 'Course';
-             this.playerService.playContent(course.metaData);
-             return false ;
-           }
-           return true;
-          });
-        }
-    } else {
-       this.assistantRoutes.forEach((ele) => {
-      if (ele === this.fullSpeech.toLowerCase()) {
-        console.log('Redirect');
-        this.router.navigate(['/learn']);
+      this.enrolledcourses = this.enrolledContentList.listofenrolledcourses.value;
+      if (this.enrolledcourses.length > 0) {
+        this.fullSpeech = this.fullSpeech.substring(0, this.fullSpeech.length - 1).toLowerCase();
+        this.enrolledcourses.every(course => {
+          const temp = course['name'].toLowerCase();
+          //   if (
+          //     (('open ' + temp).includes(this.fullSpeech) ||
+          //   ('show ' + temp).includes(this.fullSpeech) ||
+          //   ('learn ' + temp).includes(this.fullSpeech)) ||
+          //      (('open ' + temp) === this.fullSpeech ||
+          //      ('show ' + temp) === this.fullSpeech ||
+          //       ('learn ' + temp) === this.fullSpeech )) {
+          //        console.log(course);
+          //        course.metaData.mimeType = 'application/vnd.ekstep.content-collection';
+          // course.metaData.contentType = 'Course';
+          //        this.playerService.playContent(course.metaData);
+          //        return false ;
+          //      }
+          // tslint:disable-next-line: max-line-length
+          const keyword = (this.fullSpeech.includes('open') ? 'open' : (this.fullSpeech.includes('show') ? 'show' : (this.fullSpeech.includes('learn') ? 'learn' : null)))
+          if (keyword) {
+            const tempSpeech = this.fullSpeech.substring(keyword.length + 1 , this.fullSpeech.length);
+            if (temp.includes(tempSpeech)) {
+              console.log(course);
+              course.metaData.mimeType = 'application/vnd.ekstep.content-collection';
+              course.metaData.contentType = 'Course';
+              this.playerService.playContent(course.metaData);
+              return false;
+            }
+          }
+          return true;
+        });
       }
-    });
-    this.childContentDetails.childrenContentDetails.subscribe( (childDetails) => {
-      this.fullSpeech = this.fullSpeech.toLowerCase();
-     this.fullSpeech = this.fullSpeech.substring(0, this.fullSpeech.length - 1);
-      childDetails.every((item) => {
-        if (this.fullSpeech === ('play ' + item.title).toLowerCase()) {
-          console.log('trying to play', item);
-          this.playResource.playresource.next({content : item , flag : true});
-          return false ;
+    } else {
+      this.assistantRoutes.forEach((ele) => {
+        if (ele === this.fullSpeech.toLowerCase()) {
+          console.log('Redirect');
+          this.router.navigate(['/learn']);
         }
-        return true;
       });
-    });
-  }
+      this.childContentDetails.childrenContentDetails.subscribe((childDetails) => {
+        this.fullSpeech = this.fullSpeech.toLowerCase();
+        this.fullSpeech = this.fullSpeech.substring(0, this.fullSpeech.length - 1);
+        childDetails.every((item) => {
+          const temp = (item.title).toLowerCase();
+          if ((this.fullSpeech === ('play ' + temp)) || (this.fullSpeech === ('read ' + temp)) || (this.fullSpeech === ('quiz ' + temp))) {
+            console.log('trying to play', item);
+            this.playResource.playresource.next({ content: item, flag: true });
+            return false;
+          }
+          return true;
+        });
+      });
+    }
   }
   onEnter(key) {
     console.log('key', key);
