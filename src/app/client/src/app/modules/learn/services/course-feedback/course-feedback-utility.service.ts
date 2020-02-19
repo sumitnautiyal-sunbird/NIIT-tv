@@ -40,7 +40,7 @@ export class CourseFeedbackUtilityService {
   sendDataToCloud(recordingData) {
     return new Promise((resolve, reject) => {
       const recordingFormData = this.getAudioFormData(recordingData);
-      this.http.post('https://662f157a.ngrok.io/camino/upload/feedback', recordingFormData).pipe(map((response) => {
+      this.http.post('http://52.221.207.221:3200/camino/upload/feedback', recordingFormData).pipe(map((response) => {
         console.log('recieved response from feedback api');
         console.log(response);
         return response;
@@ -62,7 +62,7 @@ export class CourseFeedbackUtilityService {
   startAnalysisPolling(filename) {
     // setinterval to start polling the file status
     this.intervalID = window.setInterval(() => {
-      const url = `http://localhost:3200/camino/feedback/status/${filename}`;
+      const url = `http://52.221.207.221:3200/camino/feedback/status/${filename}`;
       this.http.get(url).subscribe((res) => {
         console.log('response from status api ', res);
         if (res['status'].toString() === '200' && typeof res['data'] === 'number') {

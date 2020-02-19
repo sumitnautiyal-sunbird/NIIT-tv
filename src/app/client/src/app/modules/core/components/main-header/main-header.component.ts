@@ -261,7 +261,6 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       (err) => {
         console.log('Error', err.error.text);
         this.token = err.error.text;
-       // this.token = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpb24iOiJ3ZXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJkMjRjMGUxODM4ODk0M2ZlOWUwZWY2YjFkZjQ2N2I0OCIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5GcmVlIiwiY29nbml0aXZlLXNlcnZpY2VzLWVuZHBvaW50IjoiaHR0cHM6Ly9hcGkuY29nbml0aXZlLm1pY3Jvc29mdC5jb20vaW50ZXJuYWwvdjEuMC8iLCJhenVyZS1yZXNvdXJjZS1pZCI6IiIsInNjb3BlIjoic3BlZWNoc2VydmljZXMiLCJhdWQiOiJ1cm46bXMuc3BlZWNoc2VydmljZXMud2VzdHVzIiwiZXhwIjoxNTgyMDQ0ODczLCJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMifQ.GpK9F_zt-AbZmjfmry3V4TQiZnL_r8dBDNValwHOI2E';
         this.fullSpeech = '';
         this.newKeywordToSearch = '';
         const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(this.token, this.serviceRegion);
@@ -326,7 +325,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
           //        return false ;
           //      }
           // tslint:disable-next-line: max-line-length
-          const keyword = (this.fullSpeech.includes('open') ? 'open' : (this.fullSpeech.includes('show') ? 'show' : (this.fullSpeech.includes('learn') ? 'learn' : null)))
+          const keyword = (this.fullSpeech.includes('open') ? 'open' : (this.fullSpeech.includes('show') ? 'show' : (this.fullSpeech.includes('learn') ? 'learn' : null)));
           if (keyword) {
             const tempSpeech = this.fullSpeech.substring(keyword.length + 1 , this.fullSpeech.length);
             if (temp.includes(tempSpeech)) {

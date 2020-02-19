@@ -20,7 +20,7 @@ export class CourseFeedbackComponent implements OnInit {
     private readonly audioRecorder: AudioRecorderService,
     private readonly toasterService: ToasterService,
     public readonly resourceService: ResourceService,
-    public readonly cfuSrvc: CourseFeedbackUtilityService,) { }
+    public readonly cfuSrvc: CourseFeedbackUtilityService, ) { }
 
   ngOnInit() {
     if (this.feedbackDetails === undefined) {
