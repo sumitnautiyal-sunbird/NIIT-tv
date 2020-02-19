@@ -83,7 +83,7 @@ export class WorkSpaceService {
   * @param {string}  state - Present state
 */
   openCollectionEditor(content, state) {
-    content.framework="niit_tv"
+    content.framework = 'niit_tv';
     const navigationParams = ['/workspace/content/edit/collection', content.identifier, content.contentType, state, content.framework];
     if (content.status) {
       navigationParams.push(content.status);
@@ -97,7 +97,7 @@ export class WorkSpaceService {
    * @param {string}  state - Present state
   */
   openContent(content, state) {
-    content.framework="niit_tv"
+    content.framework = 'niit_tv';
     if (this.config.appConfig.WORKSPACE.states.includes(state)) {
       const navigationParams = ['/workspace/content/edit/content/', content.identifier, state, content.framework];
       if (content.status) {
@@ -123,7 +123,7 @@ export class WorkSpaceService {
    * @param {string}  state - Present state
   */
   openGenericEditor(content, state) {
-    content.framework="niit_tv"
+    content.framework = 'niit_tv';
     if (this.config.appConfig.WORKSPACE.states.includes(state)) {
       const navigationParams = ['/workspace/content/edit/generic/', content.identifier, state, content.framework];
       if (content.status) {

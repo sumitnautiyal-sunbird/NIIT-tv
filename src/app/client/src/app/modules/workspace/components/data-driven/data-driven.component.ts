@@ -312,7 +312,6 @@ if (!_.isEmpty(data)) {
 }
 
   createContent() {
-    debugger;
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData))
     };

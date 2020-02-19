@@ -148,7 +148,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'learn/live-session',component:LiveSessionUrlComponent
+    path: 'learn/live-session', component: LiveSessionUrlComponent
   },
   {
     path: 'play/batch/:batchId/course/:courseId', component: CourseDeliveryPageComponent,

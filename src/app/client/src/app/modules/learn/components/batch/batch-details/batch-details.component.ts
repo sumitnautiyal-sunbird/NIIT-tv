@@ -264,7 +264,7 @@ if (this.enrolledBatchInfo) {
     this.courseBatchService.setEnrollToBatchDetails(batch);
     this.router.navigate(['enroll/batch', batch.identifier], { relativeTo: this.activatedRoute });
   }
-  batchDetails(){
+  batchDetails() {
     this.batchUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050/batchmates');
     this.trainerModal = true;
   }

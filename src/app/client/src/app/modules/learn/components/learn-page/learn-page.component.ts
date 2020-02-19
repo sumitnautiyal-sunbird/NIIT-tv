@@ -254,7 +254,7 @@ export class LearnPageComponent implements OnInit, OnDestroy {
     }
     this.playerService.playContent(event.data.metaData);
   }
-  
+
   public bestTrainer() {
     this.bestTrainerUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050');
     this.trainerModal = true;
