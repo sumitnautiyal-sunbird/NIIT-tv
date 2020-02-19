@@ -47,6 +47,7 @@ import { PlayresourceService } from '../../../../shared/services/playresource/pl
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
+  'Discussion' = 'head',
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',

@@ -51,6 +51,7 @@ import { PlayresourceService } from '../../../../shared/services/playresource/pl
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
+  'Discussion' = 'discuss',
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',
@@ -76,6 +77,183 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public enrolledCourse = false;
 
+  public tempObj = {
+    'ownershipType': [
+        'createdBy'
+    ],
+    'previewUrl': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/content/ecml/do_2129591994962575361299-latest',
+    'keywords': [
+        'discussion'
+    ],
+    'subject': 'Soft Skills',
+    'channel': '0127053482034872320',
+    // tslint:disable-next-line: max-line-length
+    'downloadUrl': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/ecar_files/do_2129591994962575361299/discussion_1582099853119_do_2129591994962575361299_2.0.ecar',
+    'questions': [],
+    'organisation': [
+        'camino'
+    ],
+    'language': [
+        'English'
+    ],
+    'variants': {
+        'spine': {
+              // tslint:disable-next-line: max-line-length
+            'ecarUrl': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/ecar_files/do_2129591994962575361299/discussion_1582099853315_do_2129591994962575361299_2.0_spine.ecar',
+            'size': 15261
+        }
+    },
+    'mimeType': 'application/vnd.ekstep.ecml-archive',
+     // tslint:disable-next-line: max-line-length
+    'editorState': '{"plugin":{"noOfExtPlugins":10,"extPlugins":[{"plugin":"org.ekstep.contenteditorfunctions","version":"1.2"},{"plugin":"org.ekstep.keyboardshortcuts","version":"1.0"},{"plugin":"org.ekstep.richtext","version":"1.0"},{"plugin":"org.ekstep.iterator","version":"1.0"},{"plugin":"org.ekstep.navigation","version":"1.0"},{"plugin":"org.ekstep.questionunit.mcq","version":"1.3"},{"plugin":"org.ekstep.keyboard","version":"1.1"},{"plugin":"org.ekstep.questionunit.reorder","version":"1.1"},{"plugin":"org.ekstep.questionunit.sequence","version":"1.1"},{"plugin":"org.ekstep.questionunit.ftb","version":"1.1"}]},"stage":{"noOfStages":1,"currentStage":"48cd2a4c-9a68-4e22-a714-5d4d423637a6","selectedPluginObject":"a2091cd0-d536-4a93-a6d2-801ed8384854"},"sidebar":{"selectedMenu":"settings"}}',
+     // tslint:disable-next-line: max-line-length
+    'appIcon': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/content/do_2129591994962575361299/artifact/seo_1556308196267.thumb.png',
+    'collections': [
+        {
+            'identifier': 'do_2129599416766545921351',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        },
+        {
+            'identifier': 'do_2129598707574210561337',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        },
+        {
+            'identifier': 'do_2129599427617587201352',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        },
+        {
+            'identifier': 'do_2129599280187555841340',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        },
+        {
+            'identifier': 'do_2129599291766046721341',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        },
+        {
+            'identifier': 'do_2129599397087969281345',
+            'name': 'Discussion',
+            'objectType': 'Content',
+            'relation': 'hasSequenceMember',
+            'description': null,
+            'index': null,
+            'status': null,
+            'depth': null,
+            'mimeType': null,
+            'visibility': null,
+            'compatibilityLevel': null
+        }
+    ],
+    'children': [],
+    'appId': 'dev.camino.portal',
+    'usesContent': [],
+    'createcontent': 'Create',
+    // tslint:disable-next-line: max-line-length
+    'artifactUrl': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/content/do_2129591994962575361299/artifact/1582099852967_do_2129591994962575361299.zip',
+    'contentEncoding': 'gzip',
+    'lockKey': 'a2e9f400-315c-408c-902e-fef7b5e83a1b',
+    'contentType': 'Resource',
+    'sYS_INTERNAL_LAST_UPDATED_ON': '2020-02-19T08:10:54.074+0000',
+    'item_sets': [],
+    'lastUpdatedBy': '6f324db7-32a5-4437-a451-35cf53269aaf',
+    'identifier': 'do_2129591994962575361299',
+    'audience': [
+        'Learner'
+    ],
+    'visibility': 'Default',
+    'consumerId': '83f22748-0d37-4bfc-b401-1fc88dedb178',
+    'mediaType': 'content',
+    'osId': 'org.ekstep.quiz.app',
+    'lastPublishedBy': 'af0549b2-4792-41bf-a518-59bd8b16d62b',
+    'languageCode': 'en',
+    'tags': [
+        'discussion'
+    ],
+    'prevState': 'Review',
+    'lastPublishedOn': '2020-02-19T08:10:53.116+0000',
+    'size': 23241,
+    'concepts': [],
+    'name': 'Discussion',
+    'status': 'Live',
+    'totalQuestions': 0,
+    'code': 'org.sunbird.1I6zwa',
+    'methods': [],
+    'description': 'discussion',
+    'streamingUrl': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/content/ecml/do_2129591994962575361299-latest',
+    'medium': 'Classroom',
+    'posterImage': 'https://ekstep-public-qa.s3-ap-south-1.amazonaws.com/content/do_212749276742148096187/artifact/seo_1556308196267.png',
+    'idealScreenSize': 'normal',
+    'createdOn': '2020-02-17T09:58:52.257+0000',
+    'contentDisposition': 'inline',
+    'lastUpdatedOn': '2020-02-19T08:10:51.397+0000',
+    'dialcodeRequired': 'No',
+    'owner': 'Aditya',
+    'lastStatusChangedOn': '2020-02-19T08:10:51.384+0000',
+    'createdFor': [
+        '0127053482034872320'
+    ],
+    'creator': 'Aditya',
+    'os': [
+        'All'
+    ],
+    'libraries': [],
+    'totalScore': 0,
+    'pkgVersion': 2,
+    'versionKey': '1582099851845',
+    'idealScreenDensity': 'hdpi',
+    's3Key': 'ecar_files/do_2129591994962575361299/discussion_1582099853119_do_2129591994962575361299_2.0.ecar',
+    'framework': 'niit_tv',
+    'lastSubmittedOn': '2020-02-19T08:09:00.770+0000',
+    'createdBy': '6f324db7-32a5-4437-a451-35cf53269aaf',
+    'compatibilityLevel': 2,
+    'activityType': 'Discussion',
+    'ownedBy': '6f324db7-32a5-4437-a451-35cf53269aaf',
+    'resourceType': 'Learn'
+};
   public contentId: string;
 
   public courseStatus: string;
@@ -185,7 +363,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   userSubscription: ISubscription;
   @ViewChild('target') targetEl: ElementRef;
   @ViewChild('top') topEl: ElementRef;
-  c = 0;
+  discussionCount = 0;
+  liveSessionCount = 0;
   enddate: number;
   analyzerSubscription: any;
   sentimentDetected = 'Analyzing...';
@@ -339,6 +518,17 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
           ) {
             this.subscribeToQueryParam();
           }
+          if (this.courseId === 'do_21279277280913817612995') {
+            this.courseHierarchy.children[0]['children'][0].children.push(this.tempObj);
+            this.courseHierarchy.children[1]['children'][0].children.push(this.tempObj);
+            this.courseHierarchy.children[2]['children'][0].children.push(this.tempObj);
+           }
+           if (this.courseId === 'do_2129598663209451521328') {
+            this.courseHierarchy.children[0]['children'][0].children.push(this.tempObj);
+            this.courseHierarchy.children[1]['children'][0].children.push(this.tempObj);
+            this.courseHierarchy.children[2]['children'][0].children.push(this.tempObj);
+           }
+
           this.collectionTreeNodes = {
             data: this.courseHierarchy,
             enrolldata: this.enrolledBatchInfo
@@ -383,7 +573,10 @@ this.playResource.playresource.subscribe( (obj) => {
     this.treeModel.walk(node => {
       if (node.model.activityType) {
         if (node.model.activityType === 'live Session') {
-          this.c++;
+          this.liveSessionCount++;
+        }
+        if (node.model.activityType === 'Discussion') {
+          this.discussionCount++;
         }
         if (activityTypeCount[node.model.activityType]) {
           activityTypeCount[node.model.activityType] += 1;
@@ -455,7 +648,11 @@ this.playResource.playresource.subscribe( (obj) => {
       });
     });
 
-    if (this.c > 0) {
+    if (this.liveSessionCount > 0 && this.discussionCount > 0) {
+      this.newFlag(3);
+    } else if (this.liveSessionCount > 0) {
+      this.newFlag(2);
+    } else if (this.discussionCount > 0) {
       this.newFlag(1);
     } else {
       this.newFlag(0);
