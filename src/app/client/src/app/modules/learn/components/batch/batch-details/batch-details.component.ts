@@ -265,8 +265,10 @@ if (this.enrolledBatchInfo) {
     this.router.navigate(['enroll/batch', batch.identifier], { relativeTo: this.activatedRoute });
   }
   batchDetails() {
-    this.batchUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050/batchmates');
-    this.trainerModal = true;
+    window.open('http://52.221.207.221:3050/batchmates', '_blank');
+
+    // this.batchUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050/batchmates');
+    // this.trainerModal = true;
   }
 
   unenrollBatch(batch) {

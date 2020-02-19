@@ -9,9 +9,9 @@
 title="Complete the Prerequisites"
  [ngClass]="{'fas':true , 'fa-lock': child.model.prerequisites, 'fa-lock-open': (child.model.prerequisites && child.model.open === true) === true}"></i>
 <span [innerHTML]="child.title" class="d-inline-block mt-2" id="title"></span>
-<span [innerHTML]="child.startDate" class="d-inline-block mt-2"></span>
+<span [innerHTML]="child.startDate" class="d-inline-block mt-2 date"></span>
 <span *ngIf="enrolledDate" [innerHTML]="'-'" class="d-inline-block mt-2"></span>
-<span [innerHTML]="child.endDate" class="d-inline-block mt-2"></span>
+<span [innerHTML]="child.endDate" class="d-inline-block mt-2 date"></span>
 <i *ngIf="child.folder && child.children.length" class="icon right-float accordion-content-right"
   [class.plus]="!child.model.togglePanelIcon" [class.minus]="child.model.togglePanelIcon"></i>
     </div>

@@ -153,8 +153,10 @@ console.log('content ', this.contentStatus);
         this.contentTitle = node.title;
         if (node.data.activityType !== 'headset') {
           if (node.data.model.activityType === 'Discussion') {
-            this.discussionUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3200/index.html?id=0');
-            this.discussionModal = true;
+            window.open('http://52.221.207.221:3200/index.html?id=0', '_blank');
+
+            // this.discussionUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3200/index.html?id=0');
+            // this.discussionModal = true;
 
           //   this.router.navigate(['/learn/live-session'],
           //   { queryParams: { sessionUrl: 'http://52.221.207.221:3200/index.html?id=0'} }

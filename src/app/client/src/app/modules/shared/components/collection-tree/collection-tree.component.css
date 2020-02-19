@@ -14,3 +14,6 @@
 }
 .tooltip-arrow,
 .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+.date {
+    font-size: 0.8em;
+}
