@@ -85,6 +85,7 @@ export class CourseFeedbackUtilityService {
   }
 
   detectSentiment(dataToVerify) {
+    console.log('extracting sentiment from ', dataToVerify);
     let sentimentResult = '';
     if (dataToVerify.sentiment >= -0.2 && dataToVerify.sentiment <= 0.2) {
       sentimentResult = 'MODERATE';

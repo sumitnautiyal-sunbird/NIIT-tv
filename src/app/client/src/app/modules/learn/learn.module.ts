@@ -38,6 +38,7 @@ import { TopCategoriesComponent } from './components/top-categories/top-categori
 import { CourseDeliveryPageComponent } from './components/course-consumption/course-delivery-page/course-delivery-page.component';
 import { LiveSessionUrlComponent } from './components/live-session-url/live-session-url.component';
 import { CourseFeedbackComponent } from './components/course-consumption/course-feedback/course-feedback.component';
+import { TinyCardsComponent } from './components/course-consumption/tiny-cards/tiny-cards.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -80,6 +81,7 @@ import { CourseFeedbackComponent } from './components/course-consumption/course-
     ImagePreloadDirective,
     UpdateLivesessionComponent,
     CourseFeedbackComponent,
+    TinyCardsComponent,
   ]
 })
 export class LearnModule {}

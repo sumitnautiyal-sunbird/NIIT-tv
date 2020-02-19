@@ -517,7 +517,11 @@
 }
 
 .feedbackCard {
-    height: 15vh !important;
+    margin-bottom: 30px;
+}
+
+.keywordText {
+    font-size: 1.7rem;
 }
 
 .feedbackAnalyzer {
@@ -527,6 +531,7 @@
     font-size: 1.7rem;
     padding-top: 4%;
     .textContent {
+        text-align: left;
         flex: 1;
     }
     .analysisContent {
@@ -539,4 +544,21 @@
     .redText {
         color: red;
     }
+
+    .feedbackKW {
+        text-align: left;
+    }   
+}
+
+::ng-deep .KWcontent {
+    display: inline-block;
+    min-width: 100px;
+    padding: 5px;
+    margin: 5px;
+    background-color: white;
+    text-align: center;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    font-size: 1.3rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;
 }

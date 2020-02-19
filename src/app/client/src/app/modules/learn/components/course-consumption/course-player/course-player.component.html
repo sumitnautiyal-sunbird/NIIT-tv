@@ -219,10 +219,18 @@
                                                         {{sentimentDetected || 'Not Started'}}
                                                     </div>
                                                 </div>
+                                                <div *ngIf="keywordsArray?.length" class="feedbackKW">
+                                                    <div class="keywordText">
+                                                        <p>Keywords Extracted</p>
+                                                    </div>
+                                                    <div class="keywordWrapper">
+                                                        <app-tiny-cards [textArray]="keywordsArray"></app-tiny-cards>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="ui fitted divider mb-20 mt-30"></div>
+                                    <!-- <div class="ui fitted divider mb-20 mt-30"></div> -->
                                 </div>
                                 <div class='three wide column'>
                                     <div *ngIf="enrolledCourse" class="my-15">

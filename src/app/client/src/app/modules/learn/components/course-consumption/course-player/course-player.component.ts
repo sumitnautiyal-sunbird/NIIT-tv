@@ -369,6 +369,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   analyzerSubscription: any;
   sentimentDetected = 'Analyzing...';
   totallearners = 0;
+  keywordsArray = [];
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -414,7 +415,9 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
           // recieved our final status
           if (status['data']['status'].toString() === '4') {
             console.log('recieved 4');
-            this.sentimentDetected = this.cfuSrvc.detectSentiment(status['data']['data']);
+            this.sentimentDetected = this.cfuSrvc.detectSentiment(status['data']['data'][0]);
+            this.keywordsArray = status['data']['data'][0]['keyPhrases'];
+            console.log('keyWords detected as ', this.keywordsArray);
             console.log('sentiment detected is ', this.sentimentDetected);
           } else {
             console.log('did not recieve 4');
