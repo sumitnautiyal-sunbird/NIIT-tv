@@ -17,7 +17,8 @@ import * as moment from 'moment';
 })
 export class BatchDetailsComponent implements OnInit, OnDestroy {
   public unsubscribe = new Subject<void>();
-  flag2: number;
+  liveSessionFlag: number;
+  discussionFlag: number;
 
   batchStatus: Number;
   @Input() courseId: string;
@@ -83,7 +84,14 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.resourceService.flagForSession.subscribe( data => {
-this.flag2 = data;
+      if (data === 3) {
+        this.liveSessionFlag = 1;
+        this.discussionFlag = 1;
+      } else if (data === 2) {
+        this.liveSessionFlag = 1;
+      } else if (data === 1) {
+        this.discussionFlag = 1;
+      }
     });
     this.courseInteractObject = {
       id: this.courseHierarchy.identifier,

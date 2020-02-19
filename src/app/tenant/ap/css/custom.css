@@ -1,0 +1,657 @@
+html, body{width: 100%; overflow-x: hidden;}
+
+.Main_Header nav {
+    background: #fff;
+    border-radius: 0px;
+    margin: 0px;
+    border: 0px;
+    height: 70px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.Main_Header nav .navbar-header a img {
+    width: 95px;
+    margin-left: 15px;
+}
+
+.Main_Header nav .MainRightNav ul li a {
+    height: 70px;
+    line-height: 70px;
+    padding: 0px 25px;
+    font-size: 15px;
+    color: #717070;
+}
+
+.Main_Header nav .MainRightNav ul li a:hover {
+    color: #3e3d3d;
+    background-color: none;
+}
+
+.Main_Header nav .MainRightNav ul li.active a {
+    background: none;
+}
+
+.Main_Header nav .MainRightNav ul li.active a:hover {
+    background-color: #fff;
+    color: #3e3d3d;
+}
+
+.Main_Header nav .MainRightNav ul li a input.btn {
+    border-radius: 0px;
+    padding: 7px 30px;
+    border: 0px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.Main_Header nav .MainRightNav ul li.active a:focus {
+    background-color: #fff;
+    color: #3e3d3d;
+}
+
+.Main_Header nav .MainRightNav ul li a:focus {
+    color: #3e3d3d;
+}
+
+.SliderMainSection .SliderDiv .row {
+    margin: 0px;
+}
+
+.SliderMainSection .SliderDiv .SlideImages {
+    z-index: 0;
+}
+
+.SliderDiv .SlideImages .slide .mainSliderOverley::before {
+    content: '';
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background: rgba(23, 43, 90, 0.81);
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.SliderDiv .SlideImages .slide .slide-cover {
+    position: absolute;
+    top: 20%;
+    left: 0px;
+    right: 0px;
+}
+
+.SliderDiv .SlideImages .slide .slide-cover .slide-details {
+    color: #fff;
+}
+
+.SliderDiv .SlideImages .slide .slide-cover .slide-details h1 {
+    font-weight: 600;
+    font-size: 58px;
+    text-shadow: 3px 2px #403c3c;
+}
+
+.SliderDiv .SlideImages .slide .slide-cover .slide-details h2 {
+    font-weight: 600;
+    font-size: 48px;
+    margin-top: 0px;
+    text-shadow: 3px 2px #403c3c;
+}
+
+.SliderDiv .SlideImages .slide .slide-cover .slide-details p {
+    font-size: 18px;
+    text-shadow: 3px 2px #403c3c;
+}
+
+.EducationSemester .SemesterHeading {
+    background: rgba(0, 0, 0, 0.49);
+    transition: 0.4s;
+    color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    padding: 10px;
+    margin-bottom: 30px;
+    height: 160px;
+}
+
+.EducationSemester .SemesterHeading .SemesterIcon {
+    display: inline-block;
+}
+
+.EducationSemester .SemesterHeading:hover {
+    background: rgba(0, 0, 0, 0.32);
+}
+
+.EducationSemester .SemesterHeading .SemesterIcon i {
+    font-size: 48px;
+    text-shadow: 1px 1px #403c3c;
+    display: inline-block;
+    padding-top: 0px;
+    padding-right: 10px;
+}
+
+.EducationSemester .SemesterHeading .SemesterName {
+    display: inline-block;
+    width: 75%;
+    vertical-align: middle;
+}
+
+.EducationSemester .SemesterHeading .SemesterName h3 {
+    font-weight: bold;
+    text-shadow: 1px 1px #403c3c;
+    padding-bottom: 15px;
+    font-size: 26px;
+}
+
+.EducationSemester .SemesterHeading .SemesterName a {
+    font-weight: bold;
+}
+
+.EducationDivsection {
+    position: absolute;
+    bottom: -20px;
+    right: 0px;
+    left: 0px;
+}
+
+.sectionPopularCourse {
+    margin-bottom: 40px;
+}
+
+.sectionPopularCourse .CoursesSection {
+    position: relative;
+    background-image: url(../images/bg_register_now.jpg);
+    background-position: center center;
+    background-size: cover;
+    min-height: 550px;
+    z-index: 9;
+}
+
+.sectionPopularCourse .CoursesSection::before {
+    content: '';
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background: rgba(3, 8, 19, 0.88);
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.CoursesSection .CoursesSectionOnline {
+    padding-top: 180px;
+    padding-left: 40px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.CoursesSection .CoursesSectionOnline p {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.CoursesSection .CoursesSectionOnline p span.thimColor {
+    color: #1f79d6;
+}
+
+.CoursesSection .CoursesSectionOnline h2 {
+    color: #fff;
+    font-size: 72px;
+    line-height: 75px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 10px 0 10px;
+}
+
+.SliderMainSection .SliderDiv .SlideImages .owl-nav {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+}
+
+.SliderMainSection .SliderDiv .SlideImages .owl-nav .owl-prev {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.SliderMainSection .SliderDiv .SlideImages .owl-nav .owl-next {
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+}
+
+.SliderMainSection .SliderDiv .SlideImages .owl-nav .owl-prev i {
+    display: inline-block;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(67, 79, 117, 0.63);
+    text-align: center;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.SliderMainSection .SliderDiv .SlideImages .owl-nav .owl-next i {
+    width: 30px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    color: #fff;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(67, 79, 117, 0.63);
+    text-align: center;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.CoursesSection .OnlineRegisterForm {
+    width: calc(50% - ( 0.5 * 30px));
+    display: inline-block;
+}
+
+.CoursesSection .OnlineRegisterForm .RegisterFormDetail .DetailHeader {
+    margin: 80px 0;
+    background: #fff;
+    position: relative;
+    max-width: 400px;
+    float: right;
+    min-height: 453px;
+}
+
+.OnlineRegisterForm .RegisterFormDetail .title {
+    position: relative;
+    padding: 22px 30px 70px;
+    line-height: 34px;
+    text-align: center;
+    font-size: 22px;
+    overflow: hidden;
+    margin: 0 0 23px;
+    color: #fff;
+}
+
+.OnlineRegisterForm .RegisterFormDetail .title span {
+    position: relative;
+}
+
+.OnlineRegisterForm .RegisterFormDetail .title:before {
+    height: 820px;
+    background: #1f79d6;
+    content: '';
+    border-radius: 50%;
+    bottom: 20px;
+    right: auto;
+    width: 820px;
+    position: absolute;
+    left: calc(50% - 410px);
+    left: -webkit-calc(50% - 410px);
+    left: -moz-calc(50% - 410px);
+}
+
+.RegisterForm {
+    padding: 0 50px 40px;
+}
+
+.RegisterForm .form-group input {
+    height: 42px;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+.RegisterForm .form-group .RegisterBtn {
+    width: 100%;
+    text-transform: uppercase;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.sectionEventDiv .EventHeading {
+    margin: 40px 0px 30px;
+}
+
+.sectionEventDiv .EventHeading h3.EventTitle {
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 2px;
+}
+
+.sectionEventDiv .EventHeading h3::after {
+    content: '';
+    margin: 0px auto;
+    border-bottom: 2px solid #1f79d6;
+    width: 100px;
+    display: block;
+    padding-top: 7px;
+}
+
+.sectionEventDiv {
+    margin-bottom: 30px;
+}
+
+.EventsNews .SlideImages .EventSlide .slide-cover {
+    margin-bottom: 20px;
+}
+
+.EventsNews .SlideImages .EventSlide {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.EventsNews .SlideImages .EventSlide .slide-cover {
+    padding: 20px 20px;
+    min-height: 150px;
+    border-top: 3px solid #1f79d6;
+}
+
+.EventsNews .SlideImages .EventSlide .slide-cover .slide-details span {
+    display: block;
+    padding-bottom: 10px;
+}
+
+.EventsNews .SlideImages .EventSlide .slide-cover .slide-details h4 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.333333;
+    transition: all .3s;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.EventSlide .DateDiv {
+    width: 55px;
+    z-index: 2;
+    height: 55px;
+    line-height: 57px;
+    left: 20px;
+    display: block;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.EventsNews .SlideImages .EventSlide .EventImg::before {
+    background: -webkit-linear-gradient(left, #215698bd, #186bd2);
+    content: '';
+    display: block;
+    width: 92.5%;
+    height: 240px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 15px;
+    opacity: .9;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.EventsNews .SlideImages .row {
+    margin: 0px;
+}
+
+.EventsNews .SlideImages .EventSlide .EventImg::before:hover {
+    opacity: .10;
+}
+
+.EventsNews .SlideImages .owl-nav.disabled {
+    display: block;
+}
+
+.EventsNews .SlideImages .owl-nav {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+}
+
+.EventsNews .SlideImages .owl-nav .owl-prev {
+    display: inline-block;
+}
+
+.EventsNews .SlideImages .owl-nav .owl-next {
+    display: inline-block;
+    float: right;
+}
+
+.EventsNews .SlideImages .owl-nav .owl-prev i {
+    display: inline-block;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    color: #4c4c4c;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.84);
+    text-align: center;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.EventsNews .SlideImages .owl-nav .owl-next i {
+    width: 30px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    color: #4c4c4c;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.84);
+    text-align: center;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.PartnerSection {
+    margin-bottom: 30px;
+}
+
+.NIITPartner h3 {
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 2px;
+}
+
+.NIITPartner span {
+    font-size: 16px;
+    color: #999;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.PartnerSection .PartnersImage {
+    margin: 40px 0px 20px;
+}
+
+.PartnerSection .PartnersImage .PartnersDivImage {
+    text-align: center;
+}
+
+.PartnerSection .PartnersImage .PartnersDivImage img {
+    width: 90px;
+}
+
+.PartnerSection .PartnersImage .imagePadding {
+    padding-top: 25px;
+}
+
+.PartnerSection .PartnersImage .imagePadding1 {
+    padding-top: 10px;
+}
+
+.NIITPartner span::after {
+    content: '';
+    margin: 0px auto;
+    border-bottom: 2px solid #1f79d6;
+    width: 100px;
+    display: block;
+    padding-top: 7px;
+}
+
+.NewslatterSection .NewslatterImage {
+    background: url(../images/bg-newletter.png) top right no-repeat;
+    max-width: 753px;
+    margin: auto;
+    text-align: center;
+    padding: 75px 15px 70px;
+}
+
+.NewslatterSection .NewslatterImage p {
+    max-width: 490px;
+    margin: 20px auto 40px;
+    font-size: 16px;
+}
+
+.NewslatterSection .NewslatterForm {
+    max-width: 490px;
+    margin: 0px auto;
+}
+
+.NewslatterSection .NewslatterForm .Newslatterinput {
+    width: 70%;
+    margin-right: -5px;
+    border: 1px solid #c7c7c7;
+}
+
+.NewslatterSection .NewslatterForm input {
+    border-radius: 0px;
+    box-shadow: none;
+    height: 42px;
+    display: inline-block;
+    margin: 0px;
+}
+
+.NewslatterSection .NewslatterForm input.btn {
+    margin-top: -2px;
+    width: 30%;
+    text-transform: uppercase;
+}
+
+.NewslatterSection .NIITPartner h3 {
+    margin: 30px 0px;
+}
+
+.NewslatterSection .NIITPartner h3::after {
+    content: '';
+    margin: 0px auto;
+    border-bottom: 2px solid #1f79d6;
+    width: 100px;
+    display: block;
+    padding-top: 7px;
+}
+
+.FooterSection::before {
+    background: rgba(22, 30, 58, 0.93);
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0px;
+}
+
+.FooterSection {
+    position: relative;
+    background-image: url(../images/bg_lastest_new.jpg);
+    background-position: center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+.FooterDiv .NIITContact ul li {
+    font-size: 15px;
+    min-width: 150px;
+    display: inline-block;
+    padding-top: 25px;
+    color: #fff;
+}
+
+.FooterDiv .NIITContact ul {
+    text-align: center;
+}
+
+.FooterDiv .NIITContact ul li a {
+    color: #fff;
+}
+
+.FooterSection .FooterDiv {
+    padding: 15px;
+}
+
+.FooterSection .FooterDiv .NIITLink {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.FooterSection .FooterDiv .NIITLink ul {
+    margin: 0px;
+}
+
+.FooterSection .FooterDiv .NIITLink ul li {
+    display: inline-block;
+}
+
+.FooterSection .FooterDiv .NIITLink ul li a {
+    width: 30px;
+    color: #fff;
+    height: 30px;
+    text-align: center;
+    display: block;
+    line-height: 30px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(76, 91, 125, 0.83);
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.FooterSection .FooterTxt {
+    color: #fff;
+    text-align: center;
+    margin: 0px;
+    border-top: 1px solid #505b7d;
+    padding-top: 10px;
+}
+
+.footerText h3 {
+    font-size: 34px;
+    color: #fff;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+@media only screen and (max-width :768px){
+
+	.EducationDivsection{position: static; margin-top: 20px;}
+	.SliderDiv .SlideImages .slide .slide-cover .slide-details h1{font-size: 24px;}
+	.SliderDiv .SlideImages .slide .slide-cover .slide-details h2{font-size: 14px;}
+	.SliderDiv .SlideImages .slide .slide-cover .slide-details p{font-size: 14px;}
+	.EducationSemester .SemesterHeading{background: rgba(3, 22, 51, 0.88);}
+	.CoursesSection .CoursesSectionOnline{padding-top: 160px; padding-left: 15px;}
+	.CoursesSection .CoursesSectionOnline p{font-size: 21px;}
+	.CoursesSection .CoursesSectionOnline h2{font-size: 38px; line-height: 60px;}
+	.CoursesSection .OnlineRegisterForm{width: 90%; margin: 0px 18px;}
+	.PartnerSection .PartnersImage .imagePadding{padding-bottom: 35px;}
+	.footerText h3{text-align: center;}
+	.FooterDiv .NIITContact ul, .FooterSection .FooterDiv .NIITLink ul{padding: 0px;}
+	.PartnerSection .PartnersImage .imagePadding1{padding-top: 30px;}
+	.FooterSection .FooterDiv .NIITLink{text-align: center;}
+	.NewslatterSection .NewslatterImage{background-size: contain; padding: 25px 32px 0px 15px;}
+	.NewslatterSection .NewslatterImage p{margin: 10px auto 30px; font-size: 13px;}
+	.NewslatterSection .NewslatterForm input.btn{font-size: 12px;}
+	.CoursesSection .OnlineRegisterForm .RegisterFormDetail .DetailHeader{margin: 20px 0;}
+}

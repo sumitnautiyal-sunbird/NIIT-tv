@@ -234,7 +234,7 @@ export class CatalogComponent implements OnInit, DoCheck {
     this.hashTagId = !!this.orgId ? this.orgId : this.activatedRoute.snapshot.data.orgdata.rootOrgId;
     this.framework = !!this.frameworkName ? this.frameworkName : this.activatedRoute.snapshot.data.orgdata.defaultFramework;
     this.pageLimit = this.config.appConfig.SEARCH.PAGE_LIMIT;
-    this.filters.channel = this.hashTagId;
+    this.filters.createdFor = this.hashTagId;
     this.filters.contentType = ['Course', 'TextBook'];
     let keywordarray = [''];
     if (this.queryParams.key !== undefined && this.queryParams.key !== '') {

@@ -30,6 +30,7 @@ export enum FileTypes {
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
+  'Discussion' = 'discuss',
   'Classroom Session' = 'chalkboard',
   'Assessments' = 'edit',
   'Survey'= 'line-chart',

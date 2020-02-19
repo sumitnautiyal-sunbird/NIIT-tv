@@ -18,7 +18,7 @@ import { nodeChildrenAsMap } from '@angular/router/src/utils/tree';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { LivesessionService, ToasterService } from '../../services';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+import { DomSanitizer} from '@angular/platform-browser';
 declare var jQuery: any;
 
 @Component({
@@ -63,9 +63,12 @@ export class FancyTreeComponent implements AfterViewInit, OnInit {
   public currentDate = new Date;
   public sessionExpired = false;
   public recordedSessionUrl;
+  discussionModal = false;
+  discussionUrl;
   constructor(public liveSessionService: LivesessionService, public router: Router,
     public activatedRoute: ActivatedRoute,
-    public toasterService: ToasterService
+    public toasterService: ToasterService,
+    public sanitizer: DomSanitizer
   ) {
   }
   ngOnInit() {
@@ -150,10 +153,13 @@ console.log('content ', this.contentStatus);
         this.contentTitle = node.title;
         if (node.data.activityType !== 'headset') {
           if (node.data.model.activityType === 'Discussion') {
-            node.data.model.previewUrl = 'http://13.234.2.81:3200/index.html?id=6';
-            node.data.model.artifactUrl = 'http://13.234.2.81:3200/index.html?id=6';
-            this.itemSelect.emit(node);
-            return true;
+            this.discussionUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3200/index.html?id=0');
+            this.discussionModal = true;
+
+          //   this.router.navigate(['/learn/live-session'],
+          //   { queryParams: { sessionUrl: 'http://52.221.207.221:3200/index.html?id=0'} }
+          // );
+
           } else if (node.data.model.activityType === 'Feedback') {
             // open the modal to record feedback and send the data
             jQuery('.ui.modal').modal('show');

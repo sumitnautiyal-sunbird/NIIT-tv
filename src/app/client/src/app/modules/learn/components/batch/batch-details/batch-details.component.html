@@ -22,7 +22,7 @@
                         <span *ngIf="batch.endDate" class="header pb-5"> {{batch.endDate | dateFormat}} </span>
                         <div class="description" *ngIf="userNames[batch.createdBy]">Created by {{userNames[batch.createdBy].firstName}} {{userNames[batch.createdBy].lastName}}</div>
                         <button class="icon cursor-pointer write sessionbutton" appTelemetryInteract [telemetryInteractEdata]="updateBatchIntractEdata" [telemetryInteractObject]="{id:batch.identifier,type:'batch',ver:'1',rollup:{l1:courseId}}" (click)="createSession(batch)"
-                            *ngIf="courseMentor && flag2==1">{{resourceService.frmelmnts.btn.configuresession}}</button>
+                            *ngIf="courseMentor && liveSessionFlag==1">{{resourceService.frmelmnts.btn.configuresession}}</button>
                     </div>
                 </div>
 

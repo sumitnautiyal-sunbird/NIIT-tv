@@ -285,6 +285,9 @@ if (!_.isEmpty(data)) {
     if (this.contentType === 'studymaterial') {
       if (requestData.activityType === 'Live Session') {
         requestData.mimeType = 'text/x-url';
+      } else if (requestData.activityType === 'Discussion') {
+        requestData.url = 'http://52.221.207.221:3200/index.html';
+        requestData.mimeType = 'text/x-url';
       } else {
         requestData.mimeType = this.configService.appConfig.CONTENT_CONST.CREATE_LESSON;
 
@@ -314,8 +317,9 @@ if (!_.isEmpty(data)) {
     };
   if (this.contentType === 'studymaterial') {
     this.editorService.create(requestData).subscribe(res => {
-      if (requestData.content.activityType !== 'Live Session') {
-      this.createLockAndNavigateToEditor({identifier: res.result.content_id});
+      // if (requestData.content.activityType !== 'Live Session' || requestData.content.activityType !== 'Discussion') {
+        if (requestData.content.activityType !== 'Live Session') {
+          this.createLockAndNavigateToEditor({identifier: res.result.content_id});
       }
     }, err => {
       console.log(err);
@@ -347,6 +351,10 @@ inputChangedHandler(event) {
 
     console.log(this.routeToCreateContent);
   } else if (event === 'Live Session') {
+    this.routeToCreateContent = false;
+    this.routeToUploadContent = false;
+    this.other_forms = true;
+  } else if (event === 'Discussion') {
     this.routeToCreateContent = false;
     this.routeToUploadContent = false;
     this.other_forms = true;
