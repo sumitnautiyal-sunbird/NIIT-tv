@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { CacheService } from 'ng2-cache-service';
 import { takeUntil, map, mergeMap, first, filter, catchError } from 'rxjs/operators';
+import { EnrolledcontentService } from '../../../shared/services/enrolledcontent/enrolledcontent.service';
 @Component({
   templateUrl: './learn-page.component.html',
   styleUrls: ['./learn-page.component.scss']
@@ -46,7 +47,7 @@ export class LearnPageComponent implements OnInit, OnDestroy {
     public router: Router, private utilService: UtilService, public coursesService: CoursesService,
     private playerService: PlayerService, private cacheService: CacheService,
     private browserCacheTtlService: BrowserCacheTtlService, public formService: FormService,
-    private userSrvc: UserService, private cookieSrvc: CookieManagerService) {
+    private userSrvc: UserService, private cookieSrvc: CookieManagerService , public enrolledContentList: EnrolledcontentService) {
     this.redirectUrl = this.configService.appConfig.courses.inPageredirectUrl;
     this.filterType = this.configService.appConfig.courses.filterType;
     this.sortingOptions = this.configService.dropDownConfig.FILTER.RESOURCES.sortingOptions;
@@ -216,6 +217,7 @@ export class LearnPageComponent implements OnInit, OnDestroy {
       }
       const { constantData, metaData, dynamicFields, slickSize } = this.configService.appConfig.CoursePageSection.enrolledCourses;
       enrolledSection.contents = this.utilService.getDataForCard(enrolledCourses, constantData, dynamicFields, metaData);
+      this.enrolledContentList.listofenrolledcourses.next(enrolledSection.contents);
       return enrolledSection;
     }));
   }

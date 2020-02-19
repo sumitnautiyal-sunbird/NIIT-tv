@@ -44,10 +44,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { PublicDataService, LearnerService } from '@sunbird/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IUserData } from '../../../../shared';
-import { Subscription } from 'rxjs';
 import { SubscriptionLike as ISubscription } from 'rxjs';
-import { debug } from 'util';
 import { CourseFeedbackUtilityService } from '../../../services/course-feedback/course-feedback-utility.service';
+import { ChildcontentdetailsService } from '../../../../shared/services/childcontentdetails/childcontentdetails.service';
+import { PlayresourceService } from '../../../../shared/services/playresource/playresource.service';
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
@@ -187,9 +187,9 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   @ViewChild('top') topEl: ElementRef;
   c = 0;
   enddate: number;
-  totallearners: number =0;
   analyzerSubscription: any;
   sentimentDetected = 'Analyzing...';
+  totallearners = 0;
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -219,6 +219,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     public sanitizer: DomSanitizer,
     public route: Router,
     private readonly cfuSrvc: CourseFeedbackUtilityService,
+    public childContentDetails: ChildcontentdetailsService,
+    public playResource: PlayresourceService
   ) {
     this.router.onSameUrlNavigation = 'ignore';
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
@@ -316,6 +318,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
             this.flaggedCourse = true;
           }
           this.parseChildContent();
+          console.log('child details' , this.contentDetails);
+          this.childContentDetails.childrenContentDetails.next(this.contentDetails);
           if (this.batchId) {
             this.enrolledBatchInfo = enrolledBatchDetails;
             console.log(this.enrolledBatchInfo);
@@ -352,7 +356,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         courseProgressData => (this.courseProgressData = courseProgressData)
       );
     this.courseBatchService.getAllBatchDetails({ 'filters': { 'courseId': this.courseId } }).subscribe((data) => {
-      let coursebatches = data.result.response.content;
+      const coursebatches = data.result.response.content;
       for (let i = 0; i < coursebatches.length; i++) {
         if (!!coursebatches[i].participant && !!Object.keys(coursebatches[i].participant).length) {
           Object.keys(coursebatches[i].participant).forEach((key) => {
@@ -363,6 +367,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         }
       }
     });
+this.playResource.playresource.subscribe( (obj) => {
+  if (obj.flag) {
+    this.navigateToContent(obj.content);
+  }
+});
   }
 
   private parseChildContent() {

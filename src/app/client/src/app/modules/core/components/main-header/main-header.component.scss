@@ -180,7 +180,7 @@
   color : white;
 }
 
-.workspace {
+.workspace , .assist {
   width: 100px;
   height: 40px;
   border: none;
@@ -217,6 +217,10 @@ a.categorylink {
 }
 .search-wrapper {
   width: 420px;
+}
+.searchassistant{
+  width: 100px;
+  margin-left: 9%;
 }
 .search-container {
   margin: 0;
@@ -420,7 +424,7 @@ button:focus {
   background: #fff;
   width: 25%;
   margin: auto;
-  z-index: 999;
+  z-index: 99999;
   top: 0;
   bottom: 0;
   left: 0;
@@ -444,5 +448,5 @@ button:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 99;
+    z-index: 99999;
 }

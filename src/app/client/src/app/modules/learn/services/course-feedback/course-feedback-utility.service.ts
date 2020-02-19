@@ -45,7 +45,7 @@ export class CourseFeedbackUtilityService {
         console.log(response);
         return response;
       })).subscribe(res => {
-        resolve()
+        resolve();
       }, err => {
         console.log('Error while hitting the api', err);
         reject();

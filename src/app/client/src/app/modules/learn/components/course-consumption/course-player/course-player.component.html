@@ -210,13 +210,13 @@
                                         </div>
                                         <!--Course Feedback section-->
                                         <div class="tab-pane fade container" id="feedback">
-                                            <div class="container card-wrapper">
+                                            <div class="container card-wrapper feedbackCard">
                                                 <div class="feedbackAnalyzer">
                                                     <div class="textContent">
-                                                        <p>Analyzing your feedback</p>
+                                                        <p>Feedback Sentiment Analysis</p>
                                                     </div>
-                                                    <div class="analysisContent">
-                                                        {{sentimentDetected || 'NOT STARTED'}}
+                                                    <div class="analysisContent" [ngClass]="{'greenText': sentimentDetected === 'POSITIVE', 'redText': sentimentDetected === 'NEGATIVE'}">
+                                                        {{sentimentDetected || 'Not Started'}}
                                                     </div>
                                                 </div>
                                             </div>

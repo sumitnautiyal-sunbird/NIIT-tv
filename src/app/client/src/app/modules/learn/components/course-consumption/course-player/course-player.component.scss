@@ -516,12 +516,27 @@
     cursor: pointer;
 }
 
+.feedbackCard {
+    height: 15vh !important;
+}
+
 .feedbackAnalyzer {
     display: flex;
+    min-height: 15vh;
+    text-align: center;
+    font-size: 1.7rem;
+    padding-top: 4%;
     .textContent {
         flex: 1;
     }
     .analysisContent {
         flex: 1;
+    }
+
+    .greenText {
+        color: green;
+    }
+    .redText {
+        color: red;
     }
 }
