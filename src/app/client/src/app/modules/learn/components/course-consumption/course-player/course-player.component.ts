@@ -47,6 +47,7 @@ import { IUserData } from '../../../../shared';
 import { Subscription } from 'rxjs';
 import { SubscriptionLike as ISubscription } from 'rxjs';
 import { debug } from 'util';
+import { CourseFeedbackUtilityService } from '../../../services/course-feedback/course-feedback-utility.service';
 export enum IactivityType {
   'Self Paced' = 'film',
   'live Session' = 'headset',
@@ -62,7 +63,7 @@ declare var $: any;
   templateUrl: './course-player.component.html',
   styleUrls: ['./course-player.component.scss']
 })
-export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CoursePlayerComponent implements OnInit, OnDestroy {
   public courseInteractObject: IInteractEventObject;
 
   public contentInteractObject: IInteractEventObject;
@@ -187,6 +188,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   c = 0;
   enddate: number;
   totallearners: number =0;
+  analyzerSubscription: any;
+  sentimentDetected = 'Analyzing...';
   scroll(el: ElementRef) {
     this.targetEl.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
@@ -214,12 +217,37 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     public publicDataService: PublicDataService,
     public learnerService: LearnerService,
     public sanitizer: DomSanitizer,
-    public route: Router
+    public route: Router,
+    private readonly cfuSrvc: CourseFeedbackUtilityService,
   ) {
     this.router.onSameUrlNavigation = 'ignore';
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
   }
   ngOnInit() {
+    this.sentimentDetected = 'NOT STARTED';
+    this.analyzerSubscription = this.cfuSrvc.feedbackStatusTracker.subscribe(status => {
+      if (status === null) {
+        console.log('analysis not yet started');
+      } else {
+        if (typeof status === 'object' && Object.keys(status).length > 0) {
+          // recieved our final status
+          if (status['data']['status'].toString() === '4') {
+            console.log('recieved 4');
+            this.sentimentDetected = this.cfuSrvc.detectSentiment(status['data']['data']);
+            console.log('sentiment detected is ', this.sentimentDetected);
+          } else {
+            console.log('did not recieve 4');
+          }
+        } else {
+          console.log('its a one status', status);
+          if (status.toString() === '-1') {
+            this.sentimentDetected = 'Failed..';
+          } else {
+            this.sentimentDetected = 'Analyzing...';
+          }
+        }
+      }
+    });
       this.userSubscription = this.userService.userData$.subscribe(
       (user: IUserData) => {
         console.log('user infoe', user.userProfile.firstName);
@@ -336,9 +364,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  ngAfterViewInit() {
-    console.log(this.showJumbotron);
-  }
+
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};
@@ -615,13 +641,6 @@ console.log('Combine latest data', data);
     }
   }
   public contentProgressEvent(event) {
-    /* console.log(
-      'recieved content progress event fro the content player ',
-      event
-    ); */
-    //  if (!this.batchId || _.get(this.enrolledBatchInfo, 'status') !== 1) {
-    //   return;
-    // }
     const eid = event.detail.telemetryData.eid;
     if (eid === 'END' && !this.validEndEvent(event)) {
       return;
@@ -691,6 +710,8 @@ console.log('Combine latest data', data);
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    this.cfuSrvc.resetAnalyzer();
+    this.analyzerSubscription.unsubscribe();
   }
   private setTelemetryStartEndData() {
     const deviceInfo = this.deviceDetectorService.getDeviceInfo();

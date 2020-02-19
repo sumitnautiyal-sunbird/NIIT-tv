@@ -515,3 +515,13 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.feedbackAnalyzer {
+    display: flex;
+    .textContent {
+        flex: 1;
+    }
+    .analysisContent {
+        flex: 1;
+    }
+}
