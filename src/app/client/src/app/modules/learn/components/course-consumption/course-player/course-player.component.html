@@ -52,10 +52,10 @@
         <div class="tab-view" *ngIf="!enableContentPlayer && !loader">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#overview">{{resourceService.frmelmnts.lbl.overview}}</a>
+                    <a class="nav-link" data-toggle="pill" href="#overview">About Course</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#course-content">{{resourceService.frmelmnts.lbl.CourseContent}}</a>
+                    <a class="nav-link active" data-toggle="pill" href="#course-content">Learning Activities</a>
                 </li>
                 <li class="nav-item">
                     <!-- <a class="nav-link" data-toggle="pill" href="#qa">QA</a> -->
@@ -213,10 +213,10 @@
                                             <div class="container card-wrapper feedbackCard">
                                                 <div class="feedbackAnalyzer">
                                                     <div class="textContent">
-                                                        <p>Feedback Sentiment Analysis</p>
+                                                        <p></p>
                                                     </div>
                                                     <div class="analysisContent" [ngClass]="{'greenText': sentimentDetected === 'POSITIVE', 'redText': sentimentDetected === 'NEGATIVE'}">
-                                                        {{sentimentDetected || 'Not Started'}}
+                                                        {{sentimentDetected}}
                                                     </div>
                                                 </div>
                                                 <div *ngIf="keywordsArray?.length" class="feedbackKW">
