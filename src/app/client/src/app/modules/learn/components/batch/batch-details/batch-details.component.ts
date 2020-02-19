@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-batch-details',
   templateUrl: './batch-details.component.html',
@@ -62,12 +63,15 @@ export class BatchDetailsComponent implements OnInit, OnDestroy {
   todayDate = moment(new Date()).format('YYYY-MM-DD');
   progress = 0;
   isUnenrollbtnDisabled = true;
+  trainerModal = false;
+  batchUrl: any;
   constructor(public resourceService: ResourceService, public permissionService: PermissionService,
     public configService: ConfigService,
     public learnerService: LearnerService,
     public liveSessionService: LivesessionService,
     public userService: UserService, public courseBatchService: CourseBatchService, public toasterService: ToasterService,
-    public router: Router, public activatedRoute: ActivatedRoute) {
+    public router: Router, public activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer) {
     this.batchStatus = this.statusOptions[0].value;
   }
   isUnenrollDisabled() {
@@ -260,6 +264,11 @@ if (this.enrolledBatchInfo) {
     this.courseBatchService.setEnrollToBatchDetails(batch);
     this.router.navigate(['enroll/batch', batch.identifier], { relativeTo: this.activatedRoute });
   }
+  batchDetails() {
+    this.batchUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050/batchmates');
+    this.trainerModal = true;
+  }
+
   unenrollBatch(batch) {
     // this.courseBatchService.setEnrollToBatchDetails(batch);
     this.router.navigate(['unenroll/batch', batch.identifier], { relativeTo: this.activatedRoute });

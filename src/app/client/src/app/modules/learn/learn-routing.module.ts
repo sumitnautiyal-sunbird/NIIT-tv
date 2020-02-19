@@ -148,6 +148,9 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'learn/live-session', component: LiveSessionUrlComponent
+  },
+  {
     path: 'play/batch/:batchId/course/:courseId', component: CourseDeliveryPageComponent,
     data: {
       telemetry: { env: telemetryEnv, pageid: 'course-read', type: 'workflow', object: { ver: '1.0', type: 'course' } },

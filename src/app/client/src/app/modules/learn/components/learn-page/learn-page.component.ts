@@ -12,6 +12,7 @@ import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { CacheService } from 'ng2-cache-service';
 import { takeUntil, map, mergeMap, first, filter, catchError } from 'rxjs/operators';
 import { EnrolledcontentService } from '../../../shared/services/enrolledcontent/enrolledcontent.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   templateUrl: './learn-page.component.html',
   styleUrls: ['./learn-page.component.scss']
@@ -42,12 +43,15 @@ export class LearnPageComponent implements OnInit, OnDestroy {
   public organisationIDs: any;
   enrolledIDs: any;
   enrolledLoader = true;
+  trainerModal = false;
+  bestTrainerUrl: any;
   constructor(private pageApiService: PageApiService, private toasterService: ToasterService,
     public resourceService: ResourceService, private configService: ConfigService, private activatedRoute: ActivatedRoute,
     public router: Router, private utilService: UtilService, public coursesService: CoursesService,
     private playerService: PlayerService, private cacheService: CacheService,
     private browserCacheTtlService: BrowserCacheTtlService, public formService: FormService,
-    private userSrvc: UserService, private cookieSrvc: CookieManagerService , public enrolledContentList: EnrolledcontentService) {
+    private userSrvc: UserService, private cookieSrvc: CookieManagerService , public enrolledContentList: EnrolledcontentService,
+    private sanitizer: DomSanitizer) {
     this.redirectUrl = this.configService.appConfig.courses.inPageredirectUrl;
     this.filterType = this.configService.appConfig.courses.filterType;
     this.sortingOptions = this.configService.dropDownConfig.FILTER.RESOURCES.sortingOptions;
@@ -250,6 +254,13 @@ export class LearnPageComponent implements OnInit, OnDestroy {
     }
     this.playerService.playContent(event.data.metaData);
   }
+
+  public bestTrainer() {
+    this.bestTrainerUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://52.221.207.221:3050');
+    this.trainerModal = true;
+  }
+
+
   public viewAll(event) {
     const searchQuery = JSON.parse(event.searchQuery);
     // searchQuery.request.filters.channel = this.hashTagId;

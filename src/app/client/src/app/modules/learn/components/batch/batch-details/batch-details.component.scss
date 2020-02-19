@@ -8,6 +8,11 @@
     color: white !important;
 }
 
+.batchbutton {
+    background-color: #451771 !important;
+    color: white !important;
+}
+
 .profile-image {
     width: 4em;
 }
@@ -30,4 +35,10 @@
 
 .batch-details-table td {
     line-height: 3.5;
+}
+
+.card-body {
+    justify-content: center;
+    display: flex;
+
 }

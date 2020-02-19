@@ -526,7 +526,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
             this.courseHierarchy.children[1]['children'][0].children.push(this.tempObj);
             this.courseHierarchy.children[2]['children'][0].children.push(this.tempObj);
            }
-           if (this.courseId === 'do_2129598663209451521328') {
+           if (this.courseId === 'do_21279274707410124812979') {
             this.courseHierarchy.children[0]['children'][0].children.push(this.tempObj);
             this.courseHierarchy.children[1]['children'][0].children.push(this.tempObj);
             this.courseHierarchy.children[2]['children'][0].children.push(this.tempObj);
