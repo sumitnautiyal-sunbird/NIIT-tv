@@ -406,7 +406,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
   }
   ngOnInit() {
-    this.sentimentDetected = 'NOT STARTED';
+    this.sentimentDetected = '';
     this.analyzerSubscription = this.cfuSrvc.feedbackStatusTracker.subscribe(status => {
       if (status === null) {
         console.log('analysis not yet started');
