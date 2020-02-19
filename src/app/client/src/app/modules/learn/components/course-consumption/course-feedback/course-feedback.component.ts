@@ -13,11 +13,14 @@ export class CourseFeedbackComponent implements OnInit {
   isStarted = false;
   isFeedbackPresent = false;
   audioRecorderSubscription: any;
+  analyzerSubscription: any;
+  sentimentDetected = 'Analyzing...';
   constructor(
     private readonly utilitySrvc: CourseFeedbackUtilityService,
     private readonly audioRecorder: AudioRecorderService,
     private readonly toasterService: ToasterService,
-    public readonly resourceService: ResourceService) { }
+    public readonly resourceService: ResourceService,
+    public readonly cfuSrvc: CourseFeedbackUtilityService,) { }
 
   ngOnInit() {
     if (this.feedbackDetails === undefined) {
@@ -80,6 +83,9 @@ export class CourseFeedbackComponent implements OnInit {
           this.toasterService.success('Feedback upload process has started successfully');
           this.audioRecorderSubscription.unsubscribe();
           console.log('unsubscribed');
+          // keep track of the feedback behind the scenes
+          this.cfuSrvc.startAnalysisPolling(recordingData.Filename);
+          console.log('started');
         })
         .catch(err => {
           console.log('An error occured while saving recording to the cloud');

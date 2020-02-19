@@ -70,6 +70,9 @@
                 <li class="nav-item" *ngIf="courseStatus !== 'Unlisted'">
                     <a class="nav-link" data-toggle="pill" href="#batchdetails">{{resourceService.frmelmnts.lbl.BatchDetails}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#feedback">{{resourceService.frmelmnts.lbl.Feedback || 'Feedback'}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -206,9 +209,15 @@
                                             </div>
                                         </div>
                                         <!--Course Feedback section-->
-                                        <div class="tab-pane fade container" id="coursefeedback">
-                                            <div class="container card-wrapper">
-                                                <div class="ui card">
+                                        <div class="tab-pane fade container" id="feedback">
+                                            <div class="container card-wrapper feedbackCard">
+                                                <div class="feedbackAnalyzer">
+                                                    <div class="textContent">
+                                                        <p>Feedback Sentiment Analysis</p>
+                                                    </div>
+                                                    <div class="analysisContent" [ngClass]="{'greenText': sentimentDetected === 'POSITIVE', 'redText': sentimentDetected === 'NEGATIVE'}">
+                                                        {{sentimentDetected || 'Not Started'}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
