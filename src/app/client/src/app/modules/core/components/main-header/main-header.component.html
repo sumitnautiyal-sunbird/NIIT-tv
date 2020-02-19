@@ -1,5 +1,7 @@
 <!-- HEADER SECTION
     css of this section is in header.css -->
+    <button *ngIf="userService.loggedIn" class="btn-light btn-md assist" (click)="searchContentUsingVoice(2)">Ok Sunbird</button>
+
 <div class="container-fluid">
     <div class="row align-items-center header">
         <div class="col-xs-12 col-sm-12 col-md-2">
@@ -34,9 +36,13 @@
                 </form>
             </div>
         </div>
-        <div class="searchassistant" *ngIf="userService.loggedIn">
-            <button class="btn-light btn-md assist" (click)="searchContentUsingVoice(2)">Ok Sunbird</button>
-        </div>
+        <!-- <div class="searchassistant" *ngIf="userService.loggedIn">
+            
+                <button class="btn-light btn-md assist" (click)="searchContentUsingVoice(2)">Ok Sunbird</button>
+
+               
+        </div> -->
+
         <div class="menu-right">
             <div *ngIf="!userService.loggedIn" class="row align-items-center justify-content-center button-container">
                 <!-- <div class="col-2 d-none d-md-block d-lg-block p-0 text-center">

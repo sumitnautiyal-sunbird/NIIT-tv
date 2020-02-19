@@ -180,7 +180,7 @@
   color : white;
 }
 
-.workspace , .assist {
+.workspace  {
   width: 100px;
   height: 40px;
   border: none;
@@ -190,6 +190,21 @@
   width: 90px;
   border-radius: 37px;
   color: var(--primary-color);
+}
+.assist {
+  height: 50px;
+  bottom: 25px;
+  position: fixed;
+  z-index: 99999;
+  border: none;
+  background-color:#451771;
+  font-size: 1em;
+  cursor: pointer;
+  font-weight: bold;
+  right: 20px;
+  width: 95px;
+  border-radius: 37px;
+  color: white;
 }
 .menu-padding-2 {
   padding : 0.4em;
