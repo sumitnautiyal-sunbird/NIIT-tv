@@ -34,8 +34,10 @@ export class LiveSessionUrlComponent implements OnInit {
     contentServe: ContentService,
     private rout: Router
   ) {
+    debugger;
     this.activatedRoute = activated;
     this.activatedRoute.queryParams.subscribe(url => {
+      debugger;
       this.sessionUrl = url.sessionUrl;
       this.sessionStatus = url.status;
     });
@@ -56,6 +58,7 @@ export class LiveSessionUrlComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     if (this.sessionStatus === 'recorded') {
       this.status = true;
       this.assetDetail = this.sessionUrl + '&origin=' + this.getOrigin();

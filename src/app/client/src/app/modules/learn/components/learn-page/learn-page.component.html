@@ -45,7 +45,7 @@
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab"  role="tab" aria-selected="true" href="#menu1">{{resourceService.frmelmnts.lbl.mycourses}}</a>
             </li>
-           <!-- <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false" href="#menu2">Wishlist</a>
             </li>
             <li class="nav-item">
@@ -53,7 +53,12 @@
             </li>
             -->
         </ul>
+        <button _ngcontent-c3="" 
+        apptelemetryinteract="" 
+        class="btn-light btn-md workspace besttrainer" 
+        type="button" tabindex="0" (click)="bestTrainer()">Best Trainer</button>
   </div>
+
       </div>
 <div class="tab-content"  style="background-color:#f9f9f9" [appTelemetryImpression]="telemetryImpression">
 <!-- <app-prominent-filter [formAction]="'filter'" [frameworkName]="frameWorkName" [pageId]="'course-page'" *ngIf="initFilters" [filterEnv]="filterType"  [ignoreQuery]="['key']" 
@@ -89,3 +94,7 @@
     <p>Second</p>
   </div> -->
 </div>
+
+<sui-modal *ngIf="trainerModal" [isClosable]="true" [isFullScreen]="true" (dismissed)="trainerModal=false" id="Mymodal">
+  <iframe [src]="bestTrainerUrl" frameborder="0" style="width:100%;  height:820px" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</sui-modal>

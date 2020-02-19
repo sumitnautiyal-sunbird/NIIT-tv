@@ -35,10 +35,7 @@
             </div>
         </div>
         <div class="searchassistant" *ngIf="userService.loggedIn">
-            <div>
-                <button class="btn-light btn-md assist" (click)="searchContentUsingVoice(2)">Ok Sunbird</button>
-
-               </div>
+            <button class="btn-light btn-md assist" (click)="searchContentUsingVoice(2)">Ok Sunbird</button>
         </div>
         <div class="menu-right">
             <div *ngIf="!userService.loggedIn" class="row align-items-center justify-content-center button-container">

@@ -220,8 +220,24 @@ a.categorylink {
 }
 .searchassistant{
   width: 100px;
-  margin-left: 9%;
+  margin-left: 7%;
 }
+@media only screen and (max-width: 1700px){
+  .searchassistant{
+    width: 95px;
+    margin-left: 3%;
+  }
+}
+@media only screen and (max-width: 1600px){
+  .searchassistant{
+    width: 90px;
+    margin-left: 2%;
+  }
+  .search-wrapper {
+    width: 350px;
+  }
+}
+
 .search-container {
   margin: 0;
   height: 35px;
@@ -370,7 +386,7 @@ button:focus {
   outline: none;
 }
 
-@media only screen and (max-width: 1350px){
+@media only screen and (max-width: 1450px){
   .search-wrapper {
     width: 300px;
   }
