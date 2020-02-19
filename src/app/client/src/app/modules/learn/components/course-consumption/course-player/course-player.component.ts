@@ -425,9 +425,10 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         } else {
           console.log('its a one status', status);
           if (status.toString() === '-1') {
-            this.sentimentDetected = 'Failed..';
+            this.sentimentDetected = 'Failed...';
           } else {
             this.sentimentDetected = 'Analyzing...';
+            this.keywordsArray = [];
           }
         }
       }

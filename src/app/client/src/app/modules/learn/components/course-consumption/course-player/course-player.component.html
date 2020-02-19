@@ -213,10 +213,13 @@
                                             <div class="container card-wrapper feedbackCard">
                                                 <div class="feedbackAnalyzer">
                                                     <div class="textContent">
-                                                        <p></p>
+                                                        <p>Sentiment</p>
                                                     </div>
-                                                    <div class="analysisContent" [ngClass]="{'greenText': sentimentDetected === 'POSITIVE', 'redText': sentimentDetected === 'NEGATIVE'}">
+                                                    <div *ngIf="sentimentDetected === 'Analyzing...' || sentimentDetected === 'Failed...' || sentimentDetected === 'NOT STARTED'" class="analysisContent">
                                                         {{sentimentDetected}}
+                                                    </div>
+                                                    <div *ngIf="sentimentDetected !== 'Analyzing...' && sentimentDetected !== 'Failed...' && sentimentDetected !== 'NOT STARTED'" class="imageContainer">
+                                                        <img src="{{sentimentDetected}}">
                                                     </div>
                                                 </div>
                                                 <div *ngIf="keywordsArray?.length" class="feedbackKW">

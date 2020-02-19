@@ -88,11 +88,12 @@ export class CourseFeedbackUtilityService {
     console.log('extracting sentiment from ', dataToVerify);
     let sentimentResult = '';
     if (dataToVerify.sentiment >= -0.2 && dataToVerify.sentiment <= 0.2) {
-      sentimentResult = 'MODERATE';
+      sentimentResult = 'assets/neutral_emoji.png';
+      // get the path of moderate emoji
     } else if (dataToVerify.sentiment < -0.2) {
-      sentimentResult = 'NEGATIVE';
+      sentimentResult = 'assets/sad_emoji.png';
     } else {
-      sentimentResult = 'POSITIVE';
+      sentimentResult = 'assets/happy_emoji.png';
     }
     return sentimentResult;
   }
