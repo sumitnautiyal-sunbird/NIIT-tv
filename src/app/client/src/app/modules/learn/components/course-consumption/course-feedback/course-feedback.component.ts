@@ -67,7 +67,8 @@ export class CourseFeedbackComponent implements OnInit {
         // send this audio file for upload
         const recordingData = {
           data: isAvailable['recording'],
-          Filename: 'portal_feedback',
+          // tslint:disable-next-line: max-line-length
+          Filename: `${new Date().getDate()}_${new Date().getMonth() + 1}_${new Date().getMilliseconds()}_${new Date().getHours()}portal_feedback`,
           Fileextension: 'webm'
         };
         this.utilitySrvc.saveData(recordingData, 'local')

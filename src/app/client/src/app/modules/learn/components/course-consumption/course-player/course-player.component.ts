@@ -406,7 +406,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
   }
   ngOnInit() {
-    this.sentimentDetected = 'NOT STARTED';
+    this.sentimentDetected = '';
     this.analyzerSubscription = this.cfuSrvc.feedbackStatusTracker.subscribe(status => {
       if (status === null) {
         console.log('analysis not yet started');
@@ -425,9 +425,10 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         } else {
           console.log('its a one status', status);
           if (status.toString() === '-1') {
-            this.sentimentDetected = 'Failed..';
+            this.sentimentDetected = 'Failed...';
           } else {
             this.sentimentDetected = 'Analyzing...';
+            this.keywordsArray = [];
           }
         }
       }
